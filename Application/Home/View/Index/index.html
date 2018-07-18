@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>{$info.goods_title}</title>
+    <link rel="stylesheet" href="__GCSS__swiper.min.css">
+    <link rel="stylesheet" href="__GCSS__commen.css">
+    <script src="__GJS__jQuery-3.3.1.js"></script>
+    <script src="__GJS__swiper.min.js"></script>
+    <script src="__GJS__scroll.js"></script>
+    <script>
+        $().ready(function () {
+            var onOff = true;
+            var goods_title = "{$info[goods_title]}";
+            $.getJSON('{:U("index/evaOrder",array("type"=>1,"f"=>1))}', function (data) {
+                $.each(data, function (i, item) {
+                    var uname = item.username;
+                    uname = uname.toString().slice(0, 1) + '**';
+                    var uphone = item.phone;
+                    uphone = '*******' + uphone.toString().slice(7);
+                    var utime = item.time;
+                    var utext = goods_title;
+                    var ucountry = item.country;
+                    $('<li><div class="user_infor"><span class="user_name">' + uname + '</span><span class="user_id">' + uphone + '</span><span class="now_time">' + utime + '分鐘前</span><span class="user_addr">' + ucountry + '</span></div><div class="utxt">' + utext + '</div></li>').appendTo($('#app2 .app2-container'));
+                });
+                $('#app2').myScroll({
+                    speed: 35, //數值越大，速度越慢
+                    rowHeight: 56 //li的高度
+                });
+            });
+            setInterval(function () {
+                $.getJSON('{:U("index/evaOrder",array("type"=>1,"f"=>2))}', function (data) {
+                    $.each(data, function (i, item) {
+                        var uname = item.username;
+                        uname = uname.toString().slice(0, 1) + '**';
+                        var uphone = item.phone;
+                        uphone = '*******' + uphone.toString().slice(7);
+                        var utime = item.time;
+                        var utext = item.goods_title;
+                        var ucountry = item.country;
+                        $('<li><div class="user_infor"><span class="user_name">' + uname + '</span><span class="user_id">' + uphone + '</span><span class="now_time">' + utime + '分鐘前</span><span class="user_addr">' + ucountry + '</span></div><div class="utxt">' + utext + '</div></li>').appendTo($('#app2 .app2-container'));
+                    });
+                });
+
+            }, 3000);
+            $.getJSON('{:U("index/evaOrder",array("type"=>2,"f"=>1,"g"=>$info[id]))}', function (data) {
+                $.each(data, function (i, item) {
+                    var uname = item.username;
+                    uname = uname.toString().slice(0, 1) + '**';
+                    var uphone = item.phone;
+                    uphone = '*******' + uphone.toString().slice(7);
+                    var utime = item.create_at;
+                    var utext = item.text;
+                    var ulevel = item.level;
+                    var uleveltxt = '';
+                    var upic = '';
+                    for (var i = 0; i < ulevel; i++) {
+                        uleveltxt += '<div class="ustar-item"><img src="/Public/Goods/img/star_01.png"> </div>';
+                    }
+                    var imgsrc1 = item.img1;
+                    var imgsrc2 = item.img2;
+                    var imgsrc3 = item.img3;
+                    var imgsrc4 = item.img4;
+                    var attr = [];
+                    attr[0]=imgsrc1;
+                    attr[1]=imgsrc2;
+                    attr[2]=imgsrc3;
+                    attr[3]=imgsrc4;
+                    for (i = 0; i < attr.length; i++) {
+                        if (!(attr[i] == '')) {
+                            upic += '<div class="comment-img-item"><img src="' + attr[i] + '"></div>';
+                        }
+                    }
+                    upic = '<div class="comment-img-container"><div class="img-container J_ping">' + upic + '</div></div>';
+                    $('<li><div class="user_infor"><span class="user_name">' + uname + '</span><span class="user_id change1">' + uphone + '</span><span class="now_time">' + utime + '</span> </div><div class="ustar">滿意度：<div class="ustar-list">' + uleveltxt + '</div></div><div class="utxt">' + utext + '</div>' + upic + '</li>').appendTo($('#app .app-container'));
+                });
+
+                $('#app').myScroll({
+                    speed: 35, //數值越大，速度越慢
+                    rowHeight: 10000 //li的高度
+                });
+            });
+            var p=1;
+            setInterval(function () {
+                $.getJSON('{:U("index/evaOrder",array("type"=>2,"f"=>2,"g"=>$info[id]))}'+'?p='+p, function (data) {
+                    $.each(data, function (i, item) {
+                        var uname = item.username;
+                        uname = uname.toString().slice(0, 1) + '**';
+                        var uphone = item.phone;
+                        uphone = '*******' + uphone.toString().slice(7);
+                        var utime = item.create_at;
+                        var utext = item.text;
+                        var ulevel = item.level;
+                        var uleveltxt = '';
+                        var upic = '';
+                        for (var i = 0; i < ulevel; i++) {
+                            uleveltxt += '<div class="ustar-item"><img src="/Public/Goods/img/star_01.png"> </div>';
+                        }
+                        var imgsrc1 = item.img1;
+                        var imgsrc2 = item.img2;
+                        var imgsrc3 = item.img3;
+                        var imgsrc4 = item.img4;
+                        var attr = [imgsrc1, imgsrc2, imgsrc3, imgsrc4];
+                        for (i = 0; i < attr.length; i++) {
+                            if (!(attr[i] == '')) {
+                                upic += '<div class="comment-img-item"><img src="' + attr[i] + '"></div>';
+                            }
+                        }
+                        upic = '<div class="comment-img-container"><div class="img-container J_ping">' + upic + '</div></div>';
+                        $('<li><div class="user_infor"><span class="user_name">' + uname + '</span><span class="user_id change1">' + uphone + '</span><span class="now_time">' + utime + '</span> </div><div class="ustar">滿意度：<div class="ustar-list">' + uleveltxt + '</div></div><div class="utxt">' + utext + '</div>' + upic + '</li>').appendTo($('#app .app-container'));
+                    });
+                });
+                p = p*1+1*1;
+            }, 3000)
+            var scrollTop = $(this).scrollTop();
+            var saleHeight = $('.sale').height();
+            if (scrollTop >= saleHeight) {
+                $('.tabs').css({
+                    'position': 'fixed',
+                    'top': 0,
+                    'max-width': '640px'
+                })
+            } else {
+                $('.tabs').css({
+                    'position': 'static'
+                })
+            }
+            //规格/颜色/尺码选中
+            $('.sale-select-style ul li').click(function () {
+                if( !($(this).hasClass('disabled')) ){
+
+                    $(this).addClass('sel').siblings('li').removeClass('sel');
+
+                    var id = "{$info[id]}";
+                    var param = $(this).attr('param');
+                    var value = $(this).html();
+                    if(param == 'weight'){
+                        $('.gg').html(value);
+                    }else if(param == 'color'){
+                        $('.ys').html(value);
+                    }else if(param == 'size'){
+                        $('.cm').html(value);
+                    }
+
+                    /*var url = '/index/getImg/id/'+id;*/
+                    /*测试地址*/
+                    var url = 'index/getImg/id/'+id;
+                    var weightColIndex = $('.weight li.sel').index();
+                    if(weightColIndex > 0){
+                        var  weightValue = $('.weight li.sel').html();
+                        url += '/weight/'+weightValue;
+                    }
+                    var colorColIndex = $('.color li.sel').index();
+                    if(colorColIndex > 0){
+                        var  colorValue = $('.color li.sel').html();
+                        url += '/color/'+colorValue;
+                    }
+                    var sizeColIndex = $('.size li.sel').index();
+                    if(sizeColIndex > 0){
+                        var  sizeValue = $('.size li.sel').html();
+                        url += '/size/'+sizeValue;
+                    }
+
+                    $.get(url+'.html', function(result){
+                        var data = JSON.parse(result);
+                        console.log(data.count);
+
+                        if(data.img){
+                            $('#size_img').attr('src',data.img);
+                        }
+                        if(data.count == 1){
+                            $('#ggid').val(data.id);
+                        }
+                        if(param != 'weight' && data.data.weight){
+                            var weightJson = data.data.weight;
+                            var weightObjList = $('.weight li'); //weight列表
+                            var weightCheck = $('.weight li.sel').index(); //weight列表中的选中
+                            var weightHtml = [];
+                            weightObjList.each(function(i,e){
+                                weightHtml[i] = $(e).html();
+                            });
+                            //全部失效
+                            $('.weight li').addClass('disabled');
+                            //全部取消选中
+                            $('.weight li').removeClass('sel');
+                            //循环当前有规格的
+                            $.each(weightJson,function(ji,je){
+                                //循环全部当前规格
+                                $.each(weightHtml,function(ai,ae){
+                                    if(je == ae){
+                                        //对应规格存在，生效可选
+                                        $('.weight li:eq('+ai+')').removeClass('disabled');
+                                        //已选中的，重新变为选中
+                                        if(weightCheck > 0 && weightCheck==ai){
+                                            $('.weight li:eq('+ai+')').addClass('sel');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                        if(param != 'color' && data.data.color){
+                            var colorJson = data.data.color;
+                            var colorObjList = $('.color li'); //weight列表
+                            var colorCheck = $('.color li.sel').index(); //weight列表中的选中
+                            var colorHtml = [];
+                            colorObjList.each(function(i,e){
+                                colorHtml[i] = $(e).html();
+                            });
+                            //全部失效
+                            $('.color li').addClass('disabled');
+                            //全部取消选中
+                            $('.color li').removeClass('sel');
+                            //循环当前有规格的
+                            $.each(colorJson,function(ji,je){
+                                //循环全部当前规格
+                                $.each(colorHtml,function(ai,ae){
+                                    if(je == ae){
+                                        //对应规格存在，生效可选
+                                        $('.color li:eq('+ai+')').removeClass('disabled');
+                                        //已选中的，重新变为选中
+                                        if(colorCheck > 0 && colorCheck==ai){
+                                            $('.color li:eq('+ai+')').addClass('sel');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                        if(param != 'size' && data.data.size){
+                            var sizeJson = data.data.size;
+                            var sizeObjList = $('.size li'); //weight列表
+                            var sizeCheck = $('.size li.sel').index(); //weight列表中的选中
+                            var sizeHtml = [];
+                            sizeObjList.each(function(i,e){
+                                sizeHtml[i] = $(e).html();
+                            });
+                            //全部失效
+                            $('.size li').addClass('disabled');
+                            //全部取消选中
+                            $('.size li').removeClass('sel');
+                            //循环当前有规格的
+                            $.each(sizeJson,function(ji,je){
+                                //循环全部当前规格
+                                $.each(sizeHtml,function(ai,ae){
+                                    if(je == ae){
+                                        //对应规格存在，生效可选
+                                        $('.size li:eq('+ai+')').removeClass('disabled');
+                                        //已选中的，重新变为选中
+                                        if(sizeCheck > 0 && sizeCheck==ai){
+                                            $('.size li:eq('+ai+')').addClass('sel');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+            });
+
+            //付款方式点击
+            $('.pay-box a').click(function(){
+                $(this).addClass('on').siblings('a').removeClass('on');
+            });
+
+            function look() {
+                if ($('.ulook')) {
+                    $('.ulook').remove();
+                }
+                var mnum = Math.floor(Math.random() * 10 + 1)
+                var mstr = '<div class="ulook"><div class="lookbg"></div><h3>正在有<span>' + mnum + '</span>人浏览此商品</h3></div>';
+                $(mstr).appendTo($('body')).fadeIn(200);
+                setTimeout(function () {
+                    $('.ulook').fadeOut(200);
+                }, 3000);
+            }
+
+            setTimeout(function () {
+                look();
+                setInterval(function () {
+                    look();
+                }, 11000);
+            }, 8000);
+            var leftTime = 36000000;
+            /* 倒计时 */
+            function countTime() {           //获取当前时间
+//                var date = new Date();
+//                var now = date.getTime();
+//                console.log(now);
+//                //设置截止时间
+//                var str = "2018/5/9 00:00:00";
+//                var endDate = new Date(str);
+//                var end = endDate.getTime();
+//                console.log(end);
+                //时间差
+
+                //定义变量 d,h,m,s保存倒计时的时间
+                var d, h, m, s;
+                if (leftTime >= 0) {
+                    h = Math.floor(leftTime / 1000 / 60 / 60);
+                    if(h.toString().length<2){
+                        h='0'+h;
+                    }
+                    m = Math.floor(leftTime / 1000 / 60 % 60);
+                    if(m.toString().length<2){
+                        m='0'+m;
+                    }
+                    s = Math.floor(leftTime / 1000 % 60);
+                    if(s.toString().length<2){
+                        s='0'+s;
+                    }
+                }
+                //将倒计时赋值到div中
+                document.getElementById("_h").innerHTML = h;
+                document.getElementById("_m").innerHTML = m;
+                document.getElementById("_s").innerHTML = s;
+                leftTime-=1000;
+                //递归每秒调用countTime方法，显示动态时间效果
+                setTimeout(countTime, 1000);
+            }
+            countTime();
+
+
+            /* 新增js结束 */
+        });
+        function getAddress(obj){
+            $('#add_area').hide();
+            var phone = $(obj).val();
+            $.get("{:U('index/getadd')}"+"?phone="+phone,function(data){
+                console.log(data);
+                if(data){
+                    var data = eval(data);
+                    $('#add_area').show();
+                    var str = '';
+                    $.each(data,function(i,e){
+                        str += '<option value="'+ e.address +'">'+ e.address +'</option>'
+                    });
+                    $('#address').empty().html(str);
+                    $('#custom_address').val(data[0].address);
+                }
+            });
+        }
+        function setAddr(obj){
+            var addr = $(obj).val();
+            $('#custom_address').val(addr);
+        }
+    </script>
+</head>
+<body style="padding-bottom: 45px;">
+<div class="sale">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <volist name="imgList" id="vo">
+            <!--<div class="swiper-slide"><img src="{:trim($vo[image],'.')}"></div>-->
+            <div class="swiper-slide"><img src="{:trim($vo[image],'.')}"></div>
+            </volist>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <script>
+
+    </script>
+    <div class="sale-title">{$info.goods_title} {$info.goods_subtitle}</div>
+    <div class="data-group">
+        <div class="price">
+            <div class="price-now">RM <span>{$info.goods_trprice}</span></div>
+            <div class="price-ago">RM <span>{$info.goods_toprice}</span></div>
+        </div>
+        <div class="pl">
+            <ul class="pl-star">
+                <li><img src="__GIMG__star_01.png"></li>
+                <li><img src="__GIMG__star_01.png"></li>
+                <li><img src="__GIMG__star_01.png"></li>
+                <li><img src="__GIMG__star_01.png"></li>
+                <li><img src="__GIMG__star_01.png"></li>
+            </ul>
+            <div class="pl-num">99.99%</div>
+            <div class="pl-txt">好評</div>
+        </div>
+    </div>
+    <div class="tag-group">
+        <if condition="isset($info[pro_name])"><span class="orange">{$info.pro_name}</span></if>
+        <if condition="isset($tag)">
+            <volist name="tag" id="to">
+        <span>{$to.tag_name}</span>
+            </volist>
+        </if>
+    </div>
+
+</div>
+<div class="tabs-cr">
+    <div class="tabs">
+        <div class="tab tab-cur">商品介紹</div>
+        <div class="tab">購買須知</div>
+        <div class="tab">評價 <span>1000+</span></div>
+    </div>
+</div>
+<div class="ucontent">
+    <div class="uintro">
+        <!--<img src="{:trim($info[goods_det],'.')}" alt="">-->
+       <!-- <img src="{$info[goods_det]}" alt="">-->
+
+        <div class="swiper-slide">
+            <if condition = "$info[video_url]">
+                <!--<video src="{$info[video_url]}" controls="controls" style="max-width: 100%;margin: 0 auto">
+                    您的浏览器不支持 video 标签。
+                </video>-->
+                <!--<iframe src="{$info[video_url]}"></iframe>-->
+
+                <!--嵌套youtube的视频-->
+                <iframe width="854" height="480" src="https://www.youtube.com/embed/{$info[video_url]}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </if>
+        </div>
+
+        <div class="swiper-slide">
+            <p style="margin: 20px 0 20px 0">
+                {$info[goods_introduce]}
+            </p>
+        </div>
+
+        <!--批量上传的描述长图-->
+        <volist name="detailimgList" id="vo">
+            <!--<div class="swiper-slide"><img src="{:trim($vo[image],'.')}"></div>-->
+            <div class="swiper-slide">
+                <!--需要判断是图片还是视频-->
+
+                <!--<if condition="$vo eq ''">
+                    <li class="normal disabled" param="size">{$vo}</li>
+                    <else />
+                    <li class="normal" param="size">{$vo}</li>
+                </if>-->
+
+                <if condition = "$vo[is_img] eq 1">
+                    <img src="{:trim($vo[image],'.')}">
+                <else />
+                    <!--<video controls="controls" style="max-width: 100%;margin: 0 auto">
+                        <source src="{$vo[image]}" type="video/mp4" />
+                        &lt;!&ndash;<source src="movie.ogg" type="video/ogg" />
+                        <source src="movie.webm" type="video/webm" />
+                        <object data="movie.mp4" width="320" height="240">
+                        <embed src="movie.swf" width="320" height="240" />&ndash;&gt;
+                        </object>
+                    </video>-->
+
+                    <video src="{:trim($vo[image],'.')}" controls="controls" style="max-width: 100%;margin: 0 auto">
+                        您的浏览器不支持 video 标签。
+                    </video>
+                </if>
+            </div>
+        </volist>
+    </div>
+    <div class="table-details">
+        <!--<img src="{:trim($info[goods_notice],'.')}">-->
+        <img src="{:trim($info[goods_notice],'.')}">
+    </div>
+    <if condition="$comment_switch">
+        <div class="commen-head appraise-head">用戶評價</div>
+        <div id="app" class="appraise">
+            <ul class="app-container"></ul>
+        </div>
+    </if>
+
+    <div style="height: 5px;background: #f5f5f5;"></div>
+    <if condition="$lately_order_switch">
+        <div class="commen-head">最近訂單</div>
+        <div id="app2">
+            <ul class="app2-container"></ul>
+        </div>
+    </if>
+    <div style="height: 5px;background: #f5f5f5;"></div>
+</div>
+<div class="am-card-header">
+    <!--<div class="am-card-header-content"><img id="size_img" src="{:trim($imgList[0][image],'.')}" style="max-width: 106px;">-->
+    <div class="am-card-header-content"><img id="size_img" src="{$imgList[0][image]}" style="max-width: 106px;">
+        <div style="display: flex;flex-direction: column;justify-content: space-between;height: 106px;width: 100%;">
+            <div style="font-size: 14px;">{$info.goods_title}
+                <div style="color: rgb(153, 153, 153);font-size: 14px;word-wrap: break-word;margin-top: 10px;margin-bottom: 5px;">
+                    {$info.goods_subtitle}
+                </div>
+            </div>
+            <div class="product-gg">
+                <span class="gg">規格1</span>/
+                <span class="ys">顏色1</span>/
+                <span class="cm">S</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="price-box">
+    <if condition="$size[weight]">
+    <div class="ant-row ant-form-item weight">
+        <div class="ant-form-item-label"><label class="" title=""><strong>選擇規格/套餐</strong></label></div>
+        <div class="ant-form-item-control-wrapper">
+            <div class="ant-form-item-control ">
+                <div class="sale-select-style">
+                    <ul>
+                        <volist name="size.weight" id="vo">
+                        <!--<li class="sel">{$vo}</li>-->
+                        <li class="normal" param="weight">{$vo}</li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </if>
+    <if condition="isset($size[color])">
+    <div class="ant-row ant-form-item color">
+        <div class="ant-form-item-label"><label class="" title=""><strong>顏色</strong></label></div>
+        <div class="ant-form-item-control-wrapper">
+            <div class="ant-form-item-control ">
+                <div class="sale-select-style">
+                    <ul>
+                        <volist name="size.color" id="vo">
+                        <!--<li class="sel">深藍色</li>-->
+                        <li class="normal" param="color">{$vo}</li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </if>
+
+        <if condition="$size[size]">
+    <div class="ant-row ant-form-item size">
+        <div class="ant-form-item-label"><label class="" title=""><strong>尺碼</strong></label></div>
+        <div class="ant-form-item-control-wrapper">
+            <div class="ant-form-item-control ">
+                <div class="sale-select-style">
+                    <ul>
+                        <volist name="size.size" id="vo">
+                        <!--<li class="sel">s</li>-->
+                            <if condition="$vo eq ''">
+                                <li class="normal disabled" param="size">{$vo}</li>
+                                <else />
+                                <li class="normal" param="size">{$vo}</li>
+                            </if>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+            </if>
+    <input type="hidden" id="gid" name="gid" value="{$info.id}" >
+    <input type="hidden" id="ggid" name="ggid" value="" >
+
+</div>
+<!--<div class="cx">-->
+    <!--<div class="cx-head">促銷規則</div>-->
+    <!--<div class="cx-box">-->
+        <!--<img src="https://img.alicdn.com/imgextra/i4/625065046/TB2wAI.clyWBuNkSmFPXXXguVXa_!!625065046.jpg">-->
+    <!--</div>-->
+<!--</div>-->
+<if condition="$info[goods_istuan] neq 0">
+<div class="kt">
+    <div class="commen-head">等待開團</div>
+    <div class="kt-box">
+        <ul>
+            <li>
+                <div class="user_infor">
+                    <span class="user_name">周**</span>
+                    <span class="user_id change1">****55452</span>
+                    <a class="kt-btn ktbut">開團</a>
+                    <span class="user_num">還差<i>2</i>人</span>
+                </div>
+            </li>
+            <li>
+                <div class="user_infor">
+                    <span class="user_name">张**</span>
+                    <span class="user_id change1">****07610</span>
+                    <a class="kt-btn ktbut">開團</a>
+                    <span class="user_num">還差<i>2</i>人</span>
+                </div>
+            </li>
+            <li>
+                <div class="user_infor">
+                    <span class="user_name">王**</span>
+                    <span class="user_id change1">****11314</span>
+                    <a class="kt-btn ktbut">開團</a>
+                    <span class="user_num">還差<i>2</i>人</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</if>
+<div class="price-count">
+    <div class="pc-btn">
+        <div class="pc-box">
+            <span class="pc-prev handle">-</span>
+            <span class="pc-num">1</span>
+            <span class="pc-next handle">+</span>
+        </div>
+        <span class="right">購買數量</span>
+    </div>
+    <div class="single-price">原價 RM <i>{$info.goods_toprice}</i></div>
+    <if condition="$info[goods_price] eq '0.00' or $info[goods_price] eq '0'">
+        <div class="you"><span>包郵</span></div>
+        <else />
+        <div class="you">運費 RM <i>{$info.goods_price}</i></div>
+    </if>
+    <div class="all-price">總價 RM <i>{$info.goods_trprice}</i></div>
+</div>
+<div class="am-card-body">
+    <div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label">
+                <label for="custom_name" class="ant-form-item-required" title=""><strong>姓名</strong></label></div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control ">
+                    <input type="input" class="ant-input ant-input-lg form-content-input" placeholder="必填，填寫收件人姓名" value="" id="custom_name">
+                </div>
+            </div>
+        </div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label"><label for="custom_mobile" class="ant-form-item-required" title=""><strong>手機號</strong></label>
+            </div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control ">
+                    <input type="input" class="ant-input ant-input-lg form-content-input" placeholder="必填，填寫收件人聯系電話" value="" id="custom_mobile" onblur="getAddress(this)">
+                </div>
+            </div>
+        </div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label">
+                <label class="ant-form-item-required" title=""><strong>地址列表</strong></label>
+            </div>
+            <div class="ant-form-item-control-wrapper" id="add_area" style="display: none;">
+                <div class="ant-form-item-control ">
+                    <select name="" id="address" class="ant-input" style="margin-bottom:5px;" onchange="setAddr(this)">
+
+                    </select>
+                </div>
+            </div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control ">
+                    <input type="input" class="ant-input ant-input-lg form-content-input" placeholder="必填，填寫收件人地址" value="" id="custom_address" >
+                </div>
+            </div>
+        </div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label">
+                <label for="postcode" class="ant-form-item-required" title=""><strong>郵編</strong></label>
+            </div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control ">
+                    <input type="input" class="ant-input ant-input-lg form-content-input" placeholder="必填，請填寫郵編" value="" id="postcode">
+                </div>
+            </div>
+        </div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label"><label for="email" class="" title=""><strong>Email</strong></label></div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control ">
+                    <input type="input" class="ant-input ant-input-lg form-content-input" placeholder="選填，請填寫收件人電子郵箱" value="" id="email">
+                </div>
+            </div>
+        </div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label"><label for="remark" class="" title=""><strong>留言</strong></label></div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control ">
+                    <input type="input" class="ant-input ant-input-lg form-content-input" placeholder="選填，如備用電話、商品規格或配送時間等" value="" id="remark">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pay">
+    <div class="pay-head">付款方式<i style="display:none;color: #ff5000; font-style: normal; margin-left: 10px; font-size: 12px;">*必选，请选择付款方式</i></div>
+    <div class="pay-box">
+
+            <!--a class="bg-blue on" type="2">支付寶</a>
+            <a class="bg-green" type="1">微信支付</a>
+            <a class="bg-orange" type="5">貨到付款</a>-->
+            <a class="bg-orange on" type="5">貨到付款</a>
+
+    </div>
+</div>
+<div class="djs">
+    <p class="dj">
+        距離活動結束還有：
+        <span class="dj2" id="_h"></span> &nbsp;：
+        <span class="dj3" id="_m"></span> &nbsp;：
+        <span class="dj4" id="_s"></span>
+        <!--：<span class="dj4">8</span>-->
+    </p>
+
+    <div class="pg">已售
+        <span class="sale-count">9999</span>
+        件
+
+        <div class="progress">
+            <div class="pro" style="width: 88%"></div>
+        </div>
+        <span class="progress-num">88</span>%
+    </div>
+</div>
+<div class="bottom-btn" <if condition="$info['goods_istuan'] eq 0">id="bottom-btn"</if>>
+    <a class="ccdd" href="{:U('index/search',array('model'=>$info['goods_country']))}" style="cursor: pointer;">查詢訂單</a>
+    <a class="ljgm" style="cursor: pointer;">立即購買</a>
+    <a class="ljkt">立即開團 <span class="yuan">￥</span>{$info.goods_twprice}</a>
+</div>
+<div class="bottom-to-top">
+    <img src="__GIMG__scroll-to-top-icon.png">
+</div>
+<!--新增html-->
+
+<script>
+    //轮播图
+    var swiper = new Swiper('.swiper-container', {
+        autoplay: true,
+        loop: false,
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction'
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        }
+    });
+</script>
+<script src="__GJS__index.js"></script>
+
+<script>
+
+    //立即购买锚点
+    $('.ljgm,.ktbut').click(function(){
+        var sizeId = $('#ggid').val();
+        //alert(parseInt(sizeId));
+        //判断规格是否选择
+        //var _colorIndex=$('.color .sel').index();
+        //var _weightIndex=$('.weight .sel').index();
+        //var _sizeIndex=$('.size .sel').index();
+        if(!sizeId){
+            $('body,html').animate({
+                'scrollTop': $('.price-box').offset().top - 45
+            }, 500);
+            return false;
+        }
+        var goodId = $('#gid').val();
+        var name = $('#custom_name').val();
+        var phone = $('#custom_mobile').val();
+        var address = $('#custom_address').val();
+        var code = $('#postcode').val();
+        var email = $('#email').val();
+        var remark = $('#remark').val();
+        var num = $('.pc-num').html();
+
+        if (parseInt(num) <= 0) {
+            alert('购买数量最少为1');
+            return false;
+        }
+
+        if (name.length<=0) {
+            alert('收件人名称不能为空');
+            $('#custom_name').focus();
+            return false;
+        }
+
+        if (address.length <= 0) {
+            alert('收件地址不能为空');
+            $('#custom_address').focus();
+            return false;
+        }
+
+        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(phone)) {
+            alert('收件人手机号错误');
+            return false;
+        }
+
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email)) {
+            alert('email格式有误');
+            return false;
+        }
+
+        var re= /^[1-9][0-9]{5}$/;
+        if(!re.test(code)) {
+            alert('邮编格式错误');
+            return false;
+        }
+
+        //付款方式判断
+        var _payIndex=$('.pay-box .on').index();
+        if(_payIndex<0){
+            $('.pay-head i').show();
+            $('body,html').animate({
+                'scrollTop': $('.pay').offset().top - 45
+            }, 500);
+            return false;
+        }else{
+            $('.pay-head i').hide();
+        }
+
+        //获取支付方式
+        var payType = $('.pay-box .on').attr('type');
+
+        //判断goodId，和sizeId
+        var param = {"userName":name,"goodId":goodId,"sizeId":sizeId,"address":address,"phone":phone,"email":email,"code":code,"remark":remark,"goodCount":num,"payType":payType};
+        //ajax提交数据
+        $.ajax({
+            type: "post",
+            url: "/order/createOrder",
+            data: param,
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                if (data.code == 0) {
+                    window.location.href='/index/buysuccess/id/'+data.data.orderId;
+                } else {
+                    alert(data.data.msg);
+                }
+            }
+        });
+
+    });
+    //提交订单
+    $('.ljkt').click(function () {
+        var sizeId = $('#ggid').val();
+        alert(parseInt(sizeId));
+        //判断规格是否选择
+        //var _colorIndex=$('.color .sel').index();
+        //var _weightIndex=$('.weight .sel').index();
+        //var _sizeIndex=$('.size .sel').index();
+        if(!sizeId){
+            $('body,html').animate({
+                'scrollTop': $('.price-box').offset().top - 45
+            }, 500);
+            return false;
+        }
+        var goodId = $('#gid').val();
+        var name = $('#custom_name').val();
+        var phone = $('#custom_mobile').val();
+        var address = $('#custom_address').val();
+        var code = $('#postcode').val();
+        var email = $('#email').val();
+        var remark = $('#remark').val();
+        var num = $('.pc-num').html();
+
+        if (parseInt(num) <= 0) {
+            alert('购买数量最少为1');
+            return false;
+        }
+
+        if (name.length<=0) {
+            alert('收件人名称不能为空');
+            $('#custom_name').focus();
+            return false;
+        }
+
+        if (address.length <= 0) {
+            alert('收件地址不能为空');
+            $('#custom_address').focus();
+            return false;
+        }
+
+        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(phone)) {
+            alert('收件人手机号错误');
+            return false;
+        }
+
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email)) {
+            alert('email格式有误');
+            return false;
+        }
+
+        var re= /^[1-9][0-9]{5}$/;
+        if(!re.test(code)) {
+            alert('邮编格式错误');
+            return false;
+        }
+
+        //付款方式判断
+        var _payIndex=$('.pay-box .on').index();
+        if(_payIndex<0){
+            $('.pay-head i').show();
+            $('body,html').animate({
+                'scrollTop': $('.pay').offset().top - 45
+            }, 500);
+            return false;
+        }else{
+            $('.pay-head i').hide();
+        }
+
+        //获取支付方式
+        var payType = $('.pay-box .on').attr('type');
+
+        //判断goodId，和sizeId
+        var param = {"userName":name,"goodId":goodId,"sizeId":sizeId,"address":address,"phone":phone,"email":email,"code":code,"remark":remark,"goodCount":num,"payType":payType};
+        //ajax提交数据
+        $.ajax({
+            type: "post",
+            url: "/order/createOrder",
+            data: param,
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                if (data.code == 0) {
+                    window.location.href='/index/buysuccess/id/'+data.data.orderId;
+                } else {
+                    alert(data.data.msg);
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>

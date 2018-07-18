@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品信息管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-form">
+		<li><a href="{:U('GoodsTj/index')}">商品推荐列表</a></li>
+		<li class="layui-this"><a href="javascript:void(0);">添加推荐商品</a></li>
+	</ul>
+	
+	<form method="post" autocomplete="off" action="{:U('GoodsTj/doset_tj')}" class="layui-form">
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">选择商品</label>
+			<div class="layui-input-inline">
+				<select class="layui-input layui-select" name="goodsid" style="display: block">
+					<foreach name='list'  item='v'>
+						<option value="{$v.id}">编号:{$v.id}－名称:{$v.goods_title}</option>
+					</foreach>
+				</select>
+			</div>		
+			<div class="layui-form-mid layui-word-aux">选择您要推荐的商品，必须选择</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">推荐排序</label>
+			<div class="layui-input-inline">
+				<input type="text" name="tj_sort" maxlength="10" lay-verify="required" value="0" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">商品在首页推荐列表的排序（数字），选填</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn layui-btn-danger" lay-submit lay-filter="Submit">立即提交</button>
+			</div>
+		</div>
+	</form>
+<script src="__LAYUI__/layui.js"></script>
+
+</body>
+</html>

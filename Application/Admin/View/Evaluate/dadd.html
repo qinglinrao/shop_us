@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>商品信息管理</title>
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+    <style type="text/css">
+        .layui-form-item select{display: block;}
+
+        .imgyl img{
+            width: 120px;height: 120px;
+        }
+        .imgup{
+            position: relative;
+            margin-left: -200px;
+            margin-top: 8px;
+        }
+        .imginp{
+            position: relative;
+            z-index: 900;
+        }
+        .imginp input{
+            width: 120px;height: 40px;
+        }
+
+        #evaName{
+            float: left;
+            display: block;
+            padding: 9px 15px;
+            font-weight: 400;
+            margin-top: 8px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body class="body">
+<ul class="layui-tab-title mt-page mb-form">
+    <li><a href="{:U('Evaluate/index')}">评论列表</a></li>
+    <li><a href="{:U('Evaluate/add')}">添加评论</a></li>
+    <li class="layui-this"><a href="javascript:void(0);">批量导入</a></li>
+</ul>
+<form method="post" autocomplete="off" action="{:U('Evaluate/dodadd')}" class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="margin-top:8px;">示例表格</label>
+        <div class="layui-input-inline" style="width: 157px;margin-left: 0px;margin-top: 8px;">
+            <a class="layui-btn" href = "{:U('Evaluate/downfile')}">下载表格</a>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="margin-top:8px;">上传文件</label>
+        <div class="layui-input-inline imgup" style="width: 157px;margin-left: 0px;">
+            <div class="imginp">
+                <input type="file" id="upimg0" class="layui-upload-file upload0" name='upimg0' onchange="fileChange(this,'upimg0')" >
+                <input name="evaFile" sx='upimg0' type="hidden" value="" lay-verify="evaFile"/>
+            </div>
+        </div>
+        <div><span id="evaName"></span></div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-danger" lay-submit lay-filter="Submit">立即提交</button>
+        </div>
+    </div>
+</form>
+<script src="__LAYUI__/jquery-1.8.3.js"></script>
+<script src="__LAYUI__/layui.js"></script>
+<script src="__AJS__ajaxfileupload.js"></script>
+<script type="text/javascript">
+    var idstr=''
+    function fileChange(obj,str){
+        var f = obj.files[0];
+//        var src = window.URL.createObjectURL(f)//预览图片url
+        $("#evaName").empty().html(f.name);
+        idstr = str;
+    }
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '选择评论文件　',
+            elem: '.upload0',
+            url: "{:U('Evaluate/imgupcsv')}",
+            type: 'file',
+            ext: 'csv',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    $("input[sx='"+idstr+"']").val(res.url);
+                }
+            }
+        });
+    });
+    layui.use(['form','jquery'], function() {
+        var form = layui.form();
+        form.verify({
+            evaFile: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if($(item).val() == ''){
+                    return '上传文件不可为空，请上传表格csv文件';
+                }
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

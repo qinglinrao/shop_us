@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>Buy success</title>
+    <link rel="stylesheet" href="__GCSS__commen.css">
+    <script src="__GJS__jQuery-3.3.1.js"></script>
+    <style type="text/css">
+        a:link {color: deepskyblue; text-decoration:none} /*未被访问的链接*/
+        a:visited {color: deepskyblue; text-decoration:none} /* 已被访问过的链接*/
+        a:hover {color: deepskyblue; text-decoration:none} /* 鼠标悬浮在上的链接*/
+        a:active {color: deepskyblue; text-decoration:none} /* 鼠标点中激活链接*/
+
+        .sale{
+            max-width: 640px;
+            margin: 0 auto;
+            text-align:center;
+        }
+        .sale img{
+            max-width: 4rem;
+            vertical-align:middle;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .shopping{
+            margin-bottom: 1rem;
+            width: 9rem;
+            height: 2rem;
+            background-color: #ff5000;
+            text-align: center;
+            line-height: 2rem;
+            border-radius: 10px;
+            cursor:pointer;
+        }
+        .shopping a{color: #ffffff;}
+
+    </style>
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '201123204038364');
+        fbq('track', 'PageView');
+        fbq('track', 'Purchase', {
+            value: 1,
+            currency: 'USD',
+        });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=201123204038364&ev=PageView&noscript=1"
+    /></noscript>
+</head>
+<body style="padding-bottom: 45px;">
+
+<div style="margin-left:10px;">
+    <div class="sale">
+        <img src="/Public/Admin/resource/images/icon_success.png" />
+    </div>
+        <p style="color: red;margin-bottom: 1rem;">Thank you for your purchase!</p>
+        <p style="margin-bottom: 1rem;">Your order number is: #{$info.order_id}</p>
+
+        <!--<p class="shopping"><a href="javascript:history.go(-1)">Continue Shopping</a></p>-->
+        <p class="shopping"><a href="{:U('index/search',array('model'=>$info['goods_country']))}">Your order</a></p>
+
+        <p style="font-weight:bold;margin-bottom: 1rem;">Tips</p>
+        <p style="margin-bottom: 1rem;">
+            1. We will deliver the goods to your hands as soon as possible,
+            please be patient, logistics information inquiries, please contact us;
+        </p>
+
+        <p>
+            2. If you have any questions after receive the goods, please contact: <a href="/">service@bestcod.net</a>.
+            Please also attach your contact information and order number in the mail,
+            so we can quickly process, have a happy shopping!
+        </p>
+</div>
+</body>
+</html>

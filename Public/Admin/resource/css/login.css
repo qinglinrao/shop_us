@@ -1,0 +1,32 @@
+html,
+body{height: 100%;}
+.login-header{position: relative;width: 100%;background: url(../images/login_bg.jpg) no-repeat 100%/100%;}
+.login-header canvas{position: absolute;left: 0;top: 0;z-index: 10;}
+@keyframes bodyAnimate{0%{opacity: 0;}100%{opacity: 1;}}
+@-webkit-keyframes bodyAnimate{0%{opacity: 0;}100%{opacity: 1;}}
+.swiper-container{position: absolute;left: 50%;top: 50%;margin-top: -225px;margin-left: -200px;z-index: 15;opacity: 0;transition: opacity .3s;-webkit-transition: opacity .3s;-moz-transition: opacity .3s;-ms-transition: opacity .3s;-o-transition: opacity .3s;}
+.show{opacity: 1;}
+.loginBox{box-sizing: border-box;width: 400px;/*height: 450px;*/background: #fff;padding: 15px;border-radius: 5px;}
+.loginBox .imgBox{position: relative;width: 122px;height: 88px;margin: 10px auto;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.loginBox h3{font-size: 24px;text-align: center;margin-bottom: 20px;}
+.loginBox .layui-form-item{width: 300px;margin: 20px auto;}
+.loginBox .layui-input-block{margin-left: 0;}
+.loginBox .layui-form-item .verifycode{width: 150px;}
+.loginBox .layui-form-item img{float: right;}
+.loginBox .loginBtnBox{margin-top: 20px;}
+.loginBox .loginBtnBox button{width: 100%;font-size: 16px;}
+.loginBox .copyright{line-height: 25px;text-align: center;}
+.loginBox .copyright a{color: red;}
+input.error,
+input.error:focus,
+input.error:hover{border: 1px solid #a10;}
+input.ok,
+input.ok:focus,
+input.ok:hover{border: 1px solid rgb(51, 171, 159);}
+input.ok+i:before{font-family: "iconfont" !important;position: absolute;right: 10px;top: 7px;content: '\e645';color: rgb(51, 171, 159);font-size: 20px;font-weight: 600;}
+input.ok+i.vCode:before{right: 101px;}
+button[disabled="disabled"],
+button[disabled="disabled"]:hover{opacity: .5;cursor: not-allowed;}
+.errorTips{position: relative;top: 5px;color: #fff;background: #a10;box-sizing: border-box;width: 100%;height: 30px;padding: 0 10px;line-height: 30px;display: block;transition: all .3s;}
+/*入场canvas动画*/
+#admission{/*display: none;*/box-sizing: border-box;position: fixed;left: 0;top: 0;z-index: 9999;}

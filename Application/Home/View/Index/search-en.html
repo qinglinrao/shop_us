@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>Query order</title>
+    <link rel="stylesheet" href="__GCSS__commen.css">
+</head>
+<body style="padding-bottom: 45px;">
+<form action="{:U('index/dosearch')}" method="post">
+<div class="ant-row ant-form-item search">
+    <div class="ant-form-item-label">
+        <label for="utel" class="ant-form-item-required" title=""><strong>Cell phone number</strong></label>
+    </div>
+    <div class="ant-form-item-control-wrapper">
+        <div class="ant-form-item-control">
+            <input type="text" name="phone" class="ant-input ant-input-lg form-content-input" placeholder="Please enter your mobile number" value="" id="utel">
+            <input type="hidden" name="model" value="{$model}">
+        </div>
+    </div>
+</div>
+
+<div class="searchBtn-bar">
+    <input type="button" class="searchBtn" value="Query">
+</div>
+    </form>
+
+<div id="summaryContent">
+
+</div>
+<!--<if condition="isset($list)">
+    <div style="height: 5px;background: #f5f5f5;margin-top: 10px;"></div>
+    <volist name="list" id="vo">
+        <div class="dingdan">
+    <div class="dd-item">
+        <span class="dd-title">Order number</span>
+        <span class="dd-txt">{$vo.order_id}</span>
+    </div>
+    <div class="dd-item">
+        <span class="dd-title">Order information</span>
+    </div>
+    <div class="dd-item">
+        <span class="dd-title">goods name</span>
+        <span class="dd-txt">{$vo.goods_title}</span>
+    </div>
+    <div class="dd-item">
+        <span class="dd-title">{$vo.color} {$vo.size} {$vo.weight}</span>
+        <span class="dd-txt">×<i>2</i></span>
+    </div>
+    <div class="dd-item">
+        <span class="dd-title">Logistics information</span>
+        <span class="dd-txt">{$vo.wl_info}</span>
+    </div>
+    <div class="dd-item">
+        <span class="dd-title">Order status</span>
+        <span class="dd-txt">
+            <eq name="vo.statue" value='1'>未付款</eq>
+                <eq name="vo.statue" value='2'>已付款</eq>
+                <eq name="vo.statue" value='3'>配送中</eq>
+                <eq name="vo.statue" value='4'>已送达</eq>
+                <eq name="vo.statue" value='5'>未评价</eq>
+                <eq name="vo.statue" value='6'>已评价</eq>
+                <eq name="vo.statue" value='7'>待退货</eq>
+                <eq name="vo.statue" value='8'>已退货</eq>
+                <eq name="vo.statue" value='9'>已完成</eq>
+        </span>
+    </div>
+        <div class="dd-item">
+        <span class="dd-txt">
+            <a class="dd-btn"  target="_self" href="{:U('index/evaluate', array('id'=>$vo[id],'model'=>$model) )}">Have evaluation</a>
+        </span>
+    </div>
+    </div>
+    </volist>
+</if>-->
+
+<div class="return">
+    <!--<a target="_self" href="{:U('index/index', array('id'=>$vo[good_id],'model'=>$model) )}">Return</a>-->
+    <a target="_self" href="javascript:history.go(-1)">Return</a>
+</div>
+<script src="__GJS__jQuery-3.3.1.js"></script>
+<script>
+    $(".searchBtn").click(function () {
+
+        var phone = $("#utel").val();
+        if(phone.length<=0){
+            alert('Telephone number does not exist');
+            return false;
+        }
+
+        /*var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(phone)) {
+            alert('Telephone number is wrong');
+            return false;
+        }*/
+
+        var param = {"phone":phone};
+
+        /*$("form").submit();*/
+
+        $.ajax({
+            type: "post",
+            url: "/index/dosearch",
+            data: param,
+            dataType: "json",
+            success: function(data){
+                if (data.code == 0) {
+
+                    //先清除掉原来的内容
+                    $("#summaryContent").html('');
+                    var model = data.model;
+
+                    $.each(data.data,function(index,data){
+                        //result += "姓名:  " + data.name + "     年龄:   " + data.score + "<br />";
+
+                        var result = '';
+                        result += '<div style="height: 5px;background: #f5f5f5;margin-top: 10px;"></div>';
+                        result += '<div class="dingdan">';
+                        result += '<div class="dd-item">';
+                        result += '<span class="dd-title">Order number</span>';
+                        result += '<span class="dd-txt">'+data.order_id+'</span>';
+                        result += '</div>';
+                        /*result += '<div class="dd-item">';
+                        result += '<span class="dd-title">Order information</span>';
+                        result += '</div>';*/
+                        result += '<div class="dd-item">';
+                        result += '<span class="dd-title">Goods name</span>';
+                        result += '<span class="dd-txt">'+data.goods_title+'</span>';
+                        result += '</div>';
+                        result += '<div class="dd-item">';
+                        result += '<span class="dd-title">Goods specifications</span>';
+                        result += '<span class="dd-txt"><i>'+data.color+'&nbsp'+data.size+'&nbsp'+data.weight+'</i></span>';
+                        result += '</div>';
+                        result += '<div class="dd-item">';
+                        result += '<span class="dd-title">Purchase quantity</span>';
+                        result += '<span class="dd-txt"><i>'+data.good_count+'</i></span>';
+                        result += '</div>';
+                        result += '<div class="dd-item">';
+                        result += '<span class="dd-title">Contact Name</span>';
+                        result += '<span class="dd-txt">'+data.user_data.username+'</span>';
+                        result += '</div>';
+                        result += '<div class="dd-item">';
+                        result += '<span class="dd-title">Phone Number</span>';
+                        result += '<span class="dd-txt">'+data.user_data.phone+'</span>';
+                        result += '</div>';
+                        result += '<div class="dd-item">';
+                        result += '<span class="dd-title">Payment Method</span>';
+                        result += '<span class="dd-txt">'+data.pay_type_name+'</span>';
+                        result += '</div>';
+                        result += '<div class="dd-item">';
+                        result += '<span class="dd-title">Total prices</span>';
+                        result += '<span class="dd-txt">'+data.money+'</span>';
+                        result += '</div>';
+                        //result += '<div class="dd-item">';
+                        //物流信息要怎么弄--todo
+                        //result += '<span class="dd-title">Logistics information</span>';
+                        //result += '<span class="dd-txt">'+data.wl_info+'</span>';
+                        //result += '</div>';
+                        result += '<div class="dd-item">';
+                        result += '<span class="dd-title">Order status</span>';
+                        result += '<span class="dd-txt">';
+                        result += '<span class="dd-txt">'+data.statue+'</span>';
+                        result += '</span>';
+                        result += '</div>';
+                        result += '<div class="dd-item" style="margin-top: 10px;">';
+                        result += '<span class="dd-txt">';
+                        //result += '<a class="dd-btn"  target="_self" href="{:U(\"index/evaluate\", array(\"id\"=>\'"'+data.id+'\"',\"model\"=>\'"'+model+'\"') )}">Have evaluation</a>';
+                        result += '</span>';
+                        result += '</div>';
+                        result += '</div>';
+                        result += '</if>';
+
+                        $("#summaryContent").prepend(result);
+                    });
+                } else {
+                    alert(data.msg);
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>

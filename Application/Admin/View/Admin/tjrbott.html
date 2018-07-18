@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>名下沃牧场</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-search">
+		<li class="layui-this"><a href="javascript:void(0);">名下沃牧场列表</a></li>
+	</ul>
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="输入姓名或电话" class="layui-input">
+		</div>
+		<div class="layui-inline">
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+		</div>
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>代理人姓名</th>
+					<th>电话</th>
+					<th>微信</th>
+					<th>名下沃牧场</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<foreach name="list" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.username}</td>
+					<td>{$vo.phone}</td>
+					<td>{$vo.wx}</td>
+					<td>
+						{$vo.num}　<botton class="layui-btn layui-btn-mini showdlr"  rule="dlr{$vo.id}">+</botton>
+					</td>
+				</tr>
+					<foreach name='vo.dlrlist' item='v'>
+						<tr class="dlrtr dlr{$vo.id}" style="display:none">
+							<td>场主：{$v.username}</td>
+							<td>中农健联沃牧场第{$v.addr_num}号</td>
+							<td>{$v.phone}</td>
+							<td>{$v.wx}</td>
+							<td><a class="layui-btn layui-btn-mini layui-btn-danger" href="{:U('Member/tjrbott_det',array('id'=>$v['id'],'tname'=>$vo['username']))}">查看交易明细</a></td>
+						</tr>
+					</foreach>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata">没有相关数据</td>
+				</tr>
+				</notempty>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			keyword = $("input[name='keyword']").val();
+			window.location.href = '{:U("Member/tjrbott")}&keyword='+ keyword;
+		});
+	});
+	</script>
+	<script src="__LAYUI__/jquery-1.8.3.js"></script>
+	<script type="text/javascript">
+		$('.showdlr').click(function(){
+			var str = $(this).attr('rule');
+			$("."+str).toggle();
+		})
+	</script>
+</body>
+</html>

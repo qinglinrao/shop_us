@@ -1,0 +1,1 @@
+a:6:{i:0;s:2:"id";i:1;s:7:"acronym";i:2;s:7:"chinese";i:3;s:7:"english";s:3:"_pk";s:2:"id";s:5:"_type";a:4:{s:2:"id";s:16:"int(10) unsigned";s:7:"acronym";s:7:"char(2)";s:7:"chinese";s:11:"varchar(50)";s:7:"english";s:11:"varchar(50)";}}

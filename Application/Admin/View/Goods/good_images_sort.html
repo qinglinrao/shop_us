@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品信息管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+
+	<style type="text/css">
+		.carousel img{
+			width: 100px;height: 100px;
+		}
+		.detail img{
+			width: 100px;height: 100px;
+		}
+	</style>
+
+	<style>
+		.item_content ul  {
+			list-style:none;
+		}
+		.item_content ul li {
+			width:200px;
+			height:120px;
+			float:left;
+			margin:10px
+		}
+		.item_content {
+			border:1px solid #ccc;
+			margin:0 auto;
+		}
+
+		.item_content .item {
+			width:200px;
+			height:120px;
+			line-height:120px;
+			text-align:center;
+			cursor:pointer;
+			background:#ccc;
+
+		}
+		.item_content .item img {
+			width:200px;
+			height:120px;
+		}
+	</style>
+</head>
+<body class="body">
+<ul class="layui-tab-title mt-page mb-form">
+	<li><a href="javascript:void(0);">商品列表</a></li>
+</ul>
+<form method="post" autocomplete="off" action="{:U('Goods/good_images_sort_do')}" class="layui-form" onsubmit='return checkForm()'>
+
+
+
+	<!--<select style="display: inline;">
+		<option value="1">轮播图</option>
+		<option value="2">详情图</option>
+	</select>-->
+
+	<div class="item_container">
+
+		<div class="item_content">
+			<ul>
+				<volist name="imgList" id="vo">
+				<li>
+					<div class="item img_list">
+						<img src="{:trim($vo[image],'.')}" />
+						<input type="hidden" value="{$vo[id]}">
+					</div>
+				</li>
+				</volist>
+
+			</ul>
+		</div>
+	</div>
+
+
+	<div class="layui-form-item">
+		<div class="layui-input-block">
+			<input type="hidden" value="" name="sort_str" class="sort_str">
+			<input type="hidden" value="{$imgList_num}" name="imgList_num">
+			<button class="layui-btn layui-btn-danger" lay-submit lay-filter="Submit">立即提交</button>
+		</div>
+	</div>
+</form>
+<script src="__LAYUI__/jquery-1.8.3.js"></script>
+<script>
+    $(function() {
+        function Pointer(x, y) {
+            this.x = x ;
+            this.y = y ;
+        }
+        function Position(left, top) {
+            this.left = left ;
+            this.top = top ;
+        }
+        $(".item_content .item").each(function(i) {
+            this.init = function() { // 初始化
+                this.box = $(this).parent() ;
+                $(this).attr("index", i).css({
+                    position : "absolute",
+                    left : this.box.offset().left,
+                    top : this.box.offset().top
+                }).appendTo(".item_content") ;
+                this.drag() ;
+            },
+                this.move = function(callback) {  // 移动
+                    $(this).stop(true).animate({
+                        left : this.box.offset().left,
+                        top : this.box.offset().top
+                    }, 500, function() {
+                        if(callback) {
+                            callback.call(this) ;
+                        }
+                    }) ;
+                },
+                this.collisionCheck = function() {
+                    var currentItem = this ;
+                    var direction = null ;
+                    $(this).siblings(".item").each(function() {
+                        if(
+                            currentItem.pointer.x > this.box.offset().left &&
+                            currentItem.pointer.y > this.box.offset().top &&
+                            (currentItem.pointer.x < this.box.offset().left + this.box.width()) &&
+                            (currentItem.pointer.y < this.box.offset().top + this.box.height())
+                        ) {
+                            // 返回对象和方向
+                            if(currentItem.box.offset().top < this.box.offset().top) {
+                                direction = "down" ;
+                            } else if(currentItem.box.offset().top > this.box.offset().top) {
+                                direction = "up" ;
+                            } else {
+                                direction = "normal" ;
+                            }
+                            this.swap(currentItem, direction) ;
+
+                            //返回字段。
+                            var str = '';
+                            $(".img_list").each(function(i) {
+                                str += $(this).attr("index")+'-'+$(this).children("input").val()+'###';
+							});
+                            $('.sort_str').val(str);
+                        }
+                    }) ;
+                },
+                this.swap = function(currentItem, direction) { // 交换位置
+                    if(this.moveing) return false ;
+                    var directions = {
+                        normal : function() {
+                            var saveBox = this.box ;
+                            this.box = currentItem.box ;
+                            currentItem.box = saveBox ;
+                            this.move() ;
+                            $(this).attr("index", this.box.index()) ;
+                            $(currentItem).attr("index", currentItem.box.index()) ;
+                        },
+                        down : function() {
+                            // 移到上方
+                            var box = this.box ;
+                            var node = this ;
+                            var startIndex = currentItem.box.index() ;
+                            var endIndex = node.box.index(); ;
+                            for(var i = endIndex; i > startIndex ; i--) {
+                                var prevNode = $(".item_content .item[index="+ (i - 1) +"]")[0] ;
+                                node.box = prevNode.box ;
+                                $(node).attr("index", node.box.index()) ;
+                                node.move() ;
+                                node = prevNode ;
+                            }
+                            currentItem.box = box ;
+                            $(currentItem).attr("index", box.index()) ;
+                        },
+                        up : function() {
+                            // 移到上方
+                            var box = this.box ;
+                            var node = this ;
+                            var startIndex = node.box.index() ;
+                            var endIndex = currentItem.box.index(); ;
+                            for(var i = startIndex; i < endIndex; i++) {
+                                var nextNode = $(".item_content .item[index="+ (i + 1) +"]")[0] ;
+                                node.box = nextNode.box ;
+                                $(node).attr("index", node.box.index()) ;
+                                node.move() ;
+                                node = nextNode ;
+                            }
+                            currentItem.box = box ;
+                            $(currentItem).attr("index", box.index()) ;
+                        }
+                    }
+                    directions[direction].call(this) ;
+                },
+                this.drag = function() { // 拖拽
+                    var oldPosition = new Position() ;
+                    var oldPointer = new Pointer() ;
+                    var isDrag = false ;
+                    var currentItem = null ;
+                    $(this).mousedown(function(e) {
+                        e.preventDefault() ;
+                        oldPosition.left = $(this).position().left ;
+                        oldPosition.top =  $(this).position().top ;
+                        oldPointer.x = e.clientX ;
+                        oldPointer.y = e.clientY ;
+                        isDrag = true ;
+
+                        currentItem = this ;
+
+                    }) ;
+                    $(document).mousemove(function(e) {
+                        var currentPointer = new Pointer(e.clientX, e.clientY) ;
+                        if(!isDrag) return false ;
+                        $(currentItem).css({
+                            "opacity" : "0.8",
+                            "z-index" : 999
+                        }) ;
+                        var left = currentPointer.x - oldPointer.x + oldPosition.left ;
+                        var top = currentPointer.y - oldPointer.y + oldPosition.top ;
+                        $(currentItem).css({
+                            left : left,
+                            top : top
+                        }) ;
+                        currentItem.pointer = currentPointer ;
+                        // 开始交换位置
+
+                        currentItem.collisionCheck() ;
+
+
+                    }) ;
+                    $(document).mouseup(function() {
+                        if(!isDrag) return false ;
+                        isDrag = false ;
+                        currentItem.move(function() {
+                            $(this).css({
+                                "opacity" : "1",
+                                "z-index" : 0
+                            }) ;
+                        }) ;
+                    }) ;
+                }
+            this.init() ;
+        }) ;
+    }) ;
+
+    function checkForm(){
+
+        $(".item_content .item").each(function(i) {
+			alert(this.attr("index"));return false;
+		});
+       alert('提交');return false;
+        //进行下一步
+    }
+</script>
+</body>
+</html>

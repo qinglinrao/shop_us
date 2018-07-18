@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-search">
+		<li class="layui-this"><a href="javascript:void(0);">{$listTag}</a></li>
+		<li><a href="{:U('Promotion/set_tj',array('type'=>$type))}">{$addTag}</a></li>
+	</ul>
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="输入促销编号或显示文本" class="layui-input">
+		</div>
+		<div class="layui-inline">
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+	</div>
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>显示文本</th>
+					<th>第一个参数</th>
+					<th>第二个参数</th>
+					<th>规则文本</th>
+					<th>开始时间</th>
+					<th>结束时间</th>
+					<th>模版颜色</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<foreach name="list" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.pro_name}</td>
+					<td>{$vo.first}</td>
+					<td>{$vo.second}</td>
+					<td>{$vo.text}</td>
+					<td>{$vo.start_at}</td>
+					<td>{$vo.end_at}</td>
+					<td style="background-color:{$vo.color_val}"><eq name="vo.color_val" value="0">未设置</eq></td>
+					<td>
+						<if condition="NowTime() lt $vo[start_at]">未开始
+							<elseif condition="NowTime() gt $vo[end_at]" />已结束
+							<else />进行中
+						</if>
+					</td>
+					<td>
+						<a class="layui-btn layui-btn-mini" href="{:U('Promotion/set_tj',array('id'=>$vo['id'],'type'=>$vo['ptype']))}">编辑</a>
+						<a class="layui-btn layui-btn-mini" href="{:U('Promotion/del',array('id'=>$vo['id'],'type'=>$vo['ptype']))}">删除</a>
+					</td>
+				</tr>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata">没有相关数据</td>
+				</tr>
+				</notempty>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			keyword = $("input[name='keyword']").val();
+			window.location.href = '{:U("Promotion/index",array("type"=>$type))}&keyword='+ keyword;
+		});
+	});
+</script>
+</body>
+</html>

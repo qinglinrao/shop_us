@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>最近收入</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-search">
+		<li><a href="{:U('Orders/last')}">最近订单</a></li>
+		<li><a href="{:U('Orders/nopay')}">待付款订单</a></li>
+		<li><a href="{:U('Orders/nosend')}">待发货订单</a></li>
+		<li><a href="{:U('Orders/norefund')}">待退货退款订单</a></li>
+		<li><a href="{:U('Orders/income')}">最近收入</a></li>
+		<li><a href="{:U('Orders/trend')}">订单趋势</a></li>
+		<li class="layui-this"><a href="javascript:void(0);">订单来源</a></li>
+	</ul>
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline" style="width: 295px;">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="输入商品名称" class="layui-input">
+		</div>
+		<div class="layui-input-inline" style="width:310px;">
+			<input type="text" class="layui-input" name="time_area" id="time_area" placeholder="选择时间区间" lay-key="6" required="required" value="{$time_area}">
+		</div>
+		<div class="layui-inline" >
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+		</div>
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>商品名称</th>
+					<!--<th>用户姓名</th>-->
+					<!--<th>用户电话</th>-->
+					<!--<th>用户地址</th>-->
+					<!--<th>配送信息</th>-->
+					<!--<th>物流信息</th>-->
+					<th>订单来源</th>
+					<th>订单时间</th>
+					<th>状态</th>
+					<!--<th>操作</th>-->
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<foreach name="list" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.goods_name}</td>
+						<!--<td>{$vo.username}</td>-->
+						<!--<td>{$vo.phone}</td>-->
+						<!--<td>{$vo.address}</td>-->
+						<!--<td>{$vo.pw_info}</td>-->
+						<!--<td>{$vo.wl_info}</td>-->
+						<td>{$vo.from}</td>
+						<td>{$vo.create_at}</td>
+						<td>
+							<eq name="vo.statue" value='1'>未付款</eq>
+							<eq name="vo.statue" value='2'>已付款</eq>
+							<eq name="vo.statue" value='3'>配送中</eq>
+							<eq name="vo.statue" value='4'>已送达</eq>
+							<eq name="vo.statue" value='5'>未评价</eq>
+							<eq name="vo.statue" value='6'>已评价</eq>
+							<eq name="vo.statue" value='7'>待退货</eq>
+							<eq name="vo.statue" value='8'>已退货</eq>
+							<eq name="vo.statue" value='9'>已完成</eq>
+						</td>
+						<!--<td>-->
+							<!--<a class="layui-btn layui-btn-mini" href="{:U('Orders/edit',array('id'=>$vo['id'],'r'=>$_SERVER['REQUEST_URI']))}">编辑</a>-->
+							<!--<a class="layui-btn layui-btn-mini layui-btn-danger" href="{:U('Orders/del',array('id'=>$vo['id'],'r'=>$_SERVER['REQUEST_URI']))}">删除</a>-->
+						<!--</td>-->
+					</tr>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata">没有相关数据</td>
+				</tr>
+				</notempty>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="/Public/Admin/laydate/laydate.js"></script>
+	<script>
+		laydate.render({
+			elem: '#time_area' //指定元素
+			,type: 'datetime'
+			,range: '~'
+		});
+	</script>
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			var keyword = $("input[name='keyword']").val();
+			var time_area = $("input[name='time_area']").val();
+			var url = '{:U("Orders/source")}';
+			if(keyword){
+				url += '&keyword='+ keyword;
+			}
+			if(time_area){
+				url += '&time_area='+ time_area;
+			}
+			window.location.href = url;
+		});
+	});
+	</script>
+</body>
+</html>

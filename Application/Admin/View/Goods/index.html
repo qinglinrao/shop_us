@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-search">
+		<li class="layui-this"><a href="javascript:void(0);">商品列表</a></li>
+		<li><a href="{:U('Goods/add')}">添加商品</a></li>
+		<li><a href="{:U('Goods/addmore')}">批量导入商品</a></li>
+	</ul>
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline">
+			<input type="text" name="keyword_num" value="{$keyword_num}" placeholder="输入商品编号" class="layui-input">
+		</div>
+		<div class="layui-input-inline">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="输入商品名称" class="layui-input">
+		</div>
+		<div class="layui-inline">
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+		</div>
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>操作</th>
+					<th>ID</th>
+					<th>URL</th>
+					<th>投放人</th>
+					<th>轮播图第一张</th>
+					<th>主标题<br/>(###表示换行)</th>
+					<!--<th>名称</th>-->
+					<th>编号</th>
+					<th>类别</th>
+					<th>国家</th>
+					<!--<th>规格</th>-->
+					<th>原价</th>
+					<th>零售价</th>
+					<th>团购价</th>
+					<th>采购价</th>
+					<th>采购说明</th>
+					<th>运费</th>
+					<!--<th>销量</th>-->
+					<th>状态</th>
+					<th>推荐状态</th>
+					<th>拼团状态</th>
+					<th>促销标签</th>
+					<th>普通标签</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<foreach name="list" item="vo">
+				<tr>
+					<td>
+					<a class="layui-btn layui-btn-mini" href="{:U('Goods/edit',array('id'=>$vo['id']))}">编辑</a>
+					<a class="layui-btn layui-btn-mini" href="{:U('Goods/configlist',array('id'=>$vo['id']))}">规格列表</a>
+					<a class="layui-btn layui-btn-mini" href="{:U('Goods/good_images_sort',array('id'=>$vo['id'], 'type'=>1))}">轮播图顺序</a>
+					<a class="layui-btn layui-btn-mini" href="{:U('Goods/good_images_sort',array('id'=>$vo['id'], 'type' =>2))}">详情图顺序</a>
+					<a class="layui-btn layui-btn-mini layui-btn-danger" href="{:U('Goods/del',array('id'=>$vo['id']))}" onclick="javascript:if(confirm('确定要删除此信息商品吗？')){alert('删除成功！');return true;}return false;">删除</a>
+					</td>
+					<td>{$vo.id}</td>
+					<td><a href="http://fr.bestcod.net/product/{$vo.id}?code={$code}" target="_blank">商品地址</a></td>
+					<td>{$vo.admin_name}</td>
+					<td><div style="width: 50px;height: 50px;margin:0 auto;"><img src="{$vo.goods_img}" style="width: 100%;height: 100%;"/></div></td>
+					<td>{$vo.goods_title}</td>
+					<td>{$vo.goods_number}</td>
+					<td>{$vo.tname}</td>
+					<td>{$vo.goods_country}</td>
+					<!--<td>{$vo.goods_gg}</td>-->
+					<td>{$vo.goods_toprice}</td>
+					<td>{$vo.goods_trprice}</td>
+					<td>{$vo.goods_twprice}</td>
+					<td>{$vo.goods_psprice}</td>
+					<td><a href="{:U('Goods/purchase_url_view',array('id'=>$vo['id']))}">采购说明</a></td>
+					<td>{$vo.goods_price}</td>
+					<td>
+						<eq name="vo.goods_stats" value="1">
+							出售中　<button class="layui-btn layui-btn-mini stopsell"
+							 rule="{$vo.id}">下架</button>
+						</eq>
+						<eq name="vo.goods_stats" value="2">
+							已下架　<button class="layui-btn layui-btn-mini startsell"
+							 rule="{$vo.id}">上架</button>
+						</eq> 
+					</td>
+					<td>
+						<eq name="vo.is_tj" value="1">已推荐</eq>
+						<eq name="vo.is_tj" value="0"><a class="layui-btn layui-btn-mini" href="{:U('Goods/tj',array('id'=>$vo['id']))}">推荐</a></eq>
+					</td>
+					<td>
+						<gt name="vo.goods_istuan" value="0">{$vo.tuan_name} <a class="layui-btn layui-btn-mini" href="{:U('Goods/goods_istuan',array('id'=>$vo['id'],'type'=>2))}">编辑</a></gt>
+						<eq name="vo.goods_istuan" value="0">无 <a class="layui-btn layui-btn-mini" href="{:U('Goods/goods_istuan',array('id'=>$vo['id'],'type'=>1))}">添加</a></eq>
+					</td>
+					<td>
+						<gt name="vo.goods_promotion" value="0">{$vo.pro_name} <a class="layui-btn layui-btn-mini" href="{:U('Goods/goods_promotion',array('id'=>$vo['id'],'type'=>2))}">编辑</a></gt>
+						<eq name="vo.goods_promotion" value="0">无 <a class="layui-btn layui-btn-mini" href="{:U('Goods/goods_promotion',array('id'=>$vo['id'],'type'=>1))}">添加</a></eq>
+					</td>
+					<td>
+						<gt name="vo.goods_tag" value="0">{$vo.tag_name} <a class="layui-btn layui-btn-mini" href="{:U('Goods/goods_tag',array('id'=>$vo['id'],'type'=>2))}">编辑</a></gt>
+						<eq name="vo.goods_tag" value="0">无 <a class="layui-btn layui-btn-mini" href="{:U('Goods/goods_tag',array('id'=>$vo['id'],'type'=>1))}">添加</a></eq>
+					</td>
+
+				</tr>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata">没有相关数据</td>
+				</tr>
+				</notempty>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			var keyword = $("input[name='keyword']").val();
+            var keyword_num = $("input[name='keyword_num']").val();
+			window.location.href = '{:U("Goods/index")}&keyword='+ keyword +'&keyword_num='+keyword_num;
+		});
+	});
+	</script>
+	<script src="__LAYUI__/jquery-1.8.3.js"></script>
+	<script type="text/javascript">
+		$('.startsell').click(function(){
+			var idstr = $(this).attr('rule');
+			window.location.href = '{:U("Goods/sell")}&goods_stats=1&id='+idstr;
+		})
+		$('.stopsell').click(function(){
+			var idstr = $(this).attr('rule');
+			window.location.href = '{:U("Goods/sell")}&goods_stats=2&id='+idstr;
+		})
+	</script>
+</body>
+</html>

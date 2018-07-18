@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>采购链接说明</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+	<style type="text/css">
+		.layui-form-item select{display: block;}
+
+		.imgyl img{
+			width: 120px;height: 120px;
+		}
+		.imgup{
+			position: relative;
+			margin-left: -200px;
+			margin-top: 8px;
+		}
+		.imginp{
+			position: relative;
+			margin-top: 120px;
+			z-index: 900;
+		}
+		.imginp input{
+			width: 120px;height: 40px;
+		}
+		/*.layui-unselect{display: none;}*/
+	</style>
+</head>
+<body class="body">
+<ul class="layui-tab-title mt-page mb-form">
+	<li><a href="{:U('Goods/index')}">返回商品列表</a></li>
+</ul>
+
+{$info.goods_purchase_url}
+
+<script src="__LAYUI__/jquery-1.8.3.js"></script>
+<script src="__LAYUI__/layui.js"></script>
+<script src="__AJS__ajaxfileupload.js"></script>
+</body>
+</html>

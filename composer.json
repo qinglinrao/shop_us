@@ -1,0 +1,6 @@
+{
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.3",
+        "paypal/rest-api-sdk-php": "*"
+    }
+}

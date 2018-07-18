@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>管理员编辑</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+	<script src="__LAYUI__/jquery-1.8.3.js"></script>
+	<style>
+		.layui-unselect{display: none;}
+	</style>
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-form">
+		<li><a href="{:U('Admin/admin_list')}">管理员列表</a></li>
+		<li class="layui-this"><a href="javascript:void(0);">编辑管理员</a></li>
+	</ul>
+	<label id="oldpro" rules="{$list.pro_name}"></label>
+	<label id='oldcity' rules="{$list.city_name}"></label>
+	<label id='oldarea' rules="{$list.parent_name}"></label>
+	<form method="post" autocomplete="off" action="{:U('Admin/admin_doedit',array('admin_id'=>$list['admin_id']))}" class="layui-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label">姓名</label>
+			<div class="layui-input-inline">
+				<input type="text" name="admin_name" maxlength="50" value="{$list.admin_name}" lay-verify="required" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">用于登录的，最好别改</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">别称</label>
+			<div class="layui-input-inline">
+				<input type="text" name="admin_alias" maxlength="50" value="{$list.admin_alias}" lay-verify="required" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">可以不填</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">账号说明</label>
+			<div class="layui-input-inline">
+				<input type="text" name="admin_introduction" maxlength="200" value="{$list.admin_introduction}" lay-verify="required" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">可以不填</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">原密码</label>
+			<div class="layui-input-inline">
+				<input type="password" name="old_pass" maxlength="110" lay-verify="phone" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">原来密码，必须填写</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">新密码</label>
+			<div class="layui-input-inline">
+				<input type="password" name="admin_pass" maxlength="110" lay-verify="phone" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">管理员密码，必须填写</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="Submit">立即提交</button>
+			</div>
+		</div>
+	</form>
+
+	<script src="__LAYUI__/layui.js"></script>
+
+</body>
+</html>

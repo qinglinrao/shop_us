@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html style="font-size: 18.75px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="robots" content="noindex">
+    <meta name="googlebot" content="noindex">
+    <title>{$info.goods_title2}</title>
+    <link rel="stylesheet" href="__GCSS__swiper.min.css">
+    <!--<link href="./static/animate.min.css" rel="stylesheet">-->
+    <link href="__NEW-CSS__smartphoto.min.css" rel="stylesheet">
+    <!--<link href="./static/font-awesome.min.css" rel="stylesheet">-->
+    <link href="__NEW-CSS__base.css" rel="stylesheet">
+    <!--<script type="text/javascript" async="" src="./static/ec.js.下载"></script><script type="text/javascript" async="" src="./static/insert.js.下载"></script><script type="text/javascript" async="" src="./static/analytics.js.下载"></script><script src="./static/ytc.js.下载" async=""></script><script async="" src="./static/gtm.js.下载"></script><script src="./static/104651926848374" async=""></script><script async="" src="./static/fbevents.js.下载"></script>-->
+    <script src="__GJS__jQuery-3.3.1.js"></script>
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link href="https://cod-ec.youcdn.net/" rel="dns-prefetch">
+    <link href="https://cdnjs.cloudflare.com/" rel="dns-prefetch">
+    <link href="http://img-ec.youcdn.net/" rel="dns-prefetch">
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '201123204038364');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=201123204038364&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!--<script async="" src="./static/js"></script>-->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-78249777-12', {
+            'site_speed_sample_rate' : 100
+        });
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PZWRFHD');</script>
+    <!-- End Google Tag Manager -->
+
+    <script>
+        var LANG='en';
+        var LANGS = {
+            "zh-CN": {
+                "Purchase limit {num} items.": "每人限购{num}个",
+                "Please select the product's attributes.": "请选择商品规格"
+            },
+            "ms": {
+                "Purchase limit {num} items.": "Had {num} kepada setiap orang.",
+                "Please select the product's attributes.": "Sila pilih atribut produk."
+            }
+        };
+        function translate(message, params) {
+            try {
+                message = LANGS[LANG][message];
+            } catch (e) {}
+
+            if (typeof params!='object') {
+                return message;
+            }
+
+            for (var name in params) {
+                message = message.replace("{"+name+"}", params[name]);
+            }
+
+            return message;
+        }
+    </script>
+    <!--<link type="text/css" rel="stylesheet" href="chrome-extension://pioclpoplcdbaefihamjohnefbikjilc/content.css"><link type="text/css" rel="stylesheet" href="./static/widget-6513674bd89dceb40f9372b2bcb558c9.css">-->
+
+</head>
+<body style="max-width: 640px;margin: auto;">
+
+<div id="page" style="padding-bottom: 2.8rem;">
+    <div class="swiper-container swiper-container1 swiper-container-horizontal swiper-container-android swiper-container-wp8-horizontal">
+        <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(-933px, 0px, 0px);">
+            <volist name="imgList" id="vo">
+                <div class="swiper-slide"><img class="swiper-lazy" data-src="{:trim($vo[image],'.')}"/><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
+            </volist>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <div class="seckill-container">
+        <div class="seckill-price-wrap">
+            <div class="seckill-price"><span class="seckill-big-price">RM {$info.goods_trprice}</span><span class="seckill-small-price">RM {$info.goods_toprice}</span></div>
+            <div class="seckill-btm-div">
+                <span class="skf-icon-pos">
+                    <i class="label-icon-div white-border have-icon-div">
+                        <i class="label-icon seckill-floor-icon"></i>
+                        <span class="label-text white-text" style="display: inline-block;vertical-align: middle;line-height: 0.8rem;font-style: normal;">Flash Deals</span>
+                    </i>
+                </span>
+                <div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" style="width: 95%"> <span style="/* color:#b00; */">Sold 95%</span></div></div>
+            </div>
+        </div>
+        <div class="seckill-time-wrap">
+            <span class="seckil-time-title">Ends In:</span>
+            <div class="seckill-time-div" id="seckill_time">
+                <span class="seckill-time-num hour">00</span>
+                <span class="seckill-time-colon">:</span>
+                <span class="seckill-time-num minute">47</span>
+                <span class="seckill-time-colon">:</span>
+                <span class="seckill-time-num s">45</span>
+                <span class="seckill-time-colon">.</span>
+                <span class="seckill-time-num ms">2</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="title-container">
+        <div class="title">{$info.goods_title}</div>
+        <div class="tips">{$info.goods_subtitle}</div>
+    </div>
+    <div class="label-container clearfix">
+        <div class="label"><i class=""></i>Cash On Delivery</div>
+        <div class="label"><i class=""></i>Free Shipping</div>
+        <div class="label"><i class=""></i>Genuine Guarantee</div>
+        <div class="label"><i class=""></i>7 Days No Reason To Return</div>
+    </div>
+
+
+    <div class="description-container">
+        <div class="description-header">Product Details</div>
+        <div class="description-body">
+            <p><span style="font-family: arial, helvetica, sans-serif;"><strong style="box-sizing: border-box;"></strong></span></p><div class="">
+
+            <div class="video-wrapper">
+                <if condition = "$info[video_url]">
+                    <!--嵌套youtube的视频-->
+                    <iframe width="854" height="480" src="https://www.youtube.com/embed/{$info[video_url]}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </if>
+
+            </div>
+        </div>
+
+            <p><span style="font-family: arial, helvetica, sans-serif;"><strong style="box-sizing: border-box;"></strong></span><br></p>
+
+            <!--<p><img src="./static/43f341f9bb2cbbb39766b7d3b80f949b.jpg!xlarge.jpg" data-original="http://img-ec.youcdn.net/43/f3/43f341f9bb2cbbb39766b7d3b80f949b.jpg!xlarge.jpg" title="4" style="display: inline;"></p>
+            <p><img src="./static/d0362e4a53a81bcdb44f078afa8e17f0.webp" data-original="http://img-ec.youcdn.net/d0/36/d0362e4a53a81bcdb44f078afa8e17f0.jpg!xlarge.jpg" title="5" style="display: inline;"></p>
+-->
+            {$info[goods_introduce]}
+
+            <volist name="detailimgList" id="vo">
+                <if condition = "$vo[is_img] eq 1">
+                    <img class="lazy" data-original="{:trim($vo[image],'.')}">
+                    <else />
+
+                    <video src="{:trim($vo[image],'.')}" controls="controls" style="max-width: 98%;margin: 0 auto">
+                        您的浏览器不支持 video 标签。
+                    </video>
+                </if>
+            </volist>
+
+            <!--购买须知-->
+            <if condition="$info[goods_notice]">
+                <!--购买须知-->
+                <img class="lazy" data-original="{:trim($info[goods_notice],'.')}">
+            </if>
+
+            <!--<p><span style="font-family: arial, helvetica, sans-serif;"><strong style="box-sizing: border-box;">❀100% Money Back Guarantee.</strong></span></p>
+            <p><span style="font-family: arial, helvetica, sans-serif;"><strong style="box-sizing: border-box;"><strong style="font-family: arial, helvetica, sans-serif; white-space: normal; box-sizing: border-box;">❀</strong>Fast Delivery Available.</strong></span></p>
+            <p><span style="font-family: arial, helvetica, sans-serif;"><strong style="box-sizing: border-box;"><strong style="font-family: arial, helvetica, sans-serif; white-space: normal; box-sizing: border-box;">❀</strong>99.3% Reviewers Recommends This Product.</strong>&nbsp;</span></p>
+            <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17px; white-space: normal; background-color: rgb(255, 255, 255); line-height: 28.9px;"><span style="font-family: arial, helvetica, sans-serif;">This&nbsp;Slimming Cami Shaper is the ultimate 3-in-1 garment!</span></p>
+            <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17px; white-space: normal; background-color: rgb(255, 255, 255); line-height: 28.9px;"><span style="font-family: arial, helvetica, sans-serif;"><strong style="box-sizing: border-box;">You get a Push-up Bra, Cami&nbsp;top and shapewear all rolled into one</strong>! With &nbsp;<strong style="box-sizing: border-box;">5&nbsp;zones of comfortable compression, it</strong>&nbsp;targets all your trouble areas.</span></p>
+            <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17px; white-space: normal; background-color: rgb(255, 255, 255); line-height: 28.9px;"><span style="font-family: arial, helvetica, sans-serif;">The wide straps and&nbsp;<strong style="box-sizing: border-box;">seamless design</strong>&nbsp;give you smooth lines under any garment and the flared comfort band hugs your hips to control your love handles.</span></p>
+            <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17px; white-space: normal; background-color: rgb(255, 255, 255); line-height: 28.9px;"><span style="font-family: arial, helvetica, sans-serif;">The bra-top gives you a lift and comes with removable pads, so you can&nbsp;choose the coverage you need.&nbsp;</span></p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17px; white-space: normal; background-color: rgb(255, 255, 255);"><span style="font-family: arial, helvetica, sans-serif;">This is i<strong style="box-sizing: border-box;">deal for under low cut tops, sweaters and dresses.<br></strong></span></p><h2 style="box-sizing: border-box; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-weight: 400; margin: 4em 0px 2em; line-height: 1.4; text-rendering: optimizeLegibility; font-size: 1em; letter-spacing: 0.1em; text-transform: uppercase; white-space: normal; background-color: rgb(255, 255, 255);"><span style="font-family: arial, helvetica, sans-serif;"><strong style="box-sizing: border-box;"><span style="font-family: arial, helvetica, sans-serif; box-sizing: border-box;">❤️ MARCH CLEARANCE<span style="font-family: arial, helvetica, sans-serif; box-sizing: border-box;">!</span>&nbsp;❤️&nbsp;&nbsp;</span></strong></span></h2><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17px; white-space: normal; background-color: rgb(255, 255, 255);"><span style="box-sizing: border-box; color: rgb(56, 118, 29); font-family: arial, helvetica, sans-serif;"><strong style="box-sizing: border-box;">NOW you can get it at 70% OFF!</strong></span></p><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17px; white-space: normal; background-color: rgb(255, 255, 255); line-height: 28.9px;"><span style="font-family: arial, helvetica, sans-serif;"><span style="font-family: arial, helvetica, sans-serif; box-sizing: border-box; color: rgb(255, 0, 0);"><strong style="box-sizing: border-box;">Original Price $66 -&gt;&nbsp;</strong></span><strong style="box-sizing: border-box;"><span style="font-family: arial, helvetica, sans-serif; box-sizing: border-box; color: rgb(56, 118, 29);">Today Only: $19.97 (SAVE 70%)&nbsp;(Limited time only)</span></strong>&nbsp;&nbsp;</span></p><ul style="box-sizing: border-box; margin-bottom: 25px; margin-left: 20px; padding: 0px; text-rendering: optimizeLegibility; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17px; white-space: normal; background-color: rgb(255, 255, 255);" class=" list-paddingleft-2"><li><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; line-height: 28.9px;"><span style="font-family: arial, helvetica, sans-serif;">5 zones of comfortable compression&nbsp;<strong style="box-sizing: border-box;">targeting your trouble areas (back, sides, stomach, and muffin top).</strong></span></p></li><li><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; line-height: 28.9px;"><span style="font-family: arial, helvetica, sans-serif;">Built with soft contour cups to&nbsp;<strong style="box-sizing: border-box;">help lift and support the bust</strong>&nbsp;while minimizing back fat and spillage.</span></p></li><li>
+            <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; line-height: 28.9px;"><span style="font-family: arial, helvetica, sans-serif;">Flare comfort band hugs your hips to help&nbsp;<strong style="box-sizing: border-box;">control love handles</strong>.</span></p></li><li><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; line-height: 28.9px;"><span style="font-family: arial, helvetica, sans-serif;"><strong style="box-sizing: border-box;">Easy</strong>&nbsp;to step in: it comes in one piece with a curve-hugging,&nbsp;<strong style="box-sizing: border-box;">seamless design</strong>.</span></p></li><li><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; line-height: 28.9px;"><span style="font-family: arial, helvetica, sans-serif;">The "Magic pouch" accommodates&nbsp;<strong style="box-sizing: border-box;">removable modesty pads for extra lift</strong>&nbsp;and coverage.</span></p></li></ul><p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17px; white-space: normal; background-color: rgb(255, 255, 255);"><span style="font-family: arial, helvetica, sans-serif;"><strong style="box-sizing: border-box;">Confirm&nbsp;Your Size:</strong></span></p>
+
+            <p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 25px; text-rendering: optimizeLegibility; font-family: Montserrat, HelveticaNeue, &quot;Helvetica Neue&quot;, sans-serif; font-size: 17px; white-space: normal; background-color: rgb(255, 255, 255);"><img src="./static/351378a64d19fa41c3afdda7dce87e40.webp" data-original="http://img-ec.youcdn.net/35/13/351378a64d19fa41c3afdda7dce87e40.jpg!xlarge.jpg" title="cami-size-chart_large" alt="cami-size-chart_large.jpg" style="display: inline;"></p>
+            <p><br></p>-->
+
+        </div>
+    </div>
+</div>
+
+<div id="scrollTop" class="animated fadeInRight loading" style="display: block;">
+</div>
+<div id="submit_order" style="">
+    <div>
+        Buy Now    </div>
+</div>
+
+<script>
+    window.productData = {
+        product: {"id":"190426","sku":"CFZ1060067","sale_price":"168.80"},
+        purchaseLimit: "2",
+        variants: [{"id":"9902","attributes":"10-109","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/58\/ff\/58ff43969dad2e4957907a9261816202.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9897","attributes":"10-142","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/62\/50\/625049841cc39262c63508c5148d3b02.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9892","attributes":"10-85","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/67\/a3\/67a3d47a9cd71e7fbfa20444700469cc.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9903","attributes":"12-109","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/58\/ff\/58ff43969dad2e4957907a9261816202.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9898","attributes":"12-142","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/62\/50\/625049841cc39262c63508c5148d3b02.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9893","attributes":"12-85","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/67\/a3\/67a3d47a9cd71e7fbfa20444700469cc.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9899","attributes":"7-109","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/58\/ff\/58ff43969dad2e4957907a9261816202.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9894","attributes":"7-142","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/62\/50\/625049841cc39262c63508c5148d3b02.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9889","attributes":"7-85","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/67\/a3\/67a3d47a9cd71e7fbfa20444700469cc.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9900","attributes":"8-109","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/58\/ff\/58ff43969dad2e4957907a9261816202.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9895","attributes":"8-142","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/62\/50\/625049841cc39262c63508c5148d3b02.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9890","attributes":"8-85","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/67\/a3\/67a3d47a9cd71e7fbfa20444700469cc.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9901","attributes":"9-109","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/58\/ff\/58ff43969dad2e4957907a9261816202.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9896","attributes":"9-142","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/62\/50\/625049841cc39262c63508c5148d3b02.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"},{"id":"9891","attributes":"9-85","original_price":"368.80","sale_price":"168.80","stock_volume":"999","active":true,"images":"http:\/\/img-ec.youcdn.net\/67\/a3\/67a3d47a9cd71e7fbfa20444700469cc.jpg!medium.jpg","original_price_format":"RM 368.80","sale_price_format":"RM 168.80"}]    };
+</script>
+
+<div class="widgets-cover <if condition='($size_num) gt 0'>widgets-cover-sku<else />widgets-cover-order</if>">
+    <div class="cover-bg"></div>
+    <div class="cover-content">
+        <form class="j-checkout-form" onsubmit="return false;">
+            <div class="sku-wrap">
+                <div class="header">
+                    <div class="img-wrap">
+                        <!--第一张图片的封面-->
+                        <img src="{:trim($imgList[0][image],'.')}" class="j-summary-img">
+                    </div>
+                    <div class="main">
+                        <div class="price">RM {$info.goods_trprice}</div>
+                        <if condition='($size_num) gt 0'>
+                        <div class="sku-info">Selected：<span class="selected-container"><span>White</span><span>2XL</span></span></div>
+                        </if>
+                    </div>
+                    <a class="sku-close"></a>
+                </div>
+                <div class="body">
+                    <input type="hidden" name="id" value="200185">
+                    <input type="hidden" name="variant_id" value="9898">
+                    <input type="hidden" class="size_num" value="{$size_num}"/>
+                    <input type="hidden" class="trprice" value="{$info.goods_trprice}"/>
+                    <input type="hidden" class="product_id" value="{$info[id]}"/>
+                    <input type="hidden" id="o_code" name="o_code" value="{$o_code}" >
+                    <ul class="sku-list-wrap">
+                        <if condition="isset($size[weight])">
+                            <li>
+                                <h2 id="prop_title_1">Weight</h2>
+                                <div class="items items_weight" role="radiogroup">
+                                    <volist name="size.weight" id="vo">
+                                        <a href="javascript:;" data-id="85">{$vo}</a>
+                                    </volist>
+
+                                </div>
+                            </li>
+                        </if>
+                        <if condition="isset($size[color])">
+                            <li>
+                                <h2 id="prop_title_2">Color</h2>
+                                <div class="items items_color" role="radiogroup">
+                                    <volist name="size.color" id="vo">
+                                        <a href="javascript:;" data-id="85">{$vo}</a>
+                                    </volist>
+
+                                </div>
+                            </li>
+                        </if>
+                        <if condition="$size[size]">
+                            <li>
+                                <h2 id="prop_title_3">Size</h2>
+                                <div class="items items_size" role="radiogroup">
+                                    <volist name="size.size" id="vo">
+                                    <a href="javascript:;" data-id="7">{$vo}</a>
+                                    </volist>
+
+                                </div>
+                            </li>
+                        </if>
+                </ul>
+                    <div class="number-wrap">
+                        <div class="number-line">
+                            <label for="number">Quantity</label>
+                            <span class="J_limitTxt limit-txt"></span>
+                            <div class="number">
+                                <button class="decrease" id="quantity_minus">-</button>
+                                <input id="quantity" name="quantity" type="number" value="1">
+                                <button class="increase disabled" id="quantity_add">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bdbox">
+                        <label class="bdxx" for="contact_name"><em>*</em>Contact Name</label>
+                        <div class="textbox">
+                            <input name="contact" type="text" id="contact_name" placeholder="Please enter the contact name.">
+                        </div>
+                    </div>
+                    <div class="bdbox">
+                        <label class="bdxx" for="mob"><em>*</em>Phone Number</label>
+                        <div class="textbox">
+                            <input name="mobile" id="mob" datatype="m" type="text" placeholder="Please enter the phone number.">
+                        </div>
+                    </div>
+                    <!--<div class="bdbox">
+                        <label class="bdxx"><em>*</em>Email</label>
+                        <div class="textbox">
+                            <input name="email" id="email" datatype="m" type="text" placeholder="Please enter the email.">
+                        </div>
+                    </div>-->
+                    <div class="bdbox">
+                        <label class="bdxx" for="address"><em>*</em>Address</label>
+                        <div class="textbox">
+                            <input name="address" id="address" datatype="*" type="text" placeholder="Please enter the shipping address.">
+                        </div>
+                    </div>
+                    <div class="bdbox">
+                        <label class="bdxx" for="postcode"><em>*</em>Postcode</label>
+                        <div class="textbox">
+                            <input name="postcode" id="postcode" datatype="*" type="text" placeholder="Please enter the postcode.">
+                        </div>
+                    </div>
+                    <div class="bdbox">
+                        <label class="bdxx" for="message">Message</label>
+                        <div class="text2box">
+                            <input type="text" name="message" rows="1" id="message" placeholder="Please enter the message.">
+                        </div>
+                    </div>
+                    <div class="bdbox">
+                        <label class="bdxx">Total</label>
+                        <div class="text3box text-r">
+                            <span style="color:#ef3560" id="j_total">RM {$info.goods_trprice}</span>
+                            <span id="zfbyh"></span>
+                        </div>
+                    </div>
+                    <div class="bdbox">
+                        <label class="bdxx">Shipping Fee</label>
+                        <div class="dxbox text-r">
+                            Free Shipping                        </div>
+                    </div>
+                    <div class="bdbox">
+                        <label class="bdxx">Payment Method</label>
+                        <div class="text2box text-r">
+                            Cash On Delivery                            <i class="fa fa-truck" style="margin-left: .2rem; transform: rotateY(180deg);font-size: .8rem;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer trade">
+                    <div class="buy sku-buy" role="button">Buy Now</div>
+                    <div class="buy order-buy" role="button">Submit Order</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="layout-bg" style="display: none;"></div>
+<div id="Validform_msg" class="animated zoomOut" style="display: none;">
+    <div class="Validform_info">Purchase limit 3 items.</div>
+</div>
+
+
+<!--图片延迟加载-->
+<script src="__GJS__jquery.lazyload.js"></script>
+<script src="__GJS__swiper.min.js"></script>
+<!--<script src="__GJS__smartphoto.min.js"></script>-->
+<script src="__NEW-JS__product.js?a=44312"></script><script type="text/javascript" id="">(function(d,a,b,f,e){d[e]=d[e]||[];d[e].push({projectId:"10000",properties:{pixelId:"10030811"}});var c=a.createElement(b);c.src=f;c.async=!0;c.onload=c.onreadystatechange=function(){var a=this.readyState,c=d[e];if(!a||"complete"==a||"loaded"==a)try{var b=YAHOO.ywa.I13N.fireBeacon;d[e]=[];d[e].push=function(a){b([a])};b(c)}catch(g){}};a=a.getElementsByTagName(b)[0];b=a.parentNode;b.insertBefore(c,a)})(window,document,"script","https://s.yimg.com/wi/ytc.js","dotq");</script><!-- Begin of Chaport Live Chat code -->
+<style>
+    .chaport-container{z-index: 100!important;}
+    .chaport-container .chaport-launcher{z-index: 100!important;}
+    .chaport-launcher-button{bottom: 5em !important; left: 1em !important;}
+</style>
+<!--<script type="text/javascript">
+    (function(w,d,v2){
+        w.chaport = { app_id : '5ab9f906879917059367d29f' };
+        v2=w.chaport;v2._q=[];v2._l={};v2.q=function(){v2._q.push(arguments)};v2.on=function(e,fn){if(!v2._l[e])v2._l[e]=[];v2._l[e].push(fn)};var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://app.chaport.com/javascripts/insert.js';var ss=d.getElementsByTagName('script')[0];ss.parentNode.insertBefore(s,ss)})(window, document);
+</script>-->
+<!--<script>
+    window.chaport.q('on', ['ready', function () {
+        $('.chaport-launcher-button').on('click', function () {
+            try {
+                gtag('event', 'Chat', {'event_category':'Chat','event_action':'Open','event_label':'Dialog'});
+            } catch (e){}
+        });
+    }]);
+</script>-->
+<!-- End of Chaport Live Chat code -->
+
+<div data-id="JHU9EJ1VZ7DWG"><div class="smartphoto" aria-hidden="true" role="dialog">
+    <div class="smartphoto-body">
+        <div class="smartphoto-inner">
+            <div class="smartphoto-header">
+                <span class="smartphoto-count">1/</span>
+                <span class="smartphoto-caption" aria-live="polite" tabindex="-1"></span>
+                <button class="smartphoto-dismiss" data-action-click="hidePhoto()"><span class="smartphoto-sr-only">close the image dialog</span></button>
+            </div>
+            <div class="smartphoto-content" data-action-touchstart="beforeDrag" data-action-touchmove="onDrag" data-action-touchend="afterDrag(false)">
+            </div>
+            <ul style="transform:translate(px,px);" class="smartphoto-list">
+            </ul>
+            <ul class="smartphoto-arrows">
+                <li class="smartphoto-arrow-left" aria-hidden="true"><a href="http://www.minibugle.com/product/200185#" data-action-click="gotoSlide()" role="button"><span class="smartphoto-sr-only">go to the previous image</span></a></li>
+                <li class="smartphoto-arrow-right" aria-hidden="true"><a href="http://www.minibugle.com/product/200185#" data-action-click="gotoSlide()" role="button"><span class="smartphoto-sr-only">go to the next image</span></a></li>
+            </ul>
+            <nav class="smartphoto-nav">
+                <ul>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+<!--<script type="application/javascript" id="ywa-1527754197244-533595" class="ywa-10000" defer="" src="./static/sp.pl.下载"></script>-->
+
+<!--
+<div class="chaport-container chaport-container-positioned chaport-device-android chaport-device-mobile chaport-window-pink chaport-position-left" style="">
+    <div class="chaport-launcher" style="display: none;">
+        <div class="chaport-launcher-button no-photo chaport-launcher-anim chaport-anim-show">
+            <div class="chaport-launcher-chat-icon"></div>
+            <div class="chaport-launcher-close-icon"></div>
+            <div class="chaport-launcher-operator-photo"></div>
+            <div class="chaport-launcher-badge chaport-badge-hide"></div>
+        </div>
+        <div class="chaport-message chaport-anim-hide chaport-launcher-anim" style="">
+        <div class="chaport-message-text"></div><div class="chaport-message-tail"></div>
+        <div class="chaport-message-close">
+
+        </div>
+    </div>
+    </div>
+    <div class="chaport-window chaport-anim-hide chaport-window-anim">
+        <div class="chaport-inner">
+            <iframe src="./static/show.html" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </div>
+    <div class="chaport-auto-invitation chaport-anim-hide chaport-window-anim">
+        <div class="chaport-auto-invitation-message">
+            <div class="chaport-auto-invitation-message-body"><div class="operator-face"><div class="photo"></div></div><div class="operator-name"></div><div class="message-text"></div><div class="chaport-close"></div></div></div><div class="chaport-auto-invitation-input">Type a message here...</div></div><div class="chaport-big-shadow"></div></div>
+-->
+
+</body></html>

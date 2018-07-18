@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品信息管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+	<style type="text/css">
+		/*.layui-form-item select{display: block;}*/
+
+		.imgyl img{
+			width: 120px;height: 120px;
+		}
+		.imgup{
+			position: relative;
+			margin-left: -200px;
+			margin-top: 8px;
+		}
+		.imginp{
+			position: relative;
+			margin-top: 120px;
+			z-index: 900;
+		}
+		.imginp input{
+			width: 120px;height: 40px;
+		}
+
+	</style>
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-form">
+		<li><a href="{:U('Evaluate/index')}">评论列表</a></li>
+		<li class="layui-this"><a href="javascript:void(0);">添加评论</a></li>
+		<li><a href="{:U('Evaluate/dadd')}">批量导入</a></li>
+	</ul>
+	<form method="post" autocomplete="off" action="{:U('Evaluate/doadd')}" class="layui-form">
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">选择商品</label>
+			<div class="layui-input-inline" style="width:500px;">
+				<select name="goods_id" lay-verify="required">
+					<option value=""></option>
+					<foreach name='goods'  item='v'>
+						<option value="{$v.id}">编号:{$v.id}－名称:{$v.goods_title}</option>
+					</foreach>
+				</select>
+			</div>
+			<div class="layui-form-mid layui-word-aux">必选，选择您要推荐的商品</div>
+		</div>
+
+		<div class="layui-form-item layui-form-text">
+			<label class="layui-form-label">用户姓名</label>
+			<div class="layui-input-inline">
+				<input type="text" name="username" maxlength="10" lay-verify="required" value="{$user.username}" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">必填，后台根据机器人随机生成，可更改</div>
+		</div>
+
+		<div class="layui-form-item layui-form-text">
+			<label class="layui-form-label">手机号码</label>
+			<div class="layui-input-inline">
+				<input type="text" name="phone" maxlength="11" lay-verify="phone" value="{$user.phone}" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">必填，后台根据机器人随机生成，可更改</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">评论等级</label>
+			<div class="layui-input-inline" style="width:500px;">
+				<input type="radio" name="level" lay-skin="primary" title="1颗星" class="layui-input" value="1">
+				<input type="radio" name="level" lay-skin="primary" title="2颗星" value="2" class="layui-input">
+				<input type="radio" name="level" lay-skin="primary" title="3颗星" value="3" class="layui-input">
+				<input type="radio" name="level" lay-skin="primary" title="4颗星" value="4" class="layui-input">
+				<input type="radio" name="level" lay-skin="primary" title="5颗星" value="5" class="layui-input" checked>
+			</div>
+			<div class="layui-form-mid layui-word-aux">必选，评论星级</div>
+		</div>
+
+		<div class="layui-form-item layui-form-text">
+			<label class="layui-form-label">评论文本</label>
+			<div class="layui-input-inline" style="width:500px;">
+				<textarea name="text" lay-verify="required" placeholder="请输入内容" class="layui-textarea" maxlength="100">{$info.text}</textarea>
+			</div>
+			<div class="layui-form-mid layui-word-aux">必填，评论内容</div>
+		</div>
+
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">评论图片</label>
+
+			<div class="imgbox">
+				<div class="layui-input-inline imgyl"  style="width: 128px;">
+					<img class="upimg1" src="__AIMG__nophoto.jpg">
+				</div>
+				<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+					<div class="imginp">
+						<input type="file" id="upimg1" class="layui-upload-file upload1" name='upimg1' onchange="fileChange(this,'upimg1')" >
+						<input name="img[]" sx='upimg1' type="hidden" value="" />
+					</div>
+				</div>
+			</div>
+
+			<div class="imgbox">
+				<div class="layui-input-inline imgyl"  style="width: 128px;">
+					<img class="upimg2" src="__AIMG__nophoto.jpg">
+				</div>
+				<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+					<div class="imginp">
+						<input type="file" id="upimg2" class="layui-upload-file upload2" name='upimg2' onchange="fileChange(this,'upimg2')">
+						<input name="img[]" sx='upimg2' type="hidden" value="" />
+					</div>
+				</div>
+			</div>
+
+			<div class="imgbox">
+				<div class="layui-input-inline imgyl"  style="width: 128px;">
+					<img class="upimg3" src="__AIMG__nophoto.jpg">
+				</div>
+				<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+					<div class="imginp">
+						<input type="file" id="upimg3" class="layui-upload-file upload3" name='upimg3' onchange="fileChange(this,'upimg3')" >
+						<input name="img[]" sx='upimg3' type="hidden" value="" />
+					</div>
+				</div>
+			</div>
+
+			<div class="imgbox">
+				<div class="layui-input-inline imgyl"  style="width: 128px;">
+					<img class="upimg4" src="__AIMG__nophoto.jpg">
+				</div>
+				<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+					<div class="imginp">
+						<input type="file" id="upimg4" class="layui-upload-file  upload4" name='upimg4' onchange="fileChange(this,'upimg4')">
+						<input name="img[]" sx='upimg4' type="hidden" value="" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">评论状态</label>
+			<div class="layui-input-block">
+				<input type="radio" name="statue" value="1" title="待审核" checked>
+				<input type="radio" name="statue" value="2" title="已通过">
+				<input type="radio" name="statue" value="3" title="未通过">
+			</div>
+			<div class="layui-form-mid layui-word-aux">可更改，评论状态</div>
+		</div>
+
+		
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn layui-btn-danger" lay-submit lay-filter="Submit">立即提交</button>
+			</div>
+		</div>
+	</form>
+<script src="__LAYUI__/jquery-1.8.3.js"></script>
+<script src="__LAYUI__/layui.js"></script>
+<script src="__AJS__ajaxfileupload.js"></script>
+<script type="text/javascript">
+	var idstr=''
+	function fileChange(obj,str){
+		var f = obj.files[0];
+		var src = window.URL.createObjectURL(f)//预览图片url
+		$('.'+str).attr('src',src);
+		idstr = str;
+	}
+
+	layui.use('form', function(){
+		var form = layui.form();
+
+//		//监听提交
+//		form.on('submit(formDemo)', function(data){
+//			layer.msg(JSON.stringify(data.field));
+//			return false;
+//		});
+		form.verify({
+			phone: [
+				/^1[3,4,5,6,7,8]\d{9}$/
+				,'填写有效手机号码，且不能出现空格'
+			]
+		});
+	});
+
+ 	layui.use(['upload'], function() {
+ 		layui.upload({
+			title: '上传图片　',
+			elem: '.upload1',
+			url: "{:U('Evaluate/imgup',array('num'=>1))}",
+			type: 'images',
+			ext: 'png|gif|jpg|jpeg',
+			success: function(res) {
+				if (res.status == 'error') {
+					layer.msg(res.msg, {icon: 2, shift:6});
+				} else {
+					//alert(idstr);
+					$("input[sx='"+idstr+"']").val(res.url);
+					
+				}
+			}
+		});
+		layui.upload({
+			title: '上传图片　',
+			elem: '.upload2',
+			url: "{:U('Evaluate/imgup',array('num'=>2))}",
+			type: 'images',
+			ext: 'png|gif|jpg|jpeg',
+			success: function(res) {
+				if (res.status == 'error') {
+					layer.msg(res.msg, {icon: 2, shift:6});
+				} else {
+					//alert(idstr);
+					$("input[sx='"+idstr+"']").val(res.url);
+
+				}
+			}
+		});
+		layui.upload({
+			title: '上传图片　',
+			elem: '.upload3',
+			url: "{:U('Evaluate/imgup',array('num'=>3))}",
+			type: 'images',
+			ext: 'png|gif|jpg|jpeg',
+			success: function(res) {
+				if (res.status == 'error') {
+					layer.msg(res.msg, {icon: 2, shift:6});
+				} else {
+					//alert(idstr);
+					$("input[sx='"+idstr+"']").val(res.url);
+
+				}
+			}
+		});
+		layui.upload({
+			title: '上传图片　',
+			elem: '.upload4',
+			url: "{:U('Evaluate/imgup',array('num'=>4))}",
+			type: 'images',
+			ext: 'png|gif|jpg|jpeg',
+			success: function(res) {
+				if (res.status == 'error') {
+					layer.msg(res.msg, {icon: 2, shift:6});
+				} else {
+					//alert(idstr);
+					$("input[sx='"+idstr+"']").val(res.url);
+
+				}
+			}
+		});
+ 	});
+ </script>
+</body>
+</html>

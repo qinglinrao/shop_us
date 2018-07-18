@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品信息管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+	<style type="text/css">
+		.layui-form-item select{display: block;}
+
+		.imgyl img{
+			width: 120px;height: 120px;
+		}
+		.imgup{
+			position: relative;
+			margin-left: -200px;
+			margin-top: 8px;
+		}
+		.imginp{
+			position: relative;
+			margin-top: 120px;
+			z-index: 900;
+		}
+		.imginp input{
+			width: 120px;height: 40px;
+		}
+		/*.layui-unselect{display: none;}*/
+	</style>
+</head>
+<body class="body">
+<ul class="layui-tab-title mt-page mb-form">
+	<li><a href="{:U('Goods/index')}">商品列表</a></li>
+	<li class="layui-this"><a href="javascript:void(0);">编辑商品</a></li>
+</ul>
+<form method="post" autocomplete="off" action="{:U('Goods/doedit')}" class="layui-form" onsubmit='return checkForm()'>
+	<input type="hidden" name="id" maxlength="10" value="{$info.id}" lay-verify="required" class="layui-input">
+	<!--<div class="layui-form-item">-->
+		<!--<label class="layui-form-label">商品名称</label>-->
+		<!--<div class="layui-input-inline">-->
+			<!--<input type="text" name="goods_name" maxlength="10" value="{$info.goods_name}" lay-verify="required" class="layui-input">-->
+		<!--</div>-->
+		<!--<div class="layui-form-mid layui-word-aux">商品名称，必须填写</div>-->
+	<!--</div>-->
+	<div class="layui-form-item">
+		<label class="layui-form-label">商品ID</label>
+		<div class="layui-input-inline">
+			<input type="text" value="{$info.id}" class="layui-input"/>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">国家</label>
+		<div class="layui-input-inline">
+			<select class="layui-input layui-select" name="goods_country" lay-verify="required">
+				<foreach name='country' item='vo'>
+					<option value="{$vo.acronym}" <if condition="$info[goods_country] eq $vo[acronym]">selected</if>>{$vo.chinese}</option>
+				</foreach>
+			</select>
+		</div>
+		<div class="layui-form-mid layui-word-aux">商品的国家，必须填写</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">商品主标题</label>
+		<div class="layui-input-inline">
+			<input type="text" name="goods_title" maxlength="500" value="{$info.goods_title}" lay-verify="required" class="layui-input">
+		</div>
+		<div class="layui-form-mid layui-word-aux">商品的主标题，必须填写</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">商品副标题</label>
+		<div class="layui-input-inline">
+			<input type="text" name="goods_subtitle" value="{$info.goods_subtitle}" maxlength="500" class="layui-input">
+		</div>
+		<div class="layui-form-mid layui-word-aux">商品副标题，必须填写</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">商品类别</label>
+		<div class="layui-input-inline">
+			<select class="layui-input layui-select" name="pid" lay-verify="required">
+				<option value="0">--请选择--</option>
+				<foreach name='list'  item='v'>
+					<optgroup class="" label="{$v.type_name}">
+						<foreach name='v.slist'  item='vo'>
+							<option value="{$vo.id}" <if condition="$vo['id'] eq $info['cate_id']">selected</if>>{$vo.type_name}</option>
+						</foreach>
+					</optgroup>
+				</foreach>
+			</select>
+		</div>
+		<div class="layui-form-mid layui-word-aux">选择该商品的类别，若不选可能导致信息无法正常显示，必须选择</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">原价</label>
+		<div class="layui-input-inline">
+			<input type="text" name="goods_toprice" value="{$info.goods_toprice}" maxlength="10" lay-verify="toprice" value="0" class="layui-input">
+		</div>
+		<div class="layui-form-mid layui-word-aux">商品页中划删除线的价格（数字），必填，例如：9.99 、 9.9 、 9</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">零售价</label>
+		<div class="layui-input-inline">
+			<input type="text" name="goods_trprice" value="{$info.goods_trprice}" maxlength="10" lay-verify="trprice" value="0" class="layui-input">
+		</div>
+		<div class="layui-form-mid layui-word-aux">商品在其所在类别列表的排序（数字），必填，例如：9.99 、 9.9 、 9</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">团购价</label>
+		<div class="layui-input-inline">
+			<input type="text" name="goods_twprice" value="{$info.goods_twprice}" maxlength="10" lay-verify="twprice" value="0" class="layui-input">
+		</div>
+
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">商品编号</label>
+		<div class="layui-input-inline">
+			<input type="text" name="goods_number" value="{$info.goods_number}" maxlength="100" lay-verify="goods_number" value="0" class="layui-input">
+		</div>
+
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">采购价</label>
+		<div class="layui-input-inline">
+			<input type="text" name="goods_psprice" value="{$info.goods_psprice}" maxlength="10" lay-verify="goods_psprice" value="0" class="layui-input">
+		</div>
+
+	</div>
+	<h1 style="font-size: 18px;">采购链接：</h1>
+	<div class="layui-form-item">
+		<!--<div class="layui-input-inline">
+			<input type="text" name="goods_purchase_url" value="{$info.goods_purchase_url}" maxlength="500" lay-verify="goods_purchase_url" value="0" class="layui-input">
+		</div>-->
+		<div id="editor_old2" style="display: none;">
+			{$info.goods_purchase_url}
+		</div>
+		<textarea rows="15" cols="30" name="goods_purchase_url" class="editor_value2" style="display: none;"></textarea>
+		<!-- 加载编辑器的容器 -->
+		<script id="editor2" type="text/plain" style="width:1024px;height:500px;">
+		</script>
+
+	</div>
+    <h1 style="font-size: 18px;">商品介绍：</h1>
+	<div class="layui-form-item">
+		<!--<div class="layui-input-inline">
+			<input type="text" name="goods_introduce" value="{$info.goods_introduce}" maxlength="10000" lay-verify="goods_introduce" value="0" class="layui-input">
+		</div>-->
+		<div id="editor_old" style="display: none;">
+			{$info.goods_introduce}
+		</div>
+		<textarea rows="15" cols="30" name="goods_introduce" class="editor_value" style="display: none;"></textarea>
+		<!-- 加载编辑器的容器 -->
+		<script id="editor" type="text/plain" style="width:1024px;height:500px;">
+		</script>
+
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">视频链接</label>
+		<div class="layui-input-inline">
+			<input type="text" name="video_url" value="{$info.video_url}" maxlength="500" lay-verify="video_url" value="0" class="layui-input">
+		</div>
+		<div class="layui-form-mid layui-word-aux">youtube的视频链接</div>
+	</div>
+	<!--
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品规格</label>
+        <div class="layui-input-inline">
+            <input type="text" name="goods_gg" maxlength="20" lay-verify="required" class="layui-input">
+        </div>
+        <div class="layui-form-mid layui-word-aux">商品的规格（例如：50斤/袋），必须填写</div>
+    </div>
+    -->
+	<div class="layui-form-item">
+		<label class="layui-form-label">运费</label>
+		<div class="layui-input-inline">
+			<input type="text" name="goods_price" value="{$info.goods_price}" maxlength="10" lay-verify="price" class="layui-input">
+		</div>
+		<div class="layui-form-mid layui-word-aux">商品运费，填0为包邮，必填，例如：9.99 、 9.9 、 9</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">购买须知</label>
+
+		<div class="layui-input-inline imgyl"  style="width: 128px;">
+			<img class="upimg0" src="{$info.goods_notice}" onerror="this.src='__AIMG__nophoto.jpg'">
+		</div>
+		<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+			<div class="imginp">
+				<input type="file" id="upimg0" class="layui-upload-file upload0" name='upimg0' onchange="fileChange(this,'upimg0')" >
+				<input name="goods_notice" sx='upimg0' type="hidden" value="{$info.goods_notice}" lay-verify="goods_notice"/>
+			</div>
+		</div>
+		<div class="layui-form-mid layui-word-aux" style="float: left;">商品描述长图，图片大小推荐小于2M，图片过大会导致页面加载变慢<br>后台未做缩放剪裁
+		</div>
+	</div>
+	<!--<div class="layui-form-item">
+		<label class="layui-form-label">商品描述长图</label>
+
+		<div class="layui-input-inline imgyl"  style="width: 128px;">
+			<img class="upimg6" src="{$info.goods_det}" onerror="this.src='__AIMG__nophoto.jpg'">
+		</div>
+		<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+			<div class="imginp">
+				<input type="file" id="upimg6" class="layui-upload-file upload6" name='upimg6' onchange="fileChange(this,'upimg6')" >
+				<input name="goods_det" sx='upimg6' type="hidden" value="{$info.goods_det}" lay-verify="goods_det"/>
+			</div>
+		</div>
+
+		<div class="layui-form-mid layui-word-aux" style="float: left;">商品描述长图，图片大小推荐小于2M，图片过大会导致页面加载变慢<br>后台未做缩放剪裁
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">商品轮播图</label>
+
+		<div class="imgbox">
+			<div class="layui-input-inline imgyl"  style="width: 128px;">
+				<img class="upimg1" src="{$imgList1}" onerror="this.src='__AIMG__nophoto.jpg'">
+			</div>
+			<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+				<div class="imginp">
+					<input type="file" id="upimg1" class="layui-upload-file upload1" name='upimg1' onchange="fileChange(this,'upimg1')" >
+					<input name="lunbo[]" sx='upimg1' type="hidden"  value="{$imgList1}" lay-verify="first"/>
+				</div>
+			</div>
+		</div>
+
+		<div class="imgbox">
+			<div class="layui-input-inline imgyl"  style="width: 128px;">
+				<img class="upimg2" src="{$imgList2}" onerror="this.src='__AIMG__nophoto.jpg'">
+			</div>
+			<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+				<div class="imginp">
+					<input type="file" id="upimg2" class="layui-upload-file upload2" name='upimg2' onchange="fileChange(this,'upimg2')">
+					<input name="lunbo[]" sx='upimg2' type="hidden" value="{$imgList2}" />
+				</div>
+			</div>
+		</div>
+
+		<div class="imgbox">
+			<div class="layui-input-inline imgyl"  style="width: 128px;">
+				<img class="upimg3" src="{$imgList3}" onerror="this.src='__AIMG__nophoto.jpg'">
+			</div>
+			<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+				<div class="imginp">
+					<input type="file" id="upimg3" class="layui-upload-file upload3" name='upimg3' onchange="fileChange(this,'upimg3')" >
+					<input name="lunbo[]" sx='upimg3' type="hidden" value="{$imgList3}" />
+				</div>
+			</div>
+		</div>
+
+		<div class="imgbox">
+			<div class="layui-input-inline imgyl"  style="width: 128px;">
+				<img class="upimg4" src="{$imgList4}" onerror="this.src='__AIMG__nophoto.jpg'">
+			</div>
+			<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+				<div class="imginp">
+					<input type="file" id="upimg4" class="layui-upload-file  upload4" name='upimg4' onchange="fileChange(this,'upimg4')">
+					<input name="lunbo[]" sx='upimg4' type="hidden" value="{$imgList4}" />
+				</div>
+			</div>
+		</div>
+
+		<div class="imgbox">
+			<div class="layui-input-inline imgyl" id="preview5" style="width: 128px;">
+				<img class="upimg5" src="{$imgList5}" onerror="this.src='__AIMG__nophoto.jpg'">
+			</div>
+			<div class="layui-input-inline imgup" style="width: 120px;height: 160px;margin-left: -139px;">
+				<div class="imginp">
+					<input type="file" id="upimg5" class="layui-upload-file upload5" name='upimg5' onchange="fileChange(this,'upimg5')" >
+					<input name="lunbo[]" sx='upimg5' type="hidden" value="{$imgList5}" />
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-mid layui-word-aux" style="float: left;">商品轮播图，推荐上传正方形图片<br>后台已做正方形剪裁缩放</div>
+	</div>-->
+	<!--
+	<div class="layui-form-item">
+		<label class="layui-form-label">商品详情</label>
+		<div class="layui-input-inline">
+			<textarea name="article_info" id="editor_id" style="width:700px; height:350px;">{$info.article_info}</textarea>
+		</div>
+	</div>-->
+
+	<div class="layui-form-item">
+		<label class="layui-form-label" style="width:200px;color: red;">采购相关额外信息：</label>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">包裹里面有多少件产品</label>
+		<div class="layui-input-inline">
+			<input type="text" name="declared_pcs" value="{$propertyList.declared_pcs}" maxlength="10" lay-verify="goods_psprice" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">产品价值</label>
+		<div class="layui-input-inline">
+			<input type="text" name="declared_value" value="{$propertyList.declared_value}" maxlength="10" lay-verify="goods_psprice" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">英文描述</label>
+		<div class="layui-input-inline">
+			<input type="text" name="description_english" value="{$propertyList.description_english}" maxlength="300" lay-verify="goods_psprice" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">中文描述</label>
+		<div class="layui-input-inline">
+			<input type="text" name="description_chinese" value="{$propertyList.description_chinese}" maxlength="300" lay-verify="goods_psprice" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">属性（0-普货 1-敏感货)</label>
+		<div class="layui-input-inline">
+			<input type="text" name="is_sensitive" value="{$propertyList.is_sensitive}" maxlength="10" lay-verify="goods_psprice" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">货物分类(A-衣服 B-电子 C-鞋子 D-箱包 E-杂货)</label>
+		<div class="layui-input-inline">
+			<input type="text" name="category" value="{$propertyList.category}" maxlength="10" lay-verify="goods_psprice" class="layui-input">
+		</div>
+	</div>
+
+	<div class="layui-form-item">
+		<div class="layui-input-block">
+			<button class="layui-btn layui-btn-danger" lay-submit lay-filter="Submit">立即提交</button>
+		</div>
+	</div>
+</form>
+<script src="__LAYUI__/jquery-1.8.3.js"></script>
+<script src="__LAYUI__/layui.js"></script>
+<script src="__AJS__ajaxfileupload.js"></script>
+<script type="text/javascript">
+    var idstr=''
+    function fileChange(obj,str){
+        var f = obj.files[0];
+        var src = window.URL.createObjectURL(f)//预览图片url
+        $('.'+str).attr('src',src);
+        idstr = str;
+    }
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '上传图片　',
+            elem: '.upload0',
+            url: "{:U('Goods/imgup0')}",
+            type: 'images',
+            ext: 'png|gif|jpg|jpeg',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    //alert(idstr);
+                    $("input[sx='"+idstr+"']").val(res.url);
+
+                }
+            }
+        });
+    });
+
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '上传图片　',
+            elem: '.upload1',
+            url: "{:U('Goods/imgup1')}",
+            type: 'images',
+            ext: 'png|gif|jpg|jpeg',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    //alert(idstr);
+                    $("input[sx='"+idstr+"']").val(res.url);
+
+                }
+            }
+        });
+    });
+
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '上传图片　',
+            elem: '.upload2',
+            url: "{:U('Goods/imgup2')}",
+            type: 'images',
+            ext: 'png|gif|jpg|jpeg',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    //alert(idstr);
+                    $("input[sx='"+idstr+"']").val(res.url);
+
+                }
+            }
+        });
+    });
+
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '上传图片　',
+            elem: '.upload3',
+            url: "{:U('Goods/imgup3')}",
+            type: 'images',
+            ext: 'png|gif|jpg|jpeg',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    //alert(idstr);
+                    $("input[sx='"+idstr+"']").val(res.url);
+
+                }
+            }
+        });
+    });
+
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '上传图片　',
+            elem: '.upload4',
+            url: "{:U('Goods/imgup4')}",
+            type: 'images',
+            ext: 'png|gif|jpg|jpeg',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    //alert(idstr);
+                    $("input[sx='"+idstr+"']").val(res.url);
+
+                }
+            }
+        });
+    });
+
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '上传图片　',
+            elem: '.upload5',
+            url: "{:U('Goods/imgup5')}",
+            type: 'images',
+            ext: 'png|gif|jpg|jpeg',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    //alert(idstr);
+                    $("input[sx='"+idstr+"']").val(res.url);
+
+                }
+            }
+        });
+    });
+
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '上传图片　',
+            elem: '.upload6',
+            url: "{:U('Goods/imgup6')}",
+            type: 'images',
+            ext: 'png|gif|jpg|jpeg',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    //alert(idstr);
+                    $("input[sx='"+idstr+"']").val(res.url);
+
+                }
+            }
+        });
+    });
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		form.verify({
+			goods_det: function(value, item){ //value：表单的值、item：表单的DOM对象
+				if($(item).val() == ''){
+					return '商品描述长图不能为空，请上传图片';
+				}
+			},
+			/*goods_notice: function(value, item){ //value：表单的值、item：表单的DOM对象
+				if($(item).val() == ''){
+					return '购买须知不能为空，请上传图片';
+				}
+			},*/
+			first: function(value, item){ //value：表单的值、item：表单的DOM对象
+				if($(item).val() == ''){
+					return '轮播图不能为空，最少上传第一张';
+				}
+			},
+			toprice: function(value, item){ //value：表单的值、item：表单的DOM对象
+				if( !( /^\d+(\.\d{1,2})?$/.test( $(item).val() ) ) ){
+					return '原价输入不合法';
+				}
+			},
+			trprice: function(value, item){ //value：表单的值、item：表单的DOM对象
+				if( !( /^\d+(\.\d{1,2})?$/.test( $(item).val() ) ) ){
+					return '零售价输入不合法';
+				}
+			},
+			twprice: function(value, item){ //value：表单的值、item：表单的DOM对象
+				if( !( /^\d+(\.\d{1,2})?$/.test( $(item).val() ) ) ){
+					return '拼团价输入不合法';
+				}
+			},
+			price: function(value, item){ //value：表单的值、item：表单的DOM对象
+				if( !( /^\d+(\.\d{1,2})?$/.test( $(item).val() ) ) ){
+					return '运费输入不合法';
+				}
+			}
+
+		})
+	})
+</script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+	var ue = UE.getEditor('editor');
+	var ue2 = UE.getEditor('editor2');
+	//var content = "{$info.goods_introduce}";
+	var content = $("#editor_old").text();
+	var content2 = $("#editor_old2").text();
+
+    ue.addListener("ready", function () {
+        // editor准备好之后才可以使用
+        ue.setContent(content);
+        //ue.execCommand('insertHtml', content);
+    });
+    ue2.addListener("ready", function () {
+        // editor准备好之后才可以使用
+        ue2.setContent(content2);
+        //ue.execCommand('insertHtml', content);
+    });
+
+	function checkForm(){
+		var form = document.getElementsByClassName('layui-form');
+		//可在此修改input
+		$('.editor_value').val(UE.getEditor('editor').getContent());
+		$('.editor_value2').val(UE.getEditor('editor2').getContent());
+		//进行下一步
+		return true;
+	}
+
+
+
+</script>
+</body>
+</html>

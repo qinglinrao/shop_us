@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>评论管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-search">
+		<li class="layui-this"><a href="javascript:void(0);">评论列表</a></li>
+		<li><a href="{:U('Evaluate/add')}">添加评论</a></li>
+		<li><a href="{:U('Evaluate/dadd')}">批量导入</a></li>
+	</ul>
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline">
+			<select name="statue">
+				<option value="0" <if condition="$statue eq 0">selected</if>>评论状态</option>
+				<option value="1" <if condition="$statue eq 1">selected</if>>待审核</option>
+				<option value="2" <if condition="$statue eq 2">selected</if>>已通过</option>
+				<option value="3" <if condition="$statue eq 3">selected</if>>未通过</option>
+			</select>
+			<div class="layui-unselect layui-form-select">
+				<div class="layui-select-title">
+					<input type="text" placeholder="评论状态" value="" readonly="" class="layui-input layui-unselect">
+					<i class="layui-edge"></i>
+				</div>
+				<dl class="layui-anim layui-anim-upbit">
+					<dd lay-value="1" class="">待审核</dd>
+					<dd lay-value="2" class="">已通过</dd>
+					<dd lay-value="3" class="">未通过</dd>
+				</dl>
+			</div>
+		</div>
+		<div class="layui-input-inline" style="width: 295px;">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="输入商品主标题" class="layui-input">
+		</div>
+		<div class="layui-inline" >
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+		</div>
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>商品主标题</th>
+					<th>用户姓名</th>
+					<th>用户电话</th>
+					<th>评论星级</th>
+					<th>评论文本</th>
+					<th>评论图片</th>
+					<th>评论时间</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<foreach name="list" item="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.goods_title}</td>
+						<td>{$vo.username}</td>
+						<td>{$vo.phone}</td>
+						<td>{$vo.level}</td>
+						<td>{$vo.text}</td>
+						<td><div style="width:235px;height:50px;margin:0 auto;">
+							<neq name="vo.img1" value=""><img src="{$vo.img1}" style="height:100%;"/></neq>
+							<neq name="vo.img2" value=""><img src="{$vo.img2}" style="height:100%;"/></neq>
+							<neq name="vo.img3" value=""><img src="{$vo.img3}" style="height:100%;"/></neq>
+							<neq name="vo.img4" value=""><img src="{$vo.img4}" style="height:100%;"/></neq>
+						</div></td>
+						<td>{$vo.create_at}</td>
+						<td>
+							<eq name="vo.statue" value='1'><span style="color:blue;">待审核</span>
+								<a class="layui-btn layui-btn-mini" href="{:U('Evaluate/edit_statue',array('id'=>$vo['id'],'change'=>2))}">通过</a>
+								<a class="layui-btn layui-btn-mini" href="{:U('Evaluate/edit_statue',array('id'=>$vo['id'],'change'=>3))}">不通过</a>
+							</eq>
+							<eq name="vo.statue" value='2'><span style="color:green;">已通过</span>
+								<a class="layui-btn layui-btn-mini" href="{:U('Evaluate/edit_statue',array('id'=>$vo['id'],'change'=>3))}">不通过</a>
+							</eq>
+							<eq name="vo.statue" value='3'><span style="color:red;">未通过</span>
+								<a class="layui-btn layui-btn-mini" href="{:U('Evaluate/edit_statue',array('id'=>$vo['id'],'change'=>2))}">通过</a>
+							</eq>
+						</td>
+						<td>
+							<a class="layui-btn layui-btn-mini" href="{:U('Evaluate/edit',array('id'=>$vo['id'],'r'=>$_SERVER['REQUEST_URI']))}">编辑</a>
+							<a class="layui-btn layui-btn-mini layui-btn-danger" href="{:U('Evaluate/del',array('id'=>$vo['id'],'r'=>$_SERVER['REQUEST_URI']))}">删除</a>
+						</td>
+					</tr>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata">没有相关数据</td>
+				</tr>
+				</notempty>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			var keyword = $("input[name='keyword']").val();
+			var statue = $("select[name='statue']").val();
+			window.location.href = '{:U("Evaluate/index")}&keyword='+ keyword + '&statue=' + statue;
+		});
+	});
+	</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>商品信息管理</title>
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+<ul class="layui-tab-title mt-page mb-form">
+    <li><a href="{:U('Goods/index')}">商品列表</a></li>
+    <li><a href="{:U('Goods/add')}">添加商品</a></li>
+    <li class="layui-this"><a href="javascript:void(0);">批量上传商品</a></li>
+</ul>
+<form method="post" autocomplete="off" action="{:U('Goods/doaddmore')}" class="layui-form">
+    <div class="layui-form-item" style="padding-left: 40px;">提示：国家名称会提供详细的缩写名字。表格中使用提供的缩写名字。</div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="margin-top:8px;">示例表格</label>
+        <div class="layui-input-inline" style="width: 157px;margin-left: 0px;margin-top: 8px;">
+            <a class="layui-btn" href = "{:U('Goods/downfile')}">下载表格</a>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="margin-top:8px;">上传文件</label>
+
+        <div class="layui-input-inline imgyl"  style="width: 128px;">
+            <img style="display:none" class="upimg0" src="__AIMG__nophoto.jpg">
+        </div>
+        <div class="layui-input-inline imgup" style="width: 157px;margin-left: 0px;">
+            <div class="imginp">
+                <input type="file" id="upimg0" class="layui-upload-file upload0" name='upimg0' onchange="fileChange(this,'upimg0')" >
+                <input name="goodsFile" sx='upimg0' type="hidden" value="" />
+            </div>
+        </div>
+
+
+        <style type="text/css">
+            .layui-form-item select{display: block;}
+
+            .imgyl img{
+                width: 120px;height: 120px;
+            }
+            .imgup{
+                position: relative;
+                margin-left: -200px;
+                margin-top: 8px;
+            }
+            .imginp{
+                position: relative;
+                z-index: 900;
+            }
+            .imginp input{
+                width: 120px;height: 40px;
+            }
+            #evaName{
+                float: left;
+                display: block;
+                padding: 9px 15px;
+                font-weight: 400;
+                margin-top: 8px;
+                text-align: right;
+            }
+
+        </style>
+        <div><span id="evaName"></span></div>
+
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-danger" lay-submit lay-filter="Submit">立即提交</button>
+        </div>
+    </div>
+</form>
+<script src="__LAYUI__/jquery-1.8.3.js"></script>
+<script src="__LAYUI__/layui.js"></script>
+<script src="__AJS__ajaxfileupload.js"></script>
+<script type="text/javascript">
+    var idstr=''
+    function fileChange(obj,str){
+        var f = obj.files[0];
+//        var src = window.URL.createObjectURL(f)//预览图片url
+//        $('.'+str).attr('src',src);
+        $("#evaName").empty().html(f.name);
+        idstr = str;
+    }
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '选择商品文件　',
+            elem: '.upload0',
+            url: "{:U('Goods/imgupcsv')}",
+            type: 'file',
+            ext: 'png|gif|jpg|jpeg|csv',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    //alert(idstr);
+                    $("input[sx='"+idstr+"']").val(res.url);
+
+                }
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

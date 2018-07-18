@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-search">
+		<li class="layui-this"><a href="javascript:void(0);">标签列表</a></li>
+		<li><a href="{:U('GoodsTag/set_tj')}">添加标签</a></li>
+	</ul>
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="输入标签名称或标签编号" class="layui-input">
+		</div>
+		<div class="layui-inline">
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+	</div>
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>名称</th>
+					<th>创建时间</th>
+					<th>修改时间</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<foreach name="list" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.tag_name}</td>
+					<td>{$vo.create_at}</td>
+					<td>{$vo.update_at}</td>
+					<td>
+						<eq name='vo.statue' value='1'>使用中</eq>
+						<eq name='vo.statue' value='2'><font color="red">已弃用</font></eq>
+					</td>
+					<td>
+						<eq name='vo.statue' value='1'>
+						<a class="layui-btn layui-btn-mini" href="{:U('GoodsTag/set_tj',array('id'=>$vo['id']))}">编辑</a>
+						<a class="layui-btn layui-btn-mini" href="{:U('GoodsTag/del',array('id'=>$vo['id']))}">弃用</a>
+					</eq>
+					</td>
+				</tr>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata">没有相关数据</td>
+				</tr>
+				</notempty>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			keyword = $("input[name='keyword']").val();
+			window.location.href = '{:U("GoodsTag/index")}&keyword='+ keyword;
+		});
+	});
+</script>
+</body>
+</html>

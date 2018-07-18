@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>購買成功</title>
+    <link rel="stylesheet" href="__GCSS__commen.css">
+    <script src="__GJS__jQuery-3.3.1.js"></script>
+</head>
+<body style="padding-bottom: 45px;">
+<div class="dingdan">
+    <div class="dd-item">
+        <span class="dd-title">訂單號</span>
+        <span class="dd-txt">{$info.order_id}</span>
+    </div>
+    <div class="dd-item">
+        <span class="dd-title">訂單信息</span>
+        <span class="dd-txt">{$info.status_desc}</span>
+    </div>
+    <div class="dd-item">
+        <span class="dd-title">商品標題</span>
+        <span class="dd-txt">{$info.goods_title}</span>
+    </div>
+    <div class="dd-item">
+        <span class="dd-title">{$info.color} {$info.size} {$info.weight}</span>
+        <span class="dd-txt">×<i>{$info.good_count}</i></span>
+    </div>
+</div>
+<neq name="info.goods_istuan" value="0">
+    <div class="dingdan">拼團訂單請稍後，若拼團不成功，資金將自動全額原路返還。</div>
+</neq>
+<div class="dingdan" style="text-align: center;border: none;">其他用戶也購買了</div>
+<div class="otherBuy">
+    <ul class="otherBuy-list">
+        <volist name="list" id="vo">
+            <li class="otherBuy-list-item <if condition='($key)%2 eq 0'>left<else />right</if>"><a target="_self" src="{:U('index/index',array('id'=>$info['good_id']))}"><img src="{$vo.goods_img}"></a></li>
+        </volist>
+    </ul>
+</div>
+<div style="height: 5px;background: #f5f5f5;margin-top: 10px;"></div>
+<div class="return">
+    <a target="_self" href="{:U('index/index',array('id'=>$info['good_id'],'model'=>$model))}">返回</a>
+</div>
+<!--分享图层-->
+<div class="sharebox">
+    <div class="sharetxt">點擊右上角分享</div>
+</div>
+<script>
+    /* 分享图层点击事件*/
+    $('.sharebox').click(function(){
+        $(this).fadeOut(200);
+    });
+</script>
+</body>
+</html>

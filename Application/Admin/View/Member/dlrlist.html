@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>沃牧场管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-search">
+		<li class="layui-this"><a href="javascript:void(0);">沃牧场列表</a></li>
+		<li><a href="{:U('Member/dlr_add')}">添加沃牧场</a></li>
+	</ul>
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="输入姓名或电话" class="layui-input">
+		</div>
+		<div class="layui-inline">
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+		</div>
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>沃牧场编号</th>
+					<th>场主姓名</th>
+					<th>电话</th>
+					<th>微信</th>
+					<th>所属代理人</th>
+					<th>牧场区域</th>
+					<th>注册时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<foreach name="list" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>中年健联沃牧场<br>第{$vo.addr_num}号</td>
+					<td>{$vo.username}</td>
+					<td>{$vo.phone}</td>
+					<td>{$vo.wx}</td>
+					<td>{$vo.uname}</td>
+					<td>{$vo.pro_name}<br>{$vo.city_name}<br>{$vo.parent_name}<br>{$vo.area_name}<br>{$vo.areaname}</td>
+					<td>{$vo.register_time|date='Y-m-d',###}</td>
+					<td>
+						<a class="layui-btn layui-btn-mini" href="{:U('Member/dlr_edit',array('id'=>$vo['id']))}">编辑</a><br><br>
+						<a class="layui-btn layui-btn-mini layui-btn-danger" href="{:U('Member/dlr_del',array('id'=>$vo['id']))}">删除</a><br><br>
+						<a class="layui-btn layui-btn-mini" href="{:U('Member/set_pass',array('id'=>$vo['id']))}">重置密码</a>
+					</td>
+				</tr>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata">没有相关数据</td>
+				</tr>
+				</notempty>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			keyword = $("input[name='keyword']").val();
+			window.location.href = '{:U("Member/dlrlist")}&keyword='+ keyword;
+		});
+	});
+	</script>
+</body>
+</html>

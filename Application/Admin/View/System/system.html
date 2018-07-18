@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>系统设置</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-form">
+		<li><a class="layui-this" href="javascript:void(0);">系统设置</a></li>
+	</ul>
+	<form class="layui-form" autocomplete="off" method="post">
+		<input type="hidden" name="system_id" value="{$result.system_id}">
+		<!-- <div class="layui-form-item">
+			<div class="layui-input-inline">
+				<select name="state">
+					<option value="">默认城市</option>
+					<option value="1" <eq name="state" value="1">selected=""</eq>>正常使用</option>
+					<option value="2" <eq name="state" value="2">selected=""</eq>>禁止使用</option>
+				</select>
+			</div>
+		</div> -->
+		<div class="layui-form-item">
+			<label class="layui-form-label">百度地图</label>
+			<div class="layui-input-inline" style="width:750px;">
+				<input type="text" name="system_mapak" value="{$result.system_mapak}" lay-verify="required" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">百度地图开放平台 - 浏览器端AK</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">客服热线</label>
+			<div class="layui-input-inline" style="width:750px;">
+				<input type="text" name="system_hotcall" value="{$result.system_hotcall}" lay-verify="required" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">只允许填写一个固定电话号码，填写多个移动端将无法直接拨号</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="Submit">立即提交</button>
+				<button class="layui-btn layui-btn-danger" type="reset">重置</button>
+			</div>
+		</div>
+	</form>
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery','upload'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		layui.upload({
+			title: '上传二维码',
+			elem: '.layui-upload-file',
+			url: '{:U('system/qrcode')}',
+			type: 'images',
+			ext: 'png|gif|jpg|jpeg',
+			success: function(res) {
+				if (res.status == 'error') {
+					layer.msg(res.msg, {icon: 2, shift:6});
+				} else {
+					$("input[name='site_qrcode']").val(res.url);
+					qrcode.src = res.url;
+				}
+			}
+		});
+	});
+	</script>
+</body>
+</html>

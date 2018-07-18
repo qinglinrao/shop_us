@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>最近收入</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+<ul class="layui-tab-title mt-page mb-search">
+	<li><a href="{:U('Orders/last')}">最近订单</a></li>
+	<li><a href="{:U('Orders/nopay')}">待付款订单</a></li>
+	<li><a href="{:U('Orders/nosend')}">待发货订单</a></li>
+	<li><a href="{:U('Orders/norefund')}">待退货退款订单</a></li>
+	<li><a href="{:U('Orders/income')}">最近收入</a></li>
+	<li class="layui-this"><a href="javascript:void(0);">订单趋势</a></li>
+	<li><a href="{:U('Orders/source')}">订单来源</a></li>
+</ul>
+
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline" style="width:310px;">
+			<input type="text" class="layui-input" name="time_area" id="time_area" placeholder="选择时间区间" lay-key="6" required="required" value="{$time_area}">
+		</div>
+		<div class="layui-inline" >
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+		</div>
+	</div>
+	<div id="container" style="height: 500px;"></div>
+	{$page}
+	<script src="/Public/Admin/laydate/laydate.js"></script>
+	<script>
+		laydate.render({
+			elem: '#time_area' //指定元素
+			,type: 'datetime'
+			,range: '~'
+		});
+	</script>
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			var time_area = $("input[name='time_area']").val();
+			var url = '{:U("Orders/trend")}';
+			if(time_area){
+				url += '&time_area='+ time_area;
+			}
+			window.location.href = url;
+		});
+	});
+	</script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+	<script>
+		var dom = document.getElementById("container");
+		var myChart = echarts.init(dom);
+		var app = {};
+		option = null;
+
+		app.title = '坐标轴刻度与标签对齐';
+
+		option = {
+			color: ['#3398DB'],
+			tooltip : {
+				trigger: 'axis',
+				axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+					type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+				}
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis : [
+				{
+					type : 'category',
+//					data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+					data : {$key},
+					axisTick: {
+						alignWithLabel: true
+					}
+				}
+			],
+			yAxis : [
+				{
+					type : 'value'
+				}
+			],
+			series : [
+				{
+					name:'订单数量',
+					type:'bar',
+					barWidth: '60%',
+//					data:[10, 52, 200, 334, 390, 330, 220]
+					data:{$val}
+				}
+			]
+		};
+
+
+		if (option && typeof option === "object") {
+			myChart.setOption(option, true);
+		}
+	</script>
+</body>
+</html>

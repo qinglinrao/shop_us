@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品信息管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+	<script src="__LAYUI__/jquery-1.8.3.js"></script>
+	<script>
+		function guizheText(){
+		    var preg = /^[1-9]\d*$/;
+			var ptype = $('#ptype').val();
+			var first = $('input[name=first]').val();
+			if (!preg.test(first)) {
+			    alert('参数请输入数字');
+                $('input[name=first]').val('');
+                $('input[name=first]').focus('');
+			    return false;
+			}
+			var second = $('input[name=second]').val();
+            if (!preg.test(second)) {
+                alert('参数请输入数字');
+                $('input[name=second]').val('');
+                $('input[name=second]').focus('');
+                return false;
+            }
+			if(ptype==1) $('input[name=guizhe]').val('买'+first+'送'+second);
+			if(ptype==2) $('input[name=guizhe]').val('买'+first+'打'+second+'折');
+		}
+//		function getStatue(){
+//			var area = $('input[name=time_area]').val();
+//			var first = area.splice('~')[0];
+//			var second = area.splice('~')[0][1];
+//			console.log(area);
+//			console.log(first);
+//			console.log(second);
+//			if(first && second) {
+//				var str = '';
+//				var now = "{:NowTime()}";//获取系统当前时间
+//				if (now < first) {
+//					str = '未开始';
+//				} else if (now > second) {
+//					str = '已结束';
+//				} else {
+//					str = '进行中';
+//				}
+//				$('input[name=pstatue]').val(str);
+//			}
+//		}
+//		$('#layui-laydate6 .laydate-btns-confirm').live('click',function(){
+//			console.log('ok');
+//		});
+		$('.layui-form-radio').live('click',function(){
+			var color = $('input[type=radio]:checked').val();
+			if(color == 0){
+				$('#color_show').css({ background: '#fff' });
+			}else{
+				$('#color_show').css({ background: color });
+			}
+		});
+	</script>
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-form">
+		<li><a href="{:U('Promotion/index',array('type'=>$type))}">{$listTag}</a></li>
+		<li class="layui-this"><a href="javascript:void(0);">{$addTag}</a></li>
+	</ul>
+	
+	<form method="post" autocomplete="off" action="{:U('Promotion/doset_tj',array('type'=>$type,'id'=>$info['id']))}" class="layui-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label">显示文本</label>
+			<div class="layui-input-inline">
+				<input type="text" name="pro_name" maxlength="10" required="required" value="{$info.pro_name}" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">必填，展示在商品页面的促销标签文本</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">第一个参数</label>
+			<div class="layui-input-inline">
+				<input type="text" name="first" maxlength="10" required="required" value="{$info.first}" class="layui-input" onblur="guizheText()">
+			</div>
+			<div class="layui-form-mid layui-word-aux">必填，第一个n</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">第二个参数</label>
+			<div class="layui-input-inline">
+				<input type="text" name="second" maxlength="10" required="required" value="{$info.second}" class="layui-input" onblur="guizheText()">
+			</div>
+			<div class="layui-form-mid layui-word-aux">必填，第二个n</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">规则文本</label>
+			<div class="layui-input-inline">
+				<eq name="type" value="1"><input type="text" name="guizhe" maxlength="10" lay-verify="required" value="买{$info.first}送{$info.second}" class="layui-input" disabled></eq>
+				<eq name="type" value="2"><input type="text" name="guizhe" maxlength="10" lay-verify="required" value="买{$info.first}打{$info.second}折" class="layui-input" disabled></eq>
+			</div>
+			<div class="layui-form-mid layui-word-aux">根据俩个参数，自动生成，便于查看。</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">生效时间</label>
+				<div class="layui-input-inline" style="width:400px;">
+					<input type="text" class="layui-input" name="time_area" id="time_area" placeholder="yyyy-MM-dd HH:mm:ss" lay-key="6" required="required" value="{$info.time_area}">
+				</div>
+				<div class="layui-form-mid layui-word-aux">必填，促销生效的时间</div>
+			</div>
+		</div>
+
+		<!--<div class="layui-form-item">-->
+			<!--<label class="layui-form-label">状态</label>-->
+			<!--<div class="layui-input-inline">-->
+				<!--<input type="text" name="pstatue" lay-verify="required" class="layui-input"  value="{$info.cstatue}" disabled>-->
+			<!--</div>-->
+			<!--<div class="layui-form-mid layui-word-aux">根据开始和结束时间自动生成，便于分辨。</div>-->
+		<!--</div>-->
+		<div class="layui-form-item">
+			<label class="layui-form-label">模版颜色</label>
+			<div class="layui-input-block">
+				<foreach name="color" item="vo">
+					<input type="radio" name="color_val" value="{$vo.color_val}" title="{$vo.discrebs}" <if condition="$info['color_val'] eq $vo['color_val']">checked</if>>
+				</foreach>
+			</div>
+			<div class="layui-form-mid layui-word-aux">单选颜色</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">颜色预览</label>
+			<div class="layui-input-inline">
+				<div id="color_show" style="height:38px;line-height:38px;background-color: {$info['color_val']}"></div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<input id="ptype" name="ptype" type="hidden" value="{$type}">
+				<button class="layui-btn layui-btn-danger" lay-submit lay-filter="Submit">立即提交</button>
+			</div>
+		</div>
+	</form>
+	<script src="/Public/Admin/laydate/laydate.js"></script>
+	<script>
+		laydate.render({
+			elem: '#time_area' //指定元素
+			,type: 'datetime'
+			,range: '~'
+		});
+	</script>
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+		layui.use('form', function(){
+			var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+//			form.render();
+		});
+	</script>
+
+
+
+</body>
+</html>

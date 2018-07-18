@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>区域管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-search">
+		<li class="layui-this"><a href="javascript:void(0);">区域列表</a></li>
+		<li><a href="{:U('Member/area_add')}">添加区域</a></li>
+	</ul>
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="输入地名" class="layui-input">
+		</div>
+		<div class="layui-inline">
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+		</div>
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>乡镇名称</th>
+					<th>区级名称</th>
+					<th>省市名称</th>
+					<th>添加时间</th>
+					<th>修改时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<if condition="$count GT 0">
+				<foreach name="list" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td class="align-left">{$vo.area_name}</td>
+					<td>{$vo.parent_name}</td>
+					<td>{$vo.pro_name}{$vo.city_name}</td>
+					<td>{$vo.addtime|date='Y-m-d H:i:s',###}</td>
+					<td>{$vo.edittime|date='Y-m-d H:i:s',###}</td>
+					<td>
+						<a class="layui-btn layui-btn-mini" href="{:U('Member/area_edit',array('id'=>$vo['id']))}">编辑</a> <a class="layui-btn layui-btn-mini layui-btn-danger" href="{:U('Member/area_del',array('id'=>$vo['id']))}">删除</a>
+					</td>
+				</tr>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata"></td>
+				</tr>
+				</if>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			keyword = $("input[name='keyword']").val();
+			window.location.href = '{:U("Member/area")}&keyword='+ keyword;
+		});
+	});
+	</script>
+</body>
+</html>

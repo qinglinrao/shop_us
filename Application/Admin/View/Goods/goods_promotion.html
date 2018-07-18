@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品标签管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-form">
+		<li><a href="{:U('Goods/index')}">商品列表</a></li>
+		<li class="layui-this"><a href="javascript:void(0);"><if condition="$type eq 1">添加<else />编辑</if>商品促销标签</a></li>
+	</ul>
+
+	<form method="post" autocomplete="off" action="{:U('Goods/goods_promotion_edit',array('id'=>$info['id'],'type'=>$type))}" class="layui-form">
+		<div class="layui-form-item" pane="">
+			<label class="layui-form-label">商品主标题</label>
+			<div class="layui-input-block"><span style="height:38px;line-height:38px;">{$info.goods_title}</span></div>
+		</div>
+		<div class="layui-form-item" pane="">
+			<label class="layui-form-label">促销标签</label>
+			<div class="layui-input-block">
+				<input type="radio" name="tag" lay-skin="primary" title="不促销" <if condition="$info['goods_istuan'] eq 0">checked=""</if> value="0">
+				<volist name="tag" id="vo">
+				<input type="radio" name="tag" lay-skin="primary" title="{$vo.pro_name}" <if condition="$info['goods_promotion'] eq $vo[id]">checked=""</if> value="{$vo.id}">
+				</volist>
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn layui-btn-danger" lay-submit lay-filter="Submit">立即提交</button>
+			</div>
+		</div>
+	</form>
+<script src="__LAYUI__/layui.js"></script>
+	<script>
+		layui.use('form', function(){
+			var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+//			form.render();
+		});
+	</script>
+</body>
+</html>

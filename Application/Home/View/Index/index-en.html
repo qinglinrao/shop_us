@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no" />
+    <title>{$info.goods_title2}</title>
+    <link rel="stylesheet" href="__GCSS__swiper.min.css">
+    <link rel="stylesheet" href="__GCSS__commen.css?v=444">
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '201123204038364');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=201123204038364&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+</head>
+
+<body style="padding-bottom: 45px;">
+<div class="sale">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <volist name="imgList" id="vo">
+            <div class="swiper-slide"><img class="swiper-lazy" data-src="{:trim($vo[image],'.')}"/><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
+            </volist>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!--<div class="djs">
+        <p class="dj">
+            Ends in：
+            <span class="dj2" id="_h"></span> &nbsp;：
+            <span class="dj3" id="_m"></span> &nbsp;：
+            <span class="dj4" id="_s"></span>
+            &lt;!&ndash;<span class="dj4">8</span>&ndash;&gt;
+        </p>
+
+        <div class="pg">Sold
+            <span class="sale-count">9999</span>
+            Pieces
+
+            <div class="progress">
+                <div class="pro" style="width: 88%"></div>
+            </div>
+            <span class="progress-num">88</span>%
+        </div>
+    </div>-->
+
+    <div class="seckill-container">
+        <div class="seckill-price-wrap">
+            <div class="seckill-price"><span class="seckill-big-price">RM {$info.goods_trprice}</span><span class="seckill-small-price">RM {$info.goods_toprice}</span></div>
+            <div class="seckill-btm-div">
+                <span class="skf-icon-pos">
+                    <i class="label-icon-div white-border have-icon-div">
+                        <i class="label-icon seckill-floor-icon"></i>
+                        <span class="label-text white-text" style="display: inline-block;vertical-align: middle;line-height: 0.8rem;font-style: normal;">Flash Deals</span>
+                    </i>
+                </span>
+                <div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" style="width: 95%"> <span style="/* color:#b00; */">Sold 95%</span></div></div>
+            </div>
+        </div>
+        <div class="seckill-time-wrap">
+            <span class="seckil-time-title">Ends In:</span>
+            <div class="seckill-time-div" id="seckill_time">
+                <span class="seckill-time-num hour">00</span>
+                <span class="seckill-time-colon">:</span>
+                <span class="seckill-time-num minute">36</span>
+                <span class="seckill-time-colon">:</span>
+                <span class="seckill-time-num s">06</span>
+                <span class="seckill-time-colon">.</span>
+                <span class="seckill-time-num ms">6</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="sale-title"><p style="font-size: 25px;margin-bottom: 10px;">{$info.goods_title} <p/><p style="color: red;">{$info.goods_subtitle}</p></div>
+    <!--<div class="data-group">
+        <div class="price">
+            <div class="price-now">RM <span>{$info.goods_trprice}</span></div>
+            <div class="price-ago">RM <span>{$info.goods_toprice}</span></div>
+        </div>
+        <div class="pl">
+            <ul class="pl-star">
+                <li><img src="__GIMG__star_01.png"></li>
+                <li><img src="__GIMG__star_01.png"></li>
+                <li><img src="__GIMG__star_01.png"></li>
+                <li><img src="__GIMG__star_01.png"></li>
+                <li><img src="__GIMG__star_01.png"></li>
+            </ul>
+            <div class="pl-num">99.99%</div>
+            &lt;!&ndash;<div class="pl-txt">High praise</div>&ndash;&gt;
+        </div>
+    </div>-->
+    <div class="tag-group">
+        <if condition="isset($info[pro_name])"><span class="orange">{$info.pro_name}</span></if>
+        <if condition="isset($tag)">
+            <volist name="tag" id="to">
+        <span>{$to.tag_name}</span>
+            </volist>
+        </if>
+    </div>
+
+</div>
+<div class="tabs-cr">
+    <div class="tabs">
+        <div class="tab tab-cur">Introduction</div>
+        <div class="tab">Purchase notes</div>
+        <!--<div class="tab">Evaluation<span></span></div>-->
+    </div>
+</div>
+<div class="ucontent">
+    <div class="uintro">
+        <!--<img src="{:trim($info[goods_det],'.')}" alt="">-->
+
+        <div class="swiper-slide">
+            <if condition = "$info[video_url]">
+                <!--<video src="{$info[video_url]}" controls="controls" style="max-width: 100%;margin: 0 auto">
+                    您的浏览器不支持 video 标签。
+                </video>-->
+                <!--<iframe src="{$info[video_url]}"></iframe>-->
+
+                <!--嵌套youtube的视频-->
+                <iframe width="854" height="480" src="https://www.youtube.com/embed/{$info[video_url]}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </if>
+        </div>
+
+        <div style="margin: 20px 0 20px 0">
+            {$info[goods_introduce]}
+        </div>
+
+        <!--批量上传的描述长图-->
+        <volist name="detailimgList" id="vo">
+            <!--<div class="swiper-slide"><img src="{:trim($vo[image],'.')}"></div>-->
+            <div class="swiper-slide">
+                <!--需要判断是图片还是视频-->
+
+                <!--<if condition="$vo eq ''">
+                    <li class="normal disabled" param="size">{$vo}</li>
+                    <else />
+                    <li class="normal" param="size">{$vo}</li>
+                </if>-->
+
+                <if condition = "$vo[is_img] eq 1">
+                    <img class="lazy" data-original="{:trim($vo[image],'.')}">
+                    <else />
+                    <!--<video controls="controls" style="max-width: 100%;margin: 0 auto">
+                        <source src="{$vo[image]}" type="video/mp4" />
+                        &lt;!&ndash;<source src="movie.ogg" type="video/ogg" />
+                        <source src="movie.webm" type="video/webm" />
+                        <object data="movie.mp4" width="320" height="240">
+                        <embed src="movie.swf" width="320" height="240" />&ndash;&gt;
+                        </object>
+                    </video>-->
+
+                    <video src="{:trim($vo[image],'.')}" controls="controls" style="max-width: 98%;margin: 0 auto">
+                        您的浏览器不支持 video 标签。
+                    </video>
+                </if>
+            </div>
+        </volist>
+
+    </div>
+    <if condition="$info[goods_notice]">
+    <div class="table-details">
+        <!--购买须知-->
+        <img class="lazy" data-original="{:trim($info[goods_notice],'.')}">
+    </div>
+    </if>
+
+    <if condition="$comment_switch">
+        <div class="commen-head appraise-head">User evaluation</div>
+        <div id="app" class="appraise">
+            <ul class="app-container"></ul>
+        </div>
+    </if>
+    <div style="height: 5px;background: #f5f5f5;"></div>
+    <if condition="$lately_order_switch">
+        <div class="commen-head">Recent orders</div>
+        <div id="app2">
+            <ul class="app2-container"></ul>
+        </div>
+    </if>
+    <div style="height: 5px;background: #f5f5f5;"></div>
+</div>
+<div class="am-card-header">
+    <!--<div class="am-card-header-content"><img id="size_img" src="{:trim($imgList[0][image],'.')}" style="max-width: 106px;">-->
+    <div class="am-card-header-content"><img id="size_img" src="{:trim($imgList[0][image],'.')}" style="max-width: 106px;">
+        <div style="display: flex;flex-direction: column;justify-content: space-between;height: 106px;width: 100%;">
+            <div style="font-size: 14px;">{$info.goods_title}
+                <div style="color: rgb(153, 153, 153);font-size: 14px;word-wrap: break-word;margin-top: 10px;margin-bottom: 5px;">
+                    {$info.goods_subtitle}
+                </div>
+            </div>
+            <div class="product-gg">
+                <if condition="$size[weight]"><span class="gg">Specification1</span>/</if>
+                <if condition="$size[color]"><span class="ys">Color1</span>/</if>
+                <if condition="$size[size]"><span class="cm">S</span></if>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="price-box">
+    <input type="hidden" class="size_num" value="{$size_num}"/>
+	<if condition="$size[weight]">
+    <div class="ant-row ant-form-item weight">
+        <div class="ant-form-item-label">
+            <label class="" title=""><strong>Select specifications/packages</strong></label>
+        </div>
+
+        <div class="ant-form-item-control-wrapper">
+            <div class="ant-form-item-control ">
+                <div class="sale-select-style">
+                    <ul>
+                        <volist name="size.weight" id="vo">
+                        <!--<li class="sel">{$vo}</li>-->
+                            <if condition="$vo">
+                                <li class="normal" param="weight">{$vo}</li>
+                            </if>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </if>
+    <if condition="isset($size[color])">
+    <div class="ant-row ant-form-item color">
+        <div class="ant-form-item-label">
+            <label class="" title=""><strong>color</strong></label>
+        </div>
+        <div class="ant-form-item-control-wrapper">
+            <div class="ant-form-item-control ">
+                <div class="sale-select-style">
+                    <ul>
+                        <volist name="size.color" id="vo">
+                        <!--<li class="sel">深藍色</li>-->
+                            <if condition="$vo">
+                                <li class="normal" param="color">{$vo}</li>
+                            </if>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </if>
+
+        <if condition="$size[size]">
+    <div class="ant-row ant-form-item size">
+        <div class="ant-form-item-label">
+            <label class="" title=""><strong>Size</strong></label>
+        </div>
+        <div class="ant-form-item-control-wrapper">
+            <div class="ant-form-item-control ">
+                <div class="sale-select-style">
+                    <ul>
+                        <volist name="size.size" id="vo">
+                        <!--<li class="sel">s</li>-->
+                            <if condition="$vo eq ''">
+                                <li class="normal disabled" param="size">{$vo}</li>
+                                <else />
+                                <li class="normal" param="size">{$vo}</li>
+                            </if>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+            </if>
+    <input type="hidden" id="gid" name="gid" value="{$info.id}" >
+    <!--<input type="hidden" id="ggid" name="ggid" value="{$ggid}" >-->
+    <input type="hidden" id="ggid" name="ggid" value="" >
+
+</div>
+<!--<div class="cx">-->
+    <!--<div class="cx-head">促銷規則</div>-->
+    <!--<div class="cx-box">-->
+        <!--<img src="https://img.alicdn.com/imgextra/i4/625065046/TB2wAI.clyWBuNkSmFPXXXguVXa_!!625065046.jpg">-->
+    <!--</div>-->
+<!--</div>-->
+<if condition="$info[goods_istuan] neq 0">
+<div class="kt">
+    <div class="commen-head">Wait for the open group</div>
+    <div class="kt-box">
+        <ul>
+            <li>
+                <div class="user_infor">
+                    <span class="user_name">zhou**</span>
+                    <span class="user_id change1">****55452</span>
+                    <a class="kt-btn ktbut">Open group</a>
+                    <span class="user_num">Still has<i>2</i>people</span>
+                </div>
+            </li>
+            <li>
+                <div class="user_infor">
+                    <span class="user_name">zhang**</span>
+                    <span class="user_id change1">****55452</span>
+                    <a class="kt-btn ktbut">Open group</a>
+                    <span class="user_num">Still has<i>2</i>people</span>
+                </div>
+            </li>
+            <li>
+                <div class="user_infor">
+                    <span class="user_name">wang**</span>
+                    <span class="user_id change1">****55452</span>
+                    <a class="kt-btn ktbut">Open group</a>
+                    <span class="user_num">Still has<i>2</i>people</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</if>
+<div class="price-count">
+    <div class="pc-btn">
+        <div class="pc-box">
+            <span class="pc-prev handle" style="cursor: pointer;">-</span>
+            <span class="pc-num">1</span>
+            <span class="pc-next handle" style="cursor: pointer;">+</span>
+        </div>
+        <span class="right">Purchase quantity</span>
+    </div>
+    <!--<div class="single-price">Original price RM <i>{$info.goods_toprice}</i></div>-->
+    <if condition="$info[goods_price] eq '0.00' or $info[goods_price] eq '0'">
+    	<div class="you"><span>free shipping</span></div>
+        <else />
+		<div class="you">Postage RM <i>{$info.goods_price}</i></div>
+	</if>
+    <input type="hidden" value="{$info.goods_trprice}" class="one_price"/>
+	<div class="all-price">Total prices RM <i>{$info.goods_trprice}</i></div>
+</div>
+<div class="am-card-body">
+    <div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label">
+                <label for="custom_name" class="ant-form-item-required" title=""><strong>Contact Name</strong></label></div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control ">
+				<input type="input" class="ant-input ant-input-lg form-content-input" placeholder="Please enter the contact name." value="" id="custom_name"></div>
+            </div>
+        </div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label"><label for="custom_mobile" class="ant-form-item-required" title=""><strong>Phone Number</strong></label>
+            </div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control ">
+					<input type="input" class="ant-input ant-input-lg form-content-input" placeholder="Please enter the phone number." value="" id="custom_mobile" onblur="getAddress(this)">
+				</div>
+            </div>
+        </div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label">
+				<label for="address" class="ant-form-item-required" title=""><strong>Address</strong></label>
+			</div>
+            <div class="ant-form-item-control-wrapper" id="add_area">
+                <div class="ant-form-item-control ">
+                    <input type="input" class="ant-input ant-input-lg form-content-input" placeholder="Please enter the shipping address." value="" id="custom_address" >
+
+                    <label for="address" id="address_pls" style="display: none" class="ant-form-item-required" title=""><strong>Please select the shipping address.</strong></label>
+                    <select name="" style="display: none;" id="address" class="ant-input" style="margin-bottom:5px;" onchange="setAddr(this)">
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label">
+				<label for="postcode" class="ant-form-item-required" title=""><strong>Post/Zip Code</strong></label>
+			</div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control ">
+					<input type="input" class="ant-input ant-input-lg form-content-input" placeholder="Please enter the post/zip code." value="" id="postcode">
+				</div>
+            </div>
+        </div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label"><label for="email" class="" title=""><strong>Email</strong></label></div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control "><input type="input" class="ant-input ant-input-lg form-content-input" placeholder="Please enter the email." value="" id="email"></div>
+            </div>
+        </div>
+        <div class="ant-row ant-form-item">
+            <div class="ant-form-item-label"><label for="remark" class="" title=""><strong>Message</strong></label></div>
+            <div class="ant-form-item-control-wrapper">
+                <div class="ant-form-item-control "><input type="input" class="ant-input ant-input-lg form-content-input" placeholder="Please enter the message." value="" id="remark"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pay">
+    <div class="pay-head">Payment Method</div>
+    <div class="pay-box">
+        <!--<a class="bg-blue on" type="4">PayPal</a>
+        <a class="bg-green" type="3">Credit Card</a>
+        <a class="bg-orange" type="5">Cash On Delivery</a>-->
+        <a class="bg-orange on" type="5">Cash On Delivery</a>
+    </div>
+</div>
+
+<div class="bottom-btn" <if condition="$info['goods_istuan'] eq 0">id="bottom-btn"</if> >
+    <a class="ccdd" href="{:U('index/search',array('model'=>$info['goods_country']))}" style="cursor: pointer;">Your order</a>
+    <a class="ljgm" style="cursor: pointer;">Buy Now</a>
+    <a class="ljkt" id="">Immediately open group <span class="yuan">RM </span>{$info.goods_twprice}</a>
+</div>
+<div class="bottom-to-top">
+    <img src="__GIMG__scroll-to-top-icon.png">
+</div>
+
+<!--弹出框-->
+<div id="Validform_msg" class="animated" style="display:none;">
+    <div class="Validform_info"></div>
+</div>
+
+<script src="__GJS__jQuery-3.3.1.js"></script>
+<!--图片延迟加载-->
+<script src="__GJS__jquery.lazyload.js"></script>
+<script src="__GJS__swiper.min.js"></script>
+<script src="__GJS__scroll.js"></script>
+
+<script>
+
+
+
+    $(window).on('scroll', function() {
+
+
+
+        var nav = $('.p-head'),
+            scrollTop = document.documentElement.scrollTop || document.body.scrollTop,
+            height = 48,
+            scrollDiv = $('#scrollTop'),
+            seckillDiv = $('.seckill-container'),
+            dH = document.documentElement.clientHeight,
+            imgH = parseInt($('.swiper-container').css('height')),
+            orderSubmit = $('#submit_order');
+        if (scrollTop > 5) {
+            orderSubmit.show();
+        }
+        if (scrollTop >= imgH) {
+            seckillDiv.addClass('fixed');
+        } else {
+            seckillDiv.removeClass('fixed');
+        }
+        if (scrollTop > dH + 100) {
+            scrollDiv.addClass('fadeInRight').addClass('loading').removeClass('fadeOutRight').show();
+        } else {
+            scrollDiv.removeClass('fadeInRight').removeClass('loading').addClass('fadeOutRight');
+            setTimeout(function() {
+                if (!scrollDiv.hasClass('loading')) {
+                    scrollDiv.hide()
+                }
+            }, 500);
+        }});
+
+
+    /*旧的倒计时*/
+    $().ready(function () {
+
+        $("img.lazy").lazyload({
+            threshold : 300,
+            effect : "fadeIn",
+            placeholder : "__GIMG__loading.gif"
+        });
+
+        var time = new Date;
+        time.setTime(Math.round(time / 3600000) * 3600000 + 3600000);
+        timer(parseInt((time - (new Date)) / 1000));
+
+        function timer(diff) {
+            var ms = 0,
+                _time = $('#seckill_time'),
+                _hour = _time.find('.hour'),
+                _minute = _time.find('.minute'),
+                _second = _time.find('.s'),
+                _msecond = _time.find('.ms');
+            var func = function() {
+                if (diff < 0) return;
+                if (--ms < 0) ms = 9;
+                _msecond.text(ms);
+                if (ms === 9) {
+                    --diff;
+                    var hour = Math.floor(diff / 3600),
+                        remain = diff - hour * 3600,
+                        minute = Math.floor(remain / 60),
+                        second = remain - minute * 60;
+                    if (hour < 10) hour = '0' + hour;
+                    if (minute < 10) minute = '0' + minute;
+                    if (second < 10) second = '0' + second;
+
+                    _hour.text(hour);
+                    _minute.text(minute);
+                    _second.text(second);
+                    if (diff == 0) {
+                        _msecond.text(0);
+                        clearInterval(seed);
+                    }
+                }
+            };
+            func();
+            var seed = setInterval(func, 100);
+        }
+
+        var onOff = true;
+        var goods_title = "{$info[goods_title]}";
+        /* 取消不断请求最近购买订单
+        $.getJSON('{:U("index/evaOrder",array("type"=>1,"f"=>1))}', function (data) {
+            $.each(data, function (i, item) {
+                var uname = item.username;
+                uname = uname.toString().slice(0, 1) + '**';
+                var uphone = item.phone;
+                uphone = '*******' + uphone.toString().slice(7);
+                var utime = item.time;
+                var utext = goods_title;
+                var ucountry = item.country;
+                $('<li><div class="user_infor"><span class="user_name">' + uname + '</span><span class="user_id">' + uphone + '</span><span class="now_time">' + utime + '分鐘前</span><span class="user_addr">' + ucountry + '</span></div><div class="utxt">' + utext + '</div></li>').appendTo($('#app2 .app2-container'));
+            });
+            $('#app2').myScroll({
+                speed: 35, //數值越大，速度越慢
+                rowHeight: 56 //li的高度
+            });
+        });
+        setInterval(function () {
+            $.getJSON('{:U("index/evaOrder",array("type"=>1,"f"=>2))}', function (data) {
+                $.each(data, function (i, item) {
+                    var uname = item.username;
+                    uname = uname.toString().slice(0, 1) + '**';
+                    var uphone = item.phone;
+                    uphone = '*******' + uphone.toString().slice(7);
+                    var utime = item.time;
+                    var utext = item.goods_title;
+                    var ucountry = item.country;
+                    $('<li><div class="user_infor"><span class="user_name">' + uname + '</span><span class="user_id">' + uphone + '</span><span class="now_time">' + utime + '分鐘前</span><span class="user_addr">' + ucountry + '</span></div><div class="utxt">' + utext + '</div></li>').appendTo($('#app2 .app2-container'));
+                });
+            });
+
+        }, 3000);
+        $.getJSON('{:U("index/evaOrder",array("type"=>2,"f"=>1,"g"=>$info[id]))}', function (data) {
+            $.each(data, function (i, item) {
+                var uname = item.username;
+                uname = uname.toString().slice(0, 1) + '**';
+                var uphone = item.phone;
+                uphone = '*******' + uphone.toString().slice(7);
+                var utime = item.create_at;
+                var utext = item.text;
+                var ulevel = item.level;
+                var uleveltxt = '';
+                var upic = '';
+                for (var i = 0; i < ulevel; i++) {
+                    uleveltxt += '<div class="ustar-item"><img src="/Public/Goods/img/star_01.png"> </div>';
+                }
+                var imgsrc1 = item.img1;
+                var imgsrc2 = item.img2;
+                var imgsrc3 = item.img3;
+                var imgsrc4 = item.img4;
+                var attr = [];
+                attr[0]=imgsrc1;
+                attr[1]=imgsrc2;
+                attr[2]=imgsrc3;
+                attr[3]=imgsrc4;
+                for (i = 0; i < attr.length; i++) {
+                    if (!(attr[i] == '')) {
+                        upic += '<div class="comment-img-item"><img src="' + attr[i] + '"></div>';
+                    }
+                }
+                upic = '<div class="comment-img-container"><div class="img-container J_ping">' + upic + '</div></div>';
+                $('<li><div class="user_infor"><span class="user_name">' + uname + '</span><span class="user_id change1">' + uphone + '</span><span class="now_time">' + utime + '</span> </div><div class="ustar">滿意度：<div class="ustar-list">' + uleveltxt + '</div></div><div class="utxt">' + utext + '</div>' + upic + '</li>').appendTo($('#app .app-container'));
+            });
+
+            $('#app').myScroll({
+                speed: 35, //數值越大，速度越慢
+                rowHeight: 10000 //li的高度
+            });
+        });
+        var p=1;
+        setInterval(function () {
+            $.getJSON('{:U("index/evaOrder",array("type"=>2,"f"=>2,"g"=>$info[id]))}'+'?p='+p, function (data) {
+                $.each(data, function (i, item) {
+                    var uname = item.username;
+                    uname = uname.toString().slice(0, 1) + '**';
+                    var uphone = item.phone;
+                    uphone = '*******' + uphone.toString().slice(7);
+                    var utime = item.create_at;
+                    var utext = item.text;
+                    var ulevel = item.level;
+                    var uleveltxt = '';
+                    var upic = '';
+                    for (var i = 0; i < ulevel; i++) {
+                        uleveltxt += '<div class="ustar-item"><img src="/Public/Goods/img/star_01.png"> </div>';
+                    }
+                    var imgsrc1 = item.img1;
+                    var imgsrc2 = item.img2;
+                    var imgsrc3 = item.img3;
+                    var imgsrc4 = item.img4;
+                    var attr = [imgsrc1, imgsrc2, imgsrc3, imgsrc4];
+                    for (i = 0; i < attr.length; i++) {
+                        if (!(attr[i] == '')) {
+                            upic += '<div class="comment-img-item"><img src="' + attr[i] + '"></div>';
+                        }
+                    }
+                    upic = '<div class="comment-img-container"><div class="img-container J_ping">' + upic + '</div></div>';
+                    $('<li><div class="user_infor"><span class="user_name">' + uname + '</span><span class="user_id change1">' + uphone + '</span><span class="now_time">' + utime + '</span> </div><div class="ustar">滿意度：<div class="ustar-list">' + uleveltxt + '</div></div><div class="utxt">' + utext + '</div>' + upic + '</li>').appendTo($('#app .app-container'));
+                });
+            });
+            p = p*1+1*1;
+        }, 3000)*/
+        var scrollTop = $(this).scrollTop();
+
+        /*var saleHeight = $('.sale').height();
+        if (scrollTop >= saleHeight) {
+            $('.tabs').css({
+                'position': 'fixed',
+                'top': 0,
+                'max-width': '640px'
+            })
+        } else {
+            $('.tabs').css({
+                'position': 'static'
+            })
+        }*/
+
+        //倒计时悬浮效果。
+        /*var djsHeight = $('.djs').height();
+        if (scrollTop >= djsHeight) {
+            $('.djs').css({
+                'position': 'fixed',
+                'top': 0,
+                'max-width': '640px'
+            })
+        } else {
+            $('.djs').css({
+                'position': 'static'
+            })
+        }*/
+
+        //规格/颜色/尺码选中
+        $('.sale-select-style ul li').click(function () {
+            if( !($(this).hasClass('disabled')) ){
+
+                $(this).addClass('sel').siblings('li').removeClass('sel');
+
+                var id = "{$info[id]}";
+                var param = $(this).attr('param');
+                var value = $(this).html();
+                if(param == 'weight'){
+                    $('.gg').html(value);
+                }else if(param == 'color'){
+                    $('.ys').html(value);
+                }else if(param == 'size'){
+                    $('.cm').html(value);
+                }
+
+                var url = '/index/getImg/id/'+id;
+                var weightColIndex = $('.weight li.sel').index();
+                if(weightColIndex > 0){
+                    var  weightValue = $('.weight li.sel').html();
+                    url += '/weight/'+weightValue;
+                }
+                var colorColIndex = $('.color li.sel').index();
+                //为什么点击第一个的时候这里是空的，不切换颜色
+                colorColIndex = 1;
+                if(colorColIndex > 0){
+                    var  colorValue = $('.color li.sel').html();
+                    url += '/color/'+colorValue;
+                }
+                var sizeColIndex = $('.size li.sel').index();
+                if(sizeColIndex > 0){
+                    var  sizeValue = $('.size li.sel').html();
+                    url += '/size/'+sizeValue;
+                }
+
+                $.get(url+'.html', function(result){
+                    var data = JSON.parse(result);
+                    console.log(data.count);
+                    //只有颜色才会切换图片
+
+                    if(data.img && colorColIndex > 0){
+                        $('#size_img').attr('src',data.img);
+                    }
+                    if(data.count == 1){
+                        $('#ggid').val(data.id);
+                    }
+                    if(param != 'weight' && data.data.weight){
+                        var weightJson = data.data.weight;
+                        var weightObjList = $('.weight li'); //weight列表
+                        var weightCheck = $('.weight li.sel').index(); //weight列表中的选中
+                        var weightHtml = [];
+                        weightObjList.each(function(i,e){
+                            weightHtml[i] = $(e).html();
+                        });
+                        //全部失效
+                        //$('.weight li').addClass('disabled');
+                        //全部取消选中
+                        //$('.weight li').removeClass('sel');
+                        //循环当前有规格的
+                        $.each(weightJson,function(ji,je){
+                            //循环全部当前规格
+                            $.each(weightHtml,function(ai,ae){
+                                if(je == ae){
+                                    //对应规格存在，生效可选
+                                    $('.weight li:eq('+ai+')').removeClass('disabled');
+                                    //已选中的，重新变为选中
+                                    if(weightCheck > 0 && weightCheck==ai){
+                                        $('.weight li:eq('+ai+')').addClass('sel');
+                                    }
+                                }
+                            });
+                        });
+                    }
+                    if(param != 'color' && data.data.color){
+                        var colorJson = data.data.color;
+                        var colorObjList = $('.color li'); //weight列表
+                        var colorCheck = $('.color li.sel').index(); //weight列表中的选中
+                        var colorHtml = [];
+                        colorObjList.each(function(i,e){
+                            colorHtml[i] = $(e).html();
+                        });
+                        //全部失效
+                        //$('.color li').addClass('disabled');
+                        //全部取消选中
+                        //$('.color li').removeClass('sel');
+                        //循环当前有规格的
+                        $.each(colorJson,function(ji,je){
+                            //循环全部当前规格
+                            $.each(colorHtml,function(ai,ae){
+                                if(je == ae){
+                                    //对应规格存在，生效可选
+                                    $('.color li:eq('+ai+')').removeClass('disabled');
+                                    //已选中的，重新变为选中
+                                    if(colorCheck > 0 && colorCheck==ai){
+                                        $('.color li:eq('+ai+')').addClass('sel');
+                                    }
+                                }
+                            });
+                        });
+                    }
+                    if(param != 'size' && data.data.size){
+                        var sizeJson = data.data.size;
+                        var sizeObjList = $('.size li'); //weight列表
+                        var sizeCheck = $('.size li.sel').index(); //weight列表中的选中
+                        var sizeHtml = [];
+                        sizeObjList.each(function(i,e){
+                            sizeHtml[i] = $(e).html();
+                        });
+                        //全部失效
+                        //$('.size li').addClass('disabled');
+                        //全部取消选中
+                        //$('.size li').removeClass('sel');
+                        //循环当前有规格的
+                        $.each(sizeJson,function(ji,je){
+                            //循环全部当前规格
+                            $.each(sizeHtml,function(ai,ae){
+                                if(je == ae){
+                                    //对应规格存在，生效可选
+                                    $('.size li:eq('+ai+')').removeClass('disabled');
+                                    //已选中的，重新变为选中
+                                    if(sizeCheck > 0 && sizeCheck==ai){
+                                        $('.size li:eq('+ai+')').addClass('sel');
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+        });
+
+        //付款方式点击
+        $('.pay-box a').click(function(){
+            $(this).addClass('on').siblings('a').removeClass('on');
+        });
+
+        function look() {
+            if ($('.ulook')) {
+                $('.ulook').remove();
+            }
+            var mnum = Math.floor(Math.random() * 10 + 1)
+            var mstr = '<div class="ulook"><div class="lookbg"></div><h3><span>'+mnum+'</span> people are browsing the product</h3></div>';
+            $(mstr).appendTo($('body')).fadeIn(200);
+            setTimeout(function () {
+                $('.ulook').fadeOut(200);
+            }, 3000);
+        }
+
+        /*暂时取消有多少人购买的提示*/
+        /*setTimeout(function () {
+            look();
+            setInterval(function () {
+                look();
+            }, 11000);
+        }, 8000);
+        */
+        var leftTime = 36000000;
+        /* 倒计时 */
+        function countTime() {           //获取当前时间
+//                var date = new Date();
+//                var now = date.getTime();
+//                //设置截止时间
+//                var str = "2018/5/7 00:00:00";
+//                var endDate = new Date(str);
+//                var end = endDate.getTime();
+//
+//                //时间差
+//                var leftTime = end - now;
+            //定义变量 d,h,m,s保存倒计时的时间
+            var d, h, m, s;
+            if (leftTime >= 0) {
+                h = Math.floor(leftTime / 1000 / 60 / 60);
+                if(h.toString().length<2){
+                    h='0'+h;
+                }
+                m = Math.floor(leftTime / 1000 / 60 % 60);
+                if(m.toString().length<2){
+                    m='0'+m;
+                }
+                s = Math.floor(leftTime / 1000 % 60);
+                if(s.toString().length<2){
+                    s='0'+s;
+                }
+            }
+            //将倒计时赋值到div中
+            /*document.getElementById("_h").innerHTML = h;
+            document.getElementById("_m").innerHTML = m;
+            document.getElementById("_s").innerHTML = s;*/
+            leftTime-=1000;
+            //递归每秒调用countTime方法，显示动态时间效果
+            setTimeout(countTime, 1000);
+        }
+        countTime();
+    });
+
+    function getAddress(obj){
+        //$('#add_area').hide();
+        var phone = $(obj).val();
+        $.get("{:U('index/getadd')}"+"?phone="+phone,function(data){
+            console.log(data);
+            if(data){
+                $('#address').show();
+                $('#address_pls').show();
+                var data = eval(data);
+                $('#add_area').show();
+                var str = '';
+                $.each(data,function(i,e){
+                    str += '<option value="'+ e.address +'">'+ e.address +'</option>'
+                });
+                $('#address').empty().html(str);
+                $('#custom_address').val(data[0].address);
+                $('#postcode').val(data[0].code);
+                $('#email').val(data[0].email);
+            }
+        });
+    }
+    function setAddr(obj){
+        var addr = $(obj).val();
+        $('#custom_address').val(addr);
+    }
+</script>
+<script src="__GJS__index-en.js?5699"></script>
+<script>
+    //轮播图
+    var swiper = new Swiper('.swiper-container', {
+        //autoplay: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        lazy: {
+            /*__PUBLIC__/Goods/img/loading.gif*/
+            loadPrevNext: true,
+            loadPrevNextAmount: 2,
+        },
+        //懒加载
+        //lazy:true,
+        loop: false,
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction'
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        }
+    });
+</script>
+
+<script>
+    $('input,textarea').on('focus',function(){
+        $(this).data('pla',$(this).attr('placeholder')).attr('placeholder','');
+    }).on('blur',function(){
+        $(this).attr('placeholder',$(this).data('pla'));
+    });
+
+    //提示框
+    function showMessage(message){
+        $('.layout-bg').show();
+        $('#Validform_msg').removeClass('zoomOut').addClass('zoomIn').show();
+        $('.Validform_info').html(message);
+        setTimeout(function(){
+            $('#Validform_msg').removeClass('zoomIn').addClass('zoomOut');
+            setTimeout(function(){
+                $('#Validform_msg').hide();
+            },500);
+            $('.layout-bg').hide();
+        },2000);
+    }
+
+    //立即购买锚点
+    $('.ljgm,.ktbut').click(function(){
+
+        var sizeId = $('#ggid').val();
+
+        //判断规格是否选择
+        var _colorIndex=$('.color .sel').index();
+        var _weightIndex=$('.weight .sel').index();
+        var _sizeIndex=$('.size .sel').index();
+        /*if(_colorIndex <0 || _weightIndex <0 || _sizeIndex <0){*/
+
+        var goodId = $('#gid').val();
+        var name = $('#custom_name').val();
+        var phone = $('#custom_mobile').val();
+        var address = $('#custom_address').val();
+        var code = $('#postcode').val();
+        var email = $('#email').val();
+        var remark = $('#remark').val();
+        var num = $('.pc-num').html();
+
+        if (parseInt(num) <= 0) {
+            /*alert('购买数量最少为1');*/
+            showMessage('Purchase at least 1 items');
+            $('.pc-num').html(1);
+            edit_price();
+            return false;
+        }
+
+        if (parseInt(num) > 2) {
+            /*限购两个*/
+            showMessage('Purchase limit 2 items.');
+            $('.pc-num').html(2);
+            edit_price();
+            return false;
+        }
+
+        //测试
+        //sizeId = 1;
+        var size_num = $('.size_num').val();
+        if(!sizeId){
+            var seckill_height = $('.seckill-container').height();
+            $('body,html').animate({
+                'scrollTop': $('.am-card-header').offset().top - seckill_height
+            }, 500);
+            /*if(phone.length > 0 && size_num>0){
+                showMessage('Please select the specification first');
+                return false;
+            }*/
+        }
+
+        if (name.length<=0) {
+            /*alert('收件人名称不能为空');*/
+            showMessage('Please enter the contact name.');
+            $('#custom_name').focus();
+            return false;
+        }
+
+
+
+        if (phone.length<=0) {
+            showMessage('Please enter the phone number.');
+            $('#custom_mobile').focus();
+            return false;
+        }
+
+        /*var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(phone)) {
+            /!*alert('收件人手机号错误');*!/
+            showMessage('The phone number is error');
+            $('#custom_mobile').focus();
+            return false;
+        }*/
+
+        if (address.length <= 0) {
+            /*alert('收件地址不能为空');*/
+            showMessage('Please enter the shipping address.');
+            $('#custom_address').focus();
+            return false;
+        }
+
+
+
+        if (code.length<=0) {
+            showMessage('Please enter the post/zip code.');
+            $('#postcode').focus();
+            return false;
+        }
+
+        /*var re= /^[1-9][0-9]{5}$/;
+        if(!re.test(code)) {
+            /!*alert('邮编格式错误');*!/
+            showMessage('The post/zip code is error');
+            $('#postcode').focus();
+            return false;
+        }*/
+
+        if (email.length<=0) {
+            showMessage('Please enter the email.');
+            $('#email').focus();
+            return false;
+        }
+
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email)) {
+            /*alert('email格式有误');*/
+            showMessage('The email is error');
+            $('#email').focus();
+            return false;
+        }
+
+
+
+        //付款方式判断
+        var _payIndex=$('.pay-box .on').index();
+        if(_payIndex<0){
+            $('.pay-head i').show();
+            $('body,html').animate({
+                'scrollTop': $('.pay').offset().top - 45
+            }, 500);
+            return false;
+        }else{
+            $('.pay-head i').hide();
+        }
+
+        //必须选择全部的规格
+
+        var sel_num = document.getElementsByClassName('sel');
+
+        if(parseInt(size_num) != parseInt(sel_num.length)){
+            var seckill_height = $('.seckill-container').height();
+            $('body,html').animate({
+                'scrollTop': $('.am-card-header').offset().top - seckill_height
+            }, 500);
+
+            showMessage('Please select all the specification.');
+            return false;
+        }
+
+        //获取支付方式
+        var payType = $('.pay-box .on').attr('type');
+
+
+        var color_sel=$('.color .sel').text();
+        var weight_sel=$('.weight .sel').text();
+        var size_sel=$('.size .sel').text();
+
+        //判断goodId，和sizeId
+        var param = {"color":color_sel,"weight":weight_sel,"size":size_sel,"userName":name,"goodId":goodId, "sizeId":sizeId, "address":address,"phone":phone,"email":email,"code":code,"remark":remark,"goodCount":num,"payType":payType};
+        //ajax提交数据
+        $.ajax({
+            type: "post",
+            url: "/order/createOrder",
+            data: param,
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                if (data.code == 0) {
+                    window.location.href='/index/buysuccess/id/'+data.data.orderId;
+                } else {
+                    /*alert(data.data.msg);*/
+                    showMessage(data.data.msg);
+                }
+            }
+        });
+
+    });
+    //提交订单
+    $('.ljkt').click(function () {
+        //判断规格是否选择
+        var sizeId = $('#ggid').val();
+        /*var _colorIndex=$('.color .sel').index();
+        var _weightIndex=$('.weight .sel').index();
+        var _sizeIndex=$('.size .sel').index();*/
+
+        /*if(_colorIndex <0 || _weightIndex <0 || _sizeIndex <0){*/
+        if(!sizeId){
+            $('body,html').animate({
+                'scrollTop': $('.price-box').offset().top - 45
+            }, 500);
+            return false;
+        }
+        
+
+        var name = $('#custom_name').val();
+        var phone = $('#custom_mobile').val();
+        var address = $('#custom_address').val();
+        var code = $('#postcode').val();
+        var email = $('#email').val();
+        var remark = $('#remark').val();
+        var num = $('.pc-num').html();
+
+        if (parseInt(num) <= 0) {
+            alert('购买数量最少为1');
+            return false;
+        }
+
+        if (name.length<=0) {
+            alert('收件人名称不能为空');
+            $('#custom_name').focus();
+            return false;
+        }
+
+        if (address.length <= 0) {
+            alert('收件地址不能为空');
+            $('#custom_address').focus();
+            return false;
+        }
+
+        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(phone)) {
+            alert('收件人手机号错误');
+            return false;
+        }
+
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email)) {
+            alert('email格式有误');
+            return false;
+        }
+
+        var re= /^[1-9][0-9]{5}$/;
+        if(!re.test(code)) {
+            alert('邮编格式错误');
+            return false;
+        }
+
+        //付款方式判断
+        var _payIndex=$('.pay-box .on').index();
+        if(_payIndex<0){
+            $('.pay-head i').show();
+            $('body,html').animate({
+                'scrollTop': $('.pay').offset().top - 45
+            }, 500);
+            return false;
+        }else{
+            $('.pay-head i').hide();
+        }
+        alert(123);
+
+        //获取支付方式
+        var payType = $('.pay-box on').attr('type');
+
+        //判断goodId，和sizeId
+        var param = {"userName":name,"address":address,"phone":phone,"email":email,"code":code,"remark":remark,"goodCount":num,"payType":payType};
+        //ajax提交数据
+        $.ajax({
+            type: "post",
+            url: "/order/createOrder",
+            data: param,
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                if (data.code == 0) {
+                    window.location.href='/index/buysuccess/id/'+data.data.orderId;
+                } else {
+                    alert(data.data.msg);
+                }
+            }
+        });
+    })
+
+</script>
+
+
+
+</body>
+</html>

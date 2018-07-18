@@ -1,0 +1,385 @@
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15282664575b177ed90fd2e.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15282664575b177ed919970.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@3","png"]
+$fileNameNew"15282664575b177ed920ea2.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@4","png"]
+$fileNameNew"15282664605b177edce9e55.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@5","png"]
+$fileNameNew"15282664605b177edcf2edf.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@6","png"]
+$fileNameNew"15282664615b177edd061d0.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15282666265b177f82a856c.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15282666265b177f82b19de.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@3","png"]
+$fileNameNew"15282666265b177f82b9eb0.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@4","png"]
+$fileNameNew"15282666345b177f8a4fd29.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15282666885b177fc08e978.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15282666885b177fc099d2b.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@3","png"]
+$fileNameNew"15282666885b177fc0a1e15.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@4","png"]
+$fileNameNew"15282666995b177fcbae7c5.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@5","png"]
+$fileNameNew"15282666995b177fcbc2c01.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@6","png"]
+$fileNameNew"15282666995b177fcbcaceb.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15285151265b1b4a36a18c2.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15285151275b1b4a3713b52.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@3","png"]
+$fileNameNew"15285151275b1b4a371f6d5.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@4","png"]
+$fileNameNew"15285151275b1b4a3729ed0.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@5","png"]
+$fileNameNew"15285151275b1b4a3733b12.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@6","png"]
+$fileNameNew"15285151275b1b4a373db3c.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["A1","jpg"]
+$fileNameNew"15285151335b1b4a3dd8948.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["A2","jpg"]
+$fileNameNew"15285151335b1b4a3de258a.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["A3","jpg"]
+$fileNameNew"15285151335b1b4a3dec5b4.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15287866735b1f6ef145933.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15287866775b1f6ef54274f.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15287867315b1f6f2b43f18.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15287867355b1f6f2f322d1.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15287878295b1f73758d243.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15287878335b1f73795587b.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15287884685b1f75f43f256.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15287884725b1f75f84e186.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15290586245b239540d1089.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@6","png"]
+$fileNameNew"15290586285b239544218ad.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15302538615b35d2259b598.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15302538615b35d225a617b.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@3","png"]
+$fileNameNew"15302538615b35d225af5ed.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@4","png"]
+$fileNameNew"15302538615b35d225bb170.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@5","png"]
+$fileNameNew"15302538615b35d225c7c93.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@6","png"]
+$fileNameNew"15302538615b35d225d0d1d.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["d1","jpg"]
+$fileNameNew"15302538705b35d22e640d6.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["d2","jpg"]
+$fileNameNew"15302538705b35d22e717b1.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["d3","jpg"]
+$fileNameNew"15302538705b35d22e794b3.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["d4","jpg"]
+$fileNameNew"15302538705b35d22e834de.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15302582445b35e34448fea.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15302582445b35e344514bc.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@3","png"]
+$fileNameNew"15302582445b35e344591be.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@4","png"]
+$fileNameNew"15302582445b35e34460ec0.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@5","png"]
+$fileNameNew"15302582445b35e3446c273.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@6","png"]
+$fileNameNew"15302582445b35e34486859.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["d1","jpg"]
+$fileNameNew"15302582445b35e34491053.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["d2","jpg"]
+$fileNameNew"15302582445b35e3449913d.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["d3","jpg"]
+$fileNameNew"15302582445b35e344a25af.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["d4","jpg"]
+$fileNameNew"15302582445b35e344a9ae1.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15302582665b35e35ae4189.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15302582665b35e35aefd0c.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@3","png"]
+$fileNameNew"15302582675b35e35b03f9e.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@4","png"]
+$fileNameNew"15302582675b35e35b0f738.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@5","png"]
+$fileNameNew"15302582675b35e35b17822.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@6","png"]
+$fileNameNew"15302582675b35e35b1ed54.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["b1","jpg"]
+$fileNameNew"15302582675b35e35b26a56.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["b2","jpg"]
+$fileNameNew"15302582675b35e35b2ef28.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["b3","jpg"]
+$fileNameNew"15302582675b35e35b373fa.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"jpg"
+$name_arr["b4","jpg"]
+$fileNameNew"15302582675b35e35b3f0fc.jpg"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15305247155b39f42badbde.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15305247155b39f42bbd5e2.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@3","png"]
+$fileNameNew"15305247155b39f42bc6284.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@4","png"]
+$fileNameNew"15305247195b39f42fc82a9.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@5","png"]
+$fileNameNew"15305247195b39f42fd365c.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@6","png"]
+$fileNameNew"15305247195b39f42fe017f.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@1","png"]
+$fileNameNew"15305248055b39f485b4dbc.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@2","png"]
+$fileNameNew"15305248055b39f485c9db0.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@3","png"]
+$fileNameNew"15305248055b39f485d360b.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@4","png"]
+$fileNameNew"15305248205b39f4946346a.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@5","png"]
+$fileNameNew"15305248205b39f4946bd24.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true
+$fileName"png"
+$name_arr["@6","png"]
+$fileNameNew"15305248205b39f4947de39.png"
+gettype($fileName)"string"
+in_array(strtolower($fileName), $arr)true

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品信息管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-form">
+		<li><a href="{:U('Team/index')}">拼团列表</a></li>
+		<li class="layui-this"><a href="javascript:void(0);">添加拼团</a></li>
+	</ul>
+	
+	<form method="post" autocomplete="off" action="{:U('Team/doset_tj',array('id'=>$info['id']))}" class="layui-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label">拼团名称</label>
+			<div class="layui-input-inline">
+				<input type="text" name="pname" maxlength="10" required="required" value="{$info.pname}" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">展示在商品页面的普通拼团</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">成团人数</label>
+			<div class="layui-input-inline">
+				<input type="text" name="num" maxlength="10" required="required" value="{$info.num}" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">展示在商品页面的普通拼团</div>
+		</div>
+
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">生效时间</label>
+				<div class="layui-input-inline" style="width:400px;">
+					<input type="text" class="layui-input" name="time_area" id="time_area" placeholder="yyyy-MM-dd HH:mm:ss" lay-key="6" required="required" value="{$info.time_area}">
+				</div>
+				<div class="layui-form-mid layui-word-aux">必填，促销生效的时间</div>
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn layui-btn-danger" lay-submit lay-filter="Submit">立即提交</button>
+			</div>
+		</div>
+	</form>
+<!--<script src="__LAYUI__/layui.js?31"></script>-->
+<script src="/Public/Admin/laydate/laydate.js?31"></script>
+<script>
+	laydate.render({
+		elem: '#time_area' //指定元素
+		,type: 'datetime'
+		,range: '~'
+	});
+</script>
+</body>
+</html>

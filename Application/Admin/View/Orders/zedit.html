@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>订单信息管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-form">
+		<li class="layui-this"><a href="javascript:void(0);">订单编辑</a></li>
+	</ul>
+	
+	<form method="post" autocomplete="off" action="{:U('Orders/doedit',array('id'=>$info['id']))}" class="layui-form" >
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">订单编号</label>
+			<div class="layui-input-inline" style="height:38px; line-height:38px;">{$info.id}</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">订单时间</label>
+			<div class="layui-input-inline" style="height:38px; line-height:38px;">{$info.create_at}</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">商品名称</label>
+			<div class="layui-input-inline" style="height:38px; line-height:38px;">{$info.goods_name}</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">用户姓名</label>
+			<div class="layui-input-inline" style="height:38px; line-height:38px;">{$info.username}</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">用户手机</label>
+			<div class="layui-input-inline" style="height:38px; line-height:38px;">{$info.phone}</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">用户地址</label>
+			<div class="layui-input-inline" style="height:38px; line-height:38px;">{$info.address}</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">配送信息</label>
+			<div class="layui-input-inline">
+				<input type="text" name="pw_info" maxlength="10" required="required" value="{$info.pw_info}" class="layui-input"  >
+			</div>
+			<div class="layui-form-mid layui-word-aux">必填，配送信息</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">物流信息</label>
+			<div class="layui-input-inline">
+				<input type="text" name="wl_info" maxlength="10" value="{$info.wl_info}" class="layui-input"  >
+			</div>
+			<div class="layui-form-mid layui-word-aux">必填，物流信息</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">订单来源</label>
+			<div class="layui-input-inline" style="height:38px; line-height:38px;">{$info.from}</div>
+		</div>
+
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">订单状态</label>
+			<div class="layui-input-block">
+				<input type="radio" name="statue" value="1" title="未付款" <if condition="$info['statue'] eq 1">checked</if>>
+				<input type="radio" name="statue" value="2" title="已付款" <if condition="$info[statue] eq 2">checked</if>>
+				<input type="radio" name="statue" value="3" title="配送中" <if condition="$info[statue] eq 3">checked</if>>
+				<input type="radio" name="statue" value="4" title="已送达" <if condition="$info[statue] eq 4">checked</if>>
+				<input type="radio" name="statue" value="5" title="未评价" <if condition="$info[statue] eq 5">checked</if>>
+				<input type="radio" name="statue" value="6" title="已评价" <if condition="$info[statue] eq 6">checked</if>>
+				<input type="radio" name="statue" value="7" title="待退货" <if condition="$info[statue] eq 7">checked</if>>
+			</div>
+			<div class="layui-form-mid layui-word-aux">可更改，订单状态</div>
+		</div>
+
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<input type="hidden" name="type" value="2">
+				<button class="layui-btn layui-btn-danger" lay-submit lay-filter="Submit">立即提交</button>
+			</div>
+		</div>
+	</form>
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+
+		layui.use('form', function(){
+			var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+
+			//但是，如果你的HTML是动态生成的，自动渲染就会失效
+			//因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
+			form.render();
+		});
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>推广统计</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+<include file="Orders/header" />
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline">
+			<select name="statue">
+				<option value="0">订单状态</option>
+				<option value="1">未付款</option>
+				<option value="2">已付款</option>
+				<option value="3">配送中</option>
+				<option value="4">已送达</option>
+				<option value="5">未评价</option>
+				<option value="6">已评价</option>
+				<option value="7">待退货</option>
+				<option value="10" <if condition="$statue eq 10">selected</if>>代发货</option>
+			</select>
+			<div class="layui-unselect layui-form-select">
+				<div class="layui-select-title">
+					<input type="text" placeholder="订单状态" value="" readonly="" class="layui-input layui-unselect">
+					<i class="layui-edge"></i>
+				</div>
+				<dl class="layui-anim layui-anim-upbit">
+					<dd lay-value="1" class="">未付款</dd>
+					<dd lay-value="2" class="">已付款</dd>
+					<dd lay-value="3" class="">配送中</dd>
+					<dd lay-value="4" class="">已送达</dd>
+					<dd lay-value="5" class="">未评价</dd>
+					<dd lay-value="6" class="">已评价</dd>
+					<dd lay-value="7" class="">待退货</dd>
+					<dd lay-value="10" class="">代发货</dd>
+				</dl>
+			</div>
+		</div>
+		<div class="layui-input-inline" style="width: 295px;">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="输入完整的订单编号" class="layui-input">
+		</div>
+		<div class="layui-input-inline" style="width:310px;">
+			<input type="text" class="layui-input" name="time_area" id="time_area" placeholder="选择时间区间" lay-key="6" required="required" value="{$time_area}">
+		</div>
+		<div class="layui-input-inline">
+			<select name="admin_id">
+				<option value="0" >全部推广人员</option>
+				<foreach name="admin_list" item="vo">
+					<option value="{$vo.admin_id}" <if condition="$admin_list_id eq $vo[admin_id]">selected</if>>{$vo.admin_name}</option>
+				</foreach>
+			</select>
+			<div class="layui-unselect layui-form-select">
+				<div class="layui-select-title">
+					<input type="text" placeholder="全部推广人员" value="" readonly="" class="layui-input layui-unselect">
+					<i class="layui-edge"></i>
+				</div>
+				<dl class="layui-anim layui-anim-upbit">
+					<foreach name="admin_list" item="vo">
+						<dd lay-value="{$vo.admin_id}" class="">{$vo.admin_name}</dd>
+					</foreach>
+				</dl>
+			</div>
+		</div>
+
+		<div class="layui-inline" >
+			<button class="layui-btn search" lay-submit lay-filter="search">查找</button>
+			<button class="layui-btn export" lay-submit lay-filter="export" onclick="javascript:if(confirm('确定要导出Excel表格吗？')){export_action();return true;}return false;">导出Excel</button>
+			<if condition="$type eq 1"><button class="layui-btn empty" lay-submit lay-filter="empty" style="color: red;">返回</button></if>
+		</div>
+	</div>
+<!--<div class="layui-form">
+	<table class="layui-table" lay-even lay-skin="line">
+		<thead>
+		<tr>
+			<th style="color: red;">订单数总计</th>
+			<th style="color: red;">商品数总计</th>
+			<th style="color: red;">规格总计</th>
+		</tr>
+		</thead>
+		<tbody>
+				<tr>
+					<td>{$count}</td>
+					<td>{$num_count}</td><foreach name="group_data" item="vo">
+
+					<td>规格：{$vo.color}|{$vo.size}|{$vo.weight}  数量：{$vo.count}</td>
+				</foreach>
+				</tr>
+		</tbody>
+	</table>
+</div>-->
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>推广ID</th>
+					<th>名称</th>
+					<if condition="$type eq 1">
+						<th>颜色</th>
+						<th>款式</th>
+						<th>重量</th>
+					</if>
+					<th>订单总数</th>
+					<th>购买数量</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="admin_list_data">
+				<foreach name="admin_list_data" item="vo">
+					<tr>
+						<td>{$vo.admin_id}</td>
+						<td><a href="/admin.php?m=admin&c=orders&a=sale_statistics&keyword={$vo.goods_number}&time_area={$time_area}&statue={$statue}&admin_id={$admin_list_id}" style="color: red;">{$vo.admin_name}</a></td>
+						<if condition="$type eq 1">
+						<td>{$vo.color}</td>
+						<td>{$vo.size}</td>
+						<td>{$vo.weight}</td>
+						</if>
+						<td>{$vo.count}</td>
+						<td>{$vo.sum}</td>
+					</tr>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata">没有相关数据</td>
+				</tr>
+				</notempty>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="/Public/Admin/laydate/laydate.js"></script>
+	<script>
+		laydate.render({
+			elem: '#time_area' //指定元素
+			,type: 'datetime'
+			,range: '~'
+		});
+	</script>
+	<script src="__LAYUI__/layui.js"></script>
+    <script src="__LAYUI__/jquery-1.8.3.js"></script>
+	<script>
+
+
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		function layui_submit(){
+		    var keyword = $("input[name='keyword']").val();
+            var statue = $("select[name='statue']").val();
+            var time_area = $("input[name='time_area']").val();
+            var admin_id = $("select[name='admin_id']").val();
+            var url = '{:U("Orders/sku_statistics")}';
+            if(statue != 0){
+                url += '&statue='+ statue;
+            }
+            if(keyword){
+                url += '&keyword='+ keyword;
+            }
+            if(time_area){
+                url += '&time_area='+ time_area;
+            }
+            if(admin_id){
+                url += '&admin_id='+ admin_id;
+            }
+            window.location.href = url;
+        }
+		form.on('submit(search)', function() {
+            layui_submit();
+		});
+
+        $(".empty").click(function () {
+            $("input[name='keyword']").val('');
+            $("select[name='statue']").val('');
+            $("input[name='time_area']").val('');
+            layui_submit();
+        });
+	});
+
+    //检查商品编号的唯一性
+    function export_action(obj) {
+        var keyword = $("input[name='keyword']").val();
+        var statue = $("select[name='statue']").val();
+        var time_area = $("input[name='time_area']").val();
+        var admin_id = $("select[name='admin_id']").val();
+
+        if(!time_area){
+            alert("请先选择日期");return false;
+		}
+        window.location.href = "/admin.php?m=admin&c=Orders&a=export"+"&keyword="+keyword+"&statue="+statue+"&time_area="+time_area+"&admin_id="+admin_id;
+
+    }
+
+	</script>
+</body>
+</html>

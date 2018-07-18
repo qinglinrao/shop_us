@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>短信接口</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-search">
+		<li class="layui-this"><a href="javascript:void(0);">接口列表</a></li>
+	</ul>
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline">
+			<select name="state">
+				<option value="">接口状态</option>
+				<option value="1" <eq name="state" value="1">selected=""</eq>>开启使用</option>
+				<option value="2" <eq name="state" value="2">selected=""</eq>>关闭使用</option>
+			</select>
+		</div>
+		<div class="layui-input-inline">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="接口名称" class="layui-input">
+		</div>
+		<div class="layui-inline">
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+		</div>
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<colgroup>
+				<col width="135">
+				<col>
+				<col width="100">
+				<col width="170">
+				<col width="135">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>接口名称</th>
+					<th>接口状态</th>
+					<th>更新时间</th>
+					<th>操作</th>
+				</tr> 
+			</thead>
+			<tbody>
+				<if condition="$count GT 0">
+				<volist name="list" id="vo">
+				<tr>
+					<td>{$vo.sms_id}</td>
+					<td class="align-left">{$vo.sms_name}</td>
+					<td>{$vo.sms_state|show_sms_state}</td>
+					<td>{$vo.sms_time|date='Y-m-d H:i:s',###}</td>
+					<td>
+						<a class="layui-btn layui-btn-mini layui-btn-danger" href="{:U('system/sms_edit',array('sms_id'=>$vo['sms_id']))}">编辑接口信息</a>
+					</td>
+				</tr>
+				</volist>
+				<else />
+				<tr>
+					<td colspan="5" class="nodata"></td>
+				</tr>
+				</if>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="__LAYUI__/layui.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			state = $("select[name='state']").val();
+			keyword = $("input[name='keyword']").val();
+			window.location.href = '{:U("system/sms")}&state='+ state +'&keyword='+ keyword;
+		});
+	});
+	</script>
+</body>
+</html>

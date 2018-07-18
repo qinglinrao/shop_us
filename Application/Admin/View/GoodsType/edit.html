@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>编辑类别</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-form">
+		<li><a href="{:U('GoodsType/index')}">类别列表</a></li>
+		<li class="layui-this"><a href="javascript:void(0);">编辑类别</a></li>
+	</ul>
+	<label id="oldid" rules="{$info.pid}"></label>
+	<form method="post" autocomplete="off" action="{:U('GoodsType/doedit',array('id'=>$info['id']))}" class="layui-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label">所属类别</label>
+			<div class="layui-input-inline" id='typestr'>
+				<select class="layui-input layui-select" id='seltype' name="pid">
+					<option value="0">--请选择--</option>
+					<foreach name='tlist'  item='v'>
+						<option value="{$v.id}">{$v.type_name}</option></foreach>
+					</foreach>
+				</select>
+			</div>
+
+			<style type="text/css">.layui-form-item select{display: block;}</style>			
+			<div class="layui-form-mid layui-word-aux">选择该类别的上级父类别，若为请选择，则说明是父类别，无上级类别</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">类别名称</label>
+			<div class="layui-input-inline">
+				<input type="text" name="type_name" maxlength="11" lay-verify="required" class="layui-input" value="{$info.type_name}">
+			</div>
+			<div class="layui-form-mid layui-word-aux">该类别的名称，必须填写</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">排序编号</label>
+			<div class="layui-input-inline">
+				<input type="text" name="type_sort" maxlength="2" value="{$info.type_sort}" lay-verify="required" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">该类别的排序编号</div>
+		</div>
+
+		
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="Submit">立即提交</button>
+			</div>
+		</div>
+	</form>
+	<script src="__LAYUI__/jquery-1.8.3.js"></script>
+	<script type="text/javascript">
+		var oldid = $('#oldid').attr('rules');
+		if(oldid == '0'){
+			$('#seltype').remove();
+			$('#typestr').empty().html('<div style="height:38px;line-height:38px;padding-left:10px;">一级类(不能更改)</div>')
+		}else{
+			$('#seltype').find("option[value="+oldid+"]").attr('selected',true);
+		}
+		//alert(oldid);
+	</script>
+
+</body>
+</html>

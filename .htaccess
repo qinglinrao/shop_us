@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+ RewriteEngine on
+ # 产品页短连接。
+ RewriteRule ^product/(\d+)$ /home/Index/index/id/$1 [QSA,PT,L]
+ RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteRule ^(.*)$ index.php?s=/$1 [QSA,PT,L]
+ #RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>
+

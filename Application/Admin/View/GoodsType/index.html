@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>商品管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-search">
+		<li class="layui-this"><a href="javascript:void(0);">类别列表</a></li>
+		<li><a href="{:U('GoodsType/add')}">添加新类别</a></li>
+	</ul>
+	<div class="layui-form-item layui-form">
+		
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>类别名称</th>
+					<th>排序编号</th>
+					<th>添加时间</th>
+					<th>修改时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<foreach name="list" item="vo">
+				<tr>
+					<td>{$vo.id} <if condition="!empty($vo[slist])"><button class="layui-btn layui-btn-mini layui-btn-danger showdlr" rule="dlr{$vo.id}"> + </button></if>
+					</td>
+					<td class="align-left">{$vo.type_name}</td>
+					<td>{$vo.type_sort}</td>
+					<td>{$vo.create_at}</td>
+					<td>{$vo.update_at}</td>
+					<td>
+						<a class="layui-btn layui-btn-mini" href="{:U('GoodsType/addchild',array('id'=>$vo['id']))}">添加子类</a>
+						<a class="layui-btn layui-btn-mini" href="{:U('GoodsType/edit',array('id'=>$vo['id'],'pid'=>$vo['pid']))}">编辑</a>
+						<a class="layui-btn layui-btn-mini layui-btn-danger" href="javascript:if(confirm('删除该类别将会同时删除该类别的所有下级分类，您确定要删除吗'))window.location = '{:U(\'GoodsType/del\',array(\'id\'=>$vo[\'id\'],\'pid\'=>$vo[\'pid\']))}'">删除</a>
+					</td>
+				</tr>
+					<foreach name='vo.slist' item='v'>
+						<tr class="dlrtr dlr{$vo.id}" style="display:none">
+							<td>{$v.id}</td>
+							<td class="align-left">　|--- {$v.type_name}</td>
+							<td>{$v.type_sort}</td>
+							<td>{$v.addtime|date='Y-m-d',###}</td>
+							<td>{$v.edittime|date='Y-m-d',###}</td>
+							<td>
+								<a class="layui-btn layui-btn-mini" href="{:U('GoodsType/edit',array('id'=>$v['id'],'pid'=>$v['pid']))}">编辑</a> 
+								<a class="layui-btn layui-btn-mini layui-btn-danger" href="{:U('GoodsType/del',array('id'=>$v['id'],'pid'=>$v['pid']))}">删除</a>	
+							</td>
+						</tr>
+					</foreach>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata">没有相关数据</td>
+				</tr>
+				</notempty>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="__LAYUI__/jquery-1.8.3.js"></script>
+	<script type="text/javascript">
+		$('.showdlr').click(function(){
+			var str = $(this).attr('rule');
+			$("."+str).toggle();
+		})
+	</script>
+</body>
+</html>

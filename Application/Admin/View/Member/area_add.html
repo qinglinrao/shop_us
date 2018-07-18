@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>区域添加</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<ul class="layui-tab-title mt-page mb-form">
+		<li><a href="{:U('Member/area')}">区域列表</a></li>
+		<li class="layui-this"><a href="javascript:void(0);">添加区域</a></li>
+	</ul>
+	<form method="post" autocomplete="off" action="{:U('Member/area_doadd')}" class="layui-form">
+		<div class="layui-form-item">
+			<label class="layui-form-label">乡镇名称</label>
+			<div class="layui-input-inline">
+				<input type="text" name="areaname" lay-verify="required" class="layui-input">
+			</div>
+			<div class="layui-form-mid layui-word-aux">(沃牧场)乡镇名称，必须填写</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">所属区域</label>
+			<div class="layui-input-inline">
+				<select class="layui-input layui-select" name="pro"></select><br>
+				<select class="layui-input layui-select" name="city"></select><br>
+				<select class="layui-input layui-select" name="area"></select>
+			</div>
+			<style type="text/css">.layui-form-item select{display: block;}</style>			
+			<div class="layui-form-mid layui-word-aux">该乡镇所属的省/自治区、市、区/旗县，必须选择</div>
+		</div>
+
+		
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit lay-filter="Submit">立即提交</button>
+			</div>
+		</div>
+	</form>
+	<script src="__LAYUI__/PCASClass.js"></script>
+	<script language="javascript" defer>
+		new PCAS("pro","city","area");
+	</script>
+</body>
+</html>
