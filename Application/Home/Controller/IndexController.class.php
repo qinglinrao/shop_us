@@ -133,7 +133,8 @@ class IndexController extends CommonController {
             //if($id == 390){
                 $html = 'index-paypal';
             }
-            $html = 'index-paypal';
+            # 使用美国地区的首页
+            $html = 'index-us';
 		}
 		$this->model = $goodInfo['goods_country'];
 		$province = M('province')->where("father = 0")->select();

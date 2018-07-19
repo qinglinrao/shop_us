@@ -25,6 +25,7 @@ return array(
             //新的首页
             '__NEW-IMG__' => __ROOT__ .'/Public/Goods/index-new/img/',
             '__NEW-JS__' => __ROOT__ .'/Public/Goods/index-new/js/',
+            '__US-JS__' => __ROOT__ .'/Public/Goods/index-us/js/',
             '__NEW-CSS__' => __ROOT__ .'/Public/Goods/index-new/css/',
             '__PAYPAL-CSS__' => __ROOT__ .'/Public/Goods/index-paypal/css/',
 
