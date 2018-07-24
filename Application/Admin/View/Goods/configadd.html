@@ -44,9 +44,63 @@
     <li><a href="{:U('Goods/configlist',array('id'=>$goodId))}">商品规格列表</a></li>
     <li class="layui-this"><a href="javascript:void(0);">添加商品规格</a></li>
 </ul>
-<form method="post" autocomplete="off" action="{:U('Goods/doaddconfig',array('goodId'=>$goodId))}" class="layui-form">
+<form method="post" autocomplete="off" action="{:U('Goods/doaddconfig',array('goodId'=>$goodId,'goods_number'=>$goods_number))}" class="layui-form">
     <input type="hidden" value="{$goodId}" name = 'good_id'>
-    <div class="layui-form-item"><p style="color: red;">注意：名称不能有&或者\的符号。</p></div>
+    <input type="hidden" value="{$goods_number}" name = 'goods_number'>
+    <div class="layui-form-item"><p style="color: red;">注意：名称不能有&或者\的符号。唯一sku不支持批量添加。</p></div>
+    <div class="layui-form-item"><p style="color: gray;font-size: 10px;">
+        '红色' => 'C01',
+        'Red' => 'C01',
+        '橙色' => 'C02',
+        'Orange' => 'C02',
+        '蓝色' => 'C03',
+        'Blue' => 'C03',
+        '天蓝色' => 'C04',
+        'Light Blue' => 'C04',
+        '宝石蓝' => 'C05',
+        'Dark Blue' => 'C05',
+        '绿色' => 'C06',
+        'Green' => 'C06',
+        '浅绿色' => 'C07',
+        'Light Green' => 'C07',
+        '深绿色' => 'C08',
+        'Dark Green' => 'C08',
+        '紫色' => 'C09',
+        'Purple' => 'C09',
+        '黑色' => 'C10',
+        'Black' => 'C10',
+        '灰色' => 'C11',
+        'Gray' => 'C11',
+        '白色' => 'C12',
+        'White' => 'C12',
+        '粉色' => 'C13',
+        'Pink' => 'C13',
+        '浅粉色' => 'C14',
+        'Light Pink' => 'C14',
+        '米黄色' => 'C15',
+        'Light Yellow' => 'C15',
+        '黄色' => 'C16',
+        'Yellow' => 'C16',
+        '棕色' => 'C17',
+        'Brown' => 'C17',
+        '浅棕色' => 'C18',
+        'Light Brown' => 'C18',
+        '深棕色' => 'C19',
+        'Dark Brown' => 'C19',
+        '玫红' => 'C20',
+        'Rose' => 'C20',
+        '肉色' => 'C21',
+        'Meat' => 'C21',
+        '金色' => 'C22',
+        'Gold' => 'C22',
+        '银色' => 'C23',
+        'Silver' => 'C23',
+        '透明' => 'C24',
+        'Translucent' => 'C24',
+        '咖啡色' => 'C25',
+        'Coffee' => 'C25',
+        '卡其色' => 'C26',
+        'Khaki' => 'C26'</p></div>
     <div class="layui-form-item">
         <label class="layui-form-label">颜色</label>
         <div class="layui-input-inline">
@@ -67,6 +121,18 @@
             <input type="text" name="weight" maxlength="200" class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux">重量，非必须填写<p style="color: red;">支持###批量添加。</p></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">唯一SKU</label>
+        <div class="layui-input-inline">
+            <input type="text" name="unique_sku" maxlength="200" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">唯一SKU说明</label>
+        <div class="layui-input-inline">
+            <input type="text" name="unique_sku_notice" maxlength="200" class="layui-input">
+        </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">规格图片</label>

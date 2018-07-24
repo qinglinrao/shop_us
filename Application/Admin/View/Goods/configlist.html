@@ -23,6 +23,8 @@
             <th>颜色</th>
             <th>尺寸</th>
             <th>重量</th>
+            <th>唯一SKU</th>
+            <th>唯一SKU说明</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -35,6 +37,8 @@
                     <td>{$vo.color}</td>
                     <td>{$vo.size}</td>
                     <td>{$vo.weight}</td>
+                    <td>{$vo.unique_sku}</td>
+                    <td>{$vo.unique_sku_notice}</td>
                     <td>
                         <a class="layui-btn layui-btn-mini" href="{:U('Goods/editconfig',array('id'=>$vo['id']))}">编辑</a>
                         <a class="layui-btn layui-btn-mini layui-btn-danger" href="{:U('Goods/delconfig',array('id'=>$vo['id'],'goodId'=>$vo['good_id']))}">删除</a>
