@@ -129,7 +129,7 @@
         }
     });
     $('#submit_order').click(function() {
-        //fbq && fbq("track", "AddToCart");
+        fbq && fbq("track", "AddToCart");
         try {
             gtag('event', 'ecommerce', {
                 'event_category': 'Ecommerce',
