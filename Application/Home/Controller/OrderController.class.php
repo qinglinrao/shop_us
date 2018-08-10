@@ -474,10 +474,10 @@ class OrderController extends Controller {
                     }
 
                     } catch (\Exception $ex) {
-                    echo 'PayPal payment false1'.$ex;exit;
+                    echo 'PayPal payment false1';exit;
                     }
                 } catch (\Exception $ex) {
-                echo 'PayPal payment false2:'.$ex;exit;
+                echo 'PayPal payment false2:';exit;
                 }
 
             #发票
@@ -611,10 +611,11 @@ class OrderController extends Controller {
         // Comment this line out and uncomment the PP_CONFIG_PATH
         // 'define' block if you want to use static file
         // based configuration
-
+        $paypal_file = include('Config/paypal.config.php');
         $apiContext->setConfig(
+
             array(
-                'mode' => 'sandbox', //沙盒环境:sandbox  线上环境：live
+                'mode' => $paypal_file['paypal_mode'], //沙盒环境:sandbox  线上环境：live
                 'log.LogEnabled' => true,
                 'log.FileName' => '../../logs/paypal.log',
                 #测试环境。
