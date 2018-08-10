@@ -380,7 +380,8 @@ class OrderController extends Controller {
         date_default_timezone_set(@date_default_timezone_get());
 
         #paypal的配置信息
-        $apiContext = $this->getApiContext('ATMFmfgRKf0G_pP9pD65UJ8hQ3Gb-C6zK4oZfyjncVLpfovcjitvm4D4SOmPShBnGZ22YqQOdMkDQntZ', 'ECbCUQqPwKpB3WrcPIteM3Na7jTZ60J0DJaSK0sk7rZA1UYNmgupGwiJV8iHmej_l7vAMClHXWpCg3je');
+        $paypal_file = include('Config/paypal.config.php');
+        $apiContext = $this->getApiContext($paypal_file['live_client_id'], $paypal_file['live_client_secret']);
 
         try {
             $payment->create($apiContext);
@@ -431,8 +432,8 @@ class OrderController extends Controller {
             # 验证
             $PayerID = I('get.PayerID');
             #paypal的配置信息
-            #$apiContext = $this->getApiContext('AZgn_deHN3i9-ZuXk9q1aR8hBiuMrfUcmi4nMIdBtO51qn7adZpV2AJJukTvh0NNGOD29U8PG4bmfCNk', 'ELfc76frIqLeVhkLKv-T_D5i6v5OezPkAGn1WWQ5pL-pfpZtkD3NccuU-qflQGptFBX3yWLCqheB6SmC');
-            $apiContext = $this->getApiContext('ATMFmfgRKf0G_pP9pD65UJ8hQ3Gb-C6zK4oZfyjncVLpfovcjitvm4D4SOmPShBnGZ22YqQOdMkDQntZ', 'ECbCUQqPwKpB3WrcPIteM3Na7jTZ60J0DJaSK0sk7rZA1UYNmgupGwiJV8iHmej_l7vAMClHXWpCg3je');
+            $paypal_file = include('Config/paypal.config.php');
+            $apiContext = $this->getApiContext($paypal_file['live_client_id'], $paypal_file['live_client_secret']);
 
             $payment = Payment::get($paymentId, $apiContext);
 
