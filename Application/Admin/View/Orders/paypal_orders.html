@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>PayPal订单管理</title>
+	<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__LAYUI__/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+</head>
+<body class="body">
+	<!--<ul class="layui-tab-title mt-page mb-search">-->
+		<!--<li class="layui-this"><a href="javascript:void(0);">待处理订单</a></li>-->
+	<!--</ul>-->
+	<div class="layui-form-item layui-form">
+		<div class="layui-input-inline">
+			<select name="status">
+				<option value="0" <if condition="$statue eq 0">selected</if>>订单状态</option>
+				<option value="10" <if condition="$statue eq 10">selected</if> style="color: red;">代发货</option>
+				<option value="11" <if condition="$statue eq 11">selected</if>>拒签</option>
+				<option value="1" <if condition="$statue eq 1">selected</if>>未付款</option>
+				<option value="2" <if condition="$statue eq 2">selected</if>>已付款</option>
+				<option value="3" <if condition="$statue eq 3">selected</if>>配送中</option>
+				<option value="4" <if condition="$statue eq 4">selected</if>>已送达</option>
+				<option value="5" <if condition="$statue eq 5">selected</if>>未评价</option>
+				<option value="6" <if condition="$statue eq 6">selected</if>>已评价</option>
+				<option value="7" <if condition="$statue eq 7">selected</if>>待退货</option>
+				<option value="8" <if condition="$statue eq 8">selected</if>>已退货</option>
+				<option value="9" <if condition="$statue eq 9">selected</if>>已完成</option>
+				<option value="12" <if condition="$statue eq 12">selected</if>>已重发</option>
+				<!--<option value="10" <if condition="$statue eq 10">selected</if>>拼团中</option>-->
+			</select>
+			<div class="layui-unselect layui-form-select">
+				<div class="layui-select-title">
+					<input type="text" placeholder="订单状态" value="" readonly="" class="layui-input layui-unselect">
+					<i class="layui-edge"></i>
+				</div>
+				<dl class="layui-anim layui-anim-upbit">
+					<dd lay-value="10" class=""><span style="color: red;">代发货</span></dd>
+					<dd lay-value="11" class="">拒签</dd>
+					<dd lay-value="1" class="">未付款</dd>
+					<dd lay-value="2" class="">已付款</dd>
+					<dd lay-value="3" class="">配送中</dd>
+					<dd lay-value="4" class="">已送达</dd>
+					<dd lay-value="5" class="">未评价</dd>
+					<dd lay-value="6" class="">已评价</dd>
+					<dd lay-value="7" class="">待退货</dd>
+					<dd lay-value="8" class="">待退货</dd>
+					<dd lay-value="9" class="">待退货</dd>
+					<!--<dd lay-value="10" class="">拼团中</dd>-->
+				</dl>
+			</div>
+		</div>
+		<div class="layui-input-inline" style="width: 295px;">
+			<input type="text" name="keyword_num" value="{$keyword_num}" placeholder="输入商品编号" class="layui-input">
+		</div>
+		<div class="layui-input-inline" style="width: 295px;">
+			<input type="text" name="keyword" value="{$keyword}" placeholder="输入商品名称" class="layui-input">
+		</div>
+		<div class="layui-input-inline" style="width:310px;">
+			<input type="text" class="layui-input" name="time_area" id="time_area" placeholder="选择时间区间" lay-key="6" required="required" value="{$time_area}">
+		</div>
+		<div class="layui-input-inline">
+			<select name="admin_id">
+				<option value="0" >全部推广人员</option>
+				<foreach name="admin_list" item="vo">
+				<option value="{$vo.admin_id}" <if condition="$admin_list_id eq $vo[admin_id]">selected</if>>{$vo.admin_name}</option>
+				</foreach>
+			</select>
+			<div class="layui-unselect layui-form-select">
+				<div class="layui-select-title">
+					<input type="text" placeholder="全部推广人员" value="" readonly="" class="layui-input layui-unselect">
+					<i class="layui-edge"></i>
+				</div>
+				<dl class="layui-anim layui-anim-upbit">
+					<foreach name="admin_list" item="vo">
+					<dd lay-value="{$vo.admin_id}" class="">{$vo.admin_name}</dd>
+					</foreach>
+				</dl>
+			</div>
+		</div>
+
+		<div class="layui-inline" >
+			<button class="layui-btn" lay-submit lay-filter="search">查找</button>
+			<button class="layui-btn export" lay-submit lay-filter="export" onclick="javascript:if(confirm('确定要导出Excel表格吗？')){export_action();return true;}return false;">导出物流DPE表格</button>
+			<button class="layui-btn export" lay-submit lay-filter="export" onclick="javascript:if(confirm('确定要导出Excel表格吗？')){export_action2();return true;}return false;">导出物流DPE重发订单表格</button>
+			<!--<button class="layui-btn export" lay-submit lay-filter="export" onclick="javascript:if(confirm('导入Excel，批量修改订单状态！')){import_action();return true;}return false;">导入Excel</button>-->
+
+
+			<input type="file" id="upimg0" class="layui-upload-file upload0" name='upimg0' onchange="fileChange(this,'upimg0')" >
+			<input type="file" id="upimg1" class="layui-upload-file upload1" name='upimg1' onchange="fileChange(this,'upimg1')" >
+			<input name="goodsFile" sx='upimg0' type="hidden" value="" />
+			<input name="goodsFile" sx='upimg1' type="hidden" value="" />
+		</div>
+	</div>
+	<div class="layui-form">
+		<table class="layui-table" lay-even lay-skin="line">
+			<thead>
+				<tr>
+					<th>操作</th>
+					<th>ID</th>
+					<th style="color: red;">订单归属</th>
+					<th>商品编号</th>
+					<th>商品名称<br/>(###表示换行)</th>
+					<th>数量</th>
+					<th>PayPal First Name</th>
+					<th>PayPal Last Name</th>
+					<th>PayPal Email</th>
+					<!--<th>配送信息</th>-->
+					<th style="color: red;">规格信息</th>
+					<th>发票号</th>
+					<th>支付ID</th>
+					<th>订单时间</th>
+					<th>状态</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<foreach name="list" item="vo">
+					<tr>
+						<if condition="$is_edit eq 1">
+							<td>
+								<a class="layui-btn layui-btn-mini" href="{:U('Orders/edit',array('id'=>$vo['id'],'r'=>$_SERVER['REQUEST_URI']))}">编辑</a>
+								<a class="layui-btn layui-btn-mini layui-btn-danger" onclick="javascript:if(confirm('确定要删除订单吗！慎重！慎重！')){del_action('{$vo.id}','{$vo.user_id}');return true;}return false;">删除</a>
+							</td>
+						</if>
+						<td>{$vo.id}</td>
+						<td>{$vo.admin_name}</td>
+						<td>{$vo.goods_number}</td>
+						<td>{$vo.goods_title}</td>
+						<td>{$vo.num}</td>
+						<td>{$vo.first_name}</td>
+						<td>{$vo.last_name}</td>
+						<td>{$vo.email}</td>
+						<!--<td>{$vo.pw_info}</td>-->
+						<td><a style="color: red;">{$vo.size_data}</a></td>
+						<td>{$vo.invoice_number}</td>
+						<td>{$vo.payer_id}</td>
+						<td>{$vo.create_at}</td>
+						<td>
+							<!--可能之前团购的状态是10，现在改成11，因为货到付款是10了。-->
+							<if condition="$statue eq 11">
+								拼团中
+								<else />
+							<eq name="vo.status" value='1'>未付款</eq>
+							<eq name="vo.status" value='2'>已付款</eq>
+							<eq name="vo.status" value='3'>配送中</eq>
+							<eq name="vo.status" value='4'>已送达</eq>
+							<eq name="vo.status" value='5'>未评价</eq>
+							<eq name="vo.status" value='6'>已评价</eq>
+							<eq name="vo.status" value='7'>待退货</eq>
+							<eq name="vo.status" value='8'>已退货</eq>
+							<eq name="vo.status" value='9'>已完成</eq>
+							<eq name="vo.status" value='10'><span style="color: red;">代发货</span></eq>
+							<eq name="vo.status" value='11'>拒签</eq>
+
+							</if>
+						</td>
+
+					</tr>
+				</foreach>
+				<else />
+				<tr>
+					<td colspan="9" class="nodata">没有相关数据</td>
+				</tr>
+				</notempty>
+			</tbody>
+		</table>
+	</div>
+	{$page}
+	<script src="/Public/Admin/laydate/laydate.js"></script>
+	<script>
+		laydate.render({
+			elem: '#time_area' //指定元素
+			,type: 'datetime'
+			,range: '~'
+		});
+	</script>
+	<script src="__LAYUI__/layui.js"></script>
+	<script src="__LAYUI__/jquery-1.8.3.js"></script>
+	<script>
+	layui.use(['form','jquery'], function() {
+		var form = layui.form();
+		$ = layui.jquery;
+		form.on('submit(search)', function() {
+			var keyword = $("input[name='keyword']").val();
+			var keyword_num = $("input[name='keyword_num']").val();
+			var status = $("select[name='status']").val();
+			var time_area = $("input[name='time_area']").val();
+            var admin_id = $("select[name='admin_id']").val();
+			var url = '{:U("Orders/index")}';
+			if(status != 0){
+				url += '&status='+ status;
+			}
+			if(keyword){
+				url += '&keyword='+ keyword;
+			}
+            if(keyword_num){
+                url += '&keyword_num='+ keyword_num;
+            }
+			if(time_area){
+				url += '&time_area='+ time_area;
+			}
+            if(admin_id){
+                url += '&admin_id='+ admin_id;
+            }
+			window.location.href = url;
+		});
+	});
+
+    function del_action(id, user_id){
+        //href="{:U('Orders/del',array('id'=>$vo['id'],'r'=>$_SERVER['REQUEST_URI']))}"
+        window.location.href = "/admin.php?m=admin&c=Orders&a=del"+"&id="+id+"&user_id="+user_id;
+    }
+
+    function export_action(obj) {
+        var keyword = $("input[name='keyword']").val();
+        var keyword_num = $("input[name='keyword_num']").val();
+        var status = $("select[name='status']").val();
+        var time_area = $("input[name='time_area']").val();
+        var admin_id = $("select[name='admin_id']").val();
+
+        if(!time_area){
+            alert("请先选择日期");return false;
+        }
+        window.location.href = "/admin.php?m=admin&c=Orders&a=export_logistics"+"&keyword="+keyword+"&status="+status+"&time_area="+time_area+"&keyword_num="+keyword_num+"&admin_id="+admin_id;
+
+    }
+
+    function export_action2(obj) {
+        var keyword = $("input[name='keyword']").val();
+        var keyword_num = $("input[name='keyword_num']").val();
+        var status = $("select[name='status']").val();
+        var time_area = $("input[name='time_area']").val();
+        var admin_id = $("select[name='admin_id']").val();
+
+        if(!time_area){
+            alert("请先选择日期");return false;
+        }
+        // 原来这里是导出物流订单信息的，改成导出重发的订单（20180712）
+        window.location.href = "/admin.php?m=admin&c=Orders&a=export_logistics3"+"&keyword="+keyword+"&status="+status+"&time_area="+time_area+"&keyword_num="+keyword_num+"&admin_id="+admin_id;
+
+    }
+
+    var idstr=''
+    function fileChange(obj,str){
+        var f = obj.files[0];
+//        var src = window.URL.createObjectURL(f)//预览图片url
+//        $('.'+str).attr('src',src);
+        $("#evaName").empty().html(f.name);
+        idstr = str;
+    }
+
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '导入添加物流信息　',
+            elem: '.upload1',
+            url: "{:U('Orders/upload_excel_AddWaybill')}",
+            type: 'file',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    //alert(res.msg);
+                    $("input[sx='"+idstr+"']").val(res.url);
+                    $.ajax({
+                        type:"post",
+                        url:"admin.php?m=admin&c=orders&a=upload_excel_AddWaybill_do",
+                        data:{'url':res.url},
+                        success:function(e){
+                            if(e.code=='ok'){
+                                alert(e.msg);
+                            }
+
+                        }
+                    })
+                }
+            }
+        });
+    });
+
+    layui.use(['upload'], function() {
+        layui.upload({
+            title: '导入修改订单状态　',
+            elem: '.upload0',
+            url: "{:U('Orders/upload_excel_EditStatus')}",
+            type: 'file',
+            success: function(res) {
+                if (res.status == 'error') {
+                    layer.msg(res.msg, {icon: 2, shift:6});
+                } else {
+                    //alert(res.msg);
+                    $("input[sx='"+idstr+"']").val(res.url);
+                    $.ajax({
+                        type:"post",
+                        url:"admin.php?m=admin&c=orders&a=upload_excel_EditStatus_do",
+                        data:{'url':res.url},
+                        success:function(e){
+                            if(e.code=='ok'){
+                                alert(e.msg);
+                            }
+
+                        }
+                    })
+                }
+            }
+        });
+    });
+	</script>
+</body>
+</html>

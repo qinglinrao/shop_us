@@ -1560,4 +1560,111 @@ class OrdersController extends CommonController {
         $res = array('code'=>'ok','msg'=>'修改成功');
         echo json_encode($res);
     }
+
+    // 订单列表
+    public function paypal_orders() {
+        $db = M('paypal_orders');
+        $keyword = I('get.keyword') ? I('get.keyword') : '';
+        $keyword_num = I('get.keyword_num') ? I('get.keyword_num') : '';
+        if ($keyword) {
+            $where['g.goods_title'] = array('like','%' . $keyword . '%');
+        }
+
+        # 查询商品编号
+        if ($keyword_num) {
+            $where['g.goods_number'] = array('like','%' . $keyword_num . '%');
+        }
+
+        $tuanTime = date('Y-m-d H:i:s',time()-300);
+        $status = I('get.status') ? I('get.status') : '';
+        if ($status) {
+            /*if($statue == 10){*/
+            # 可能之前团购的状态是10，现在改成11，因为货到付款是10了。
+            if($status == 11){
+                $where['o.create_at'] = array('gt',$tuanTime);
+            }else{
+                $where['o.status'] = $status;
+            }
+        }
+        $area = I('get.time_area');
+        if($area){
+            $times = explode('~',$area);
+            $start_at = $times[0];
+            $end_at = $times[1];
+            $where['o.create_at'] = array('between',"{$start_at},{$end_at}");
+        }
+        $admin_id = I('get.admin_id') ? I('get.admin_id') : '';
+        if($admin_id){
+            $where['o.admin_id'] = $admin_id;
+        }
+        $count 	= M('paypal_orders o')->join('pt_goods g on o.good_id=g.id')->where($where)->count();
+        $page 	= show_page($count,10);
+        $limit 	= $page->firstRow.','.$page->listRows;
+        $table 	= 'pt_paypal_orders o';
+        $join 	= array('LEFT JOIN pt_goods g on o.good_id=g.id');
+        $field 	= 'o.email,o.first_name,o.last_name,o.invoice_number,o.payer_id,o.num,o.id,o.status,o.create_at,o.user_id,g.goods_title,o.create_at,g.admin_id,g.goods_number';
+        $order 	= 'o.id desc';
+        $list 	= M()->table($table)->join($join)->where($where)->field($field)->limit($limit)->order($order)->select();
+
+        # 查询投放人名称
+        $order_ids = array();
+        $admin_data = M('admin')->field('admin_id, admin_name')->select();
+        foreach($list as $k=>$v){
+            $userInfo = M('member')->field('phone,username,address')->find($v['user_id']);
+            $list[$k]['phone'] = $userInfo['phone'];
+            $list[$k]['username'] = $userInfo['username'];
+            $list[$k]['address'] = $userInfo['address'];
+            //合并管理员名称
+            foreach($admin_data as $admin_val){
+                if($v['admin_id'] == $admin_val['admin_id']){
+                    $list[$k]['admin_name'] = $admin_val['admin_name'];
+                }
+                if($v['admin_belong'] == $admin_val['admin_id']){
+                    $list[$k]['admin_belong_name'] = $admin_val['admin_name'];
+                }
+            }
+
+
+        }
+
+        $list_new = array();
+        foreach($list as $v){
+            //获取订单id
+            $order_ids[] = $v['id'];
+            $list_new[$v['id']] = $v;
+        }
+        # 查询规格信息。
+        if($order_ids){
+            $where = array();
+            $where['order_id'] = array('in', $order_ids);
+            $size_data = M('orders_size')->field('order_id, color, size, weight')->where($where)->select();
+            if($size_data){
+                foreach ($size_data as $v){
+                    # 合并规格信息
+                    $list_new[$v['order_id']]['size_data'] = $v['color'] . '/' . $v['size'] . '/' . $v['weight'];
+                }
+            }
+        }
+        //print_r($list_new);exit;
+        $is_edit = 1;
+        if($_SESSION['admin_name'] == 'Wuliu'){
+            $is_edit = 0;
+        }
+
+        # 推广人员(admin_type=2的)
+        $where = array();
+        $where['admin_type'] = 2;
+        $admin_list = M('admin')->field('admin_id, admin_name')->where($where)->select();
+
+        $this->assign('is_edit',$is_edit);
+        $this->assign('time_area',$area);
+        $this->assign('status',$status);
+        $this->assign('keyword',$keyword);
+        $this->assign('keyword_num',$keyword_num);
+        $this->assign('page',$page->show());
+        $this->assign('list',$list_new);
+        $this->assign('admin_list',$admin_list);
+        $this->assign('admin_list_id',$admin_id);
+        $this->display();
+    }
 }
