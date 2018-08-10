@@ -450,7 +450,7 @@ class OrderController extends Controller {
             $details = new Details();
 
             # 添加付款金额
-            $chargeMoney = $orderPaypalInfo['money'] / 100;
+            $chargeMoney = $orderPaypalInfo['money'];
             $details->setSubtotal($chargeMoney);
 
             $amount->setCurrency('USD');
@@ -474,10 +474,10 @@ class OrderController extends Controller {
                     }
 
                     } catch (\Exception $ex) {
-                    echo 'PayPal payment false'.$ex;exit;
+                    echo 'PayPal payment false1'.$ex;exit;
                     }
                 } catch (\Exception $ex) {
-                echo 'PayPal payment false:'.$ex;exit;
+                echo 'PayPal payment false2:'.$ex;exit;
                 }
 
             #发票
