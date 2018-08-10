@@ -446,10 +446,11 @@
         $('.order-buy').hide();
 
         var o_code = $('#o_code').val();
+
+        var pay_type = $("#pay_type").find('option:selected').text();
         if(pay_type == 'Paypay'){
             payType = 4;
         }
-
         //判断goodId，和sizeId
         var param = {"o_code":o_code,"color":color_sel,"weight":weight_sel,"size":size_sel,"userName":name,"goodId":goodId, "sizeId":sizeId, "address":address,"phone":phone,"email":email,"code":code,"remark":remark,"goodCount":num,"payType":payType};
         //ajax提交数据
