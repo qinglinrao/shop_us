@@ -438,7 +438,7 @@ class OrderController extends Controller {
             $payment = Payment::get($paymentId, $apiContext);
 
             #这里再判断一次paypal的订单状态。
-            if($payment->getState() != 'created'){
+            if($payment->getState() != 'approved'){
                 echo 'PayPal payment false';exit;
             }
 
