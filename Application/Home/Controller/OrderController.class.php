@@ -576,7 +576,7 @@ class OrderController extends Controller {
 
         $apiContext->setConfig(
             array(
-                'mode' => 'live', //沙盒环境:sandbox  线上环境：live
+                'mode' => 'sandbox', //沙盒环境:sandbox  线上环境：live
                 'log.LogEnabled' => true,
                 'log.FileName' => '../../logs/paypal.log',
                 #测试环境。
