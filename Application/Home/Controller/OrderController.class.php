@@ -438,9 +438,47 @@ class OrderController extends Controller {
             $payment = Payment::get($paymentId, $apiContext);
 
             #这里再判断一次paypal的订单状态。
-            if($payment->getState() != 'approved'){
-                echo 'PayPal payment false';exit;
+            if($payment->getState() != 'created'){
+                echo 'PayPal payment status error1';exit;
             }
+
+            $execution = new PaymentExecution();
+            $execution->setPayerId($PayerID);
+
+            $transaction = new Transaction();
+            $amount = new Amount();
+            $details = new Details();
+
+            # 添加付款金额
+            $chargeMoney = $orderPaypalInfo['money'] / 100;
+            $details->setSubtotal($chargeMoney);
+
+            $amount->setCurrency('USD');
+            $amount->setTotal($chargeMoney);
+            $amount->setDetails($details);
+            $transaction->setAmount($amount);
+
+            $execution->addTransaction($transaction);
+
+            try {
+                # 执行付款(之前漏了这一步，导致支付流程成功，但是没有扣钱和产生订单信息)
+                $payment->execute($execution, $apiContext);
+
+                try {
+                    $payment = Payment::get($paymentId, $apiContext);
+                    //@file_put_contents('/coolpixel_logs/paypal_1704.log', 'paypal支付['.date( 'Y-m-d H:i:s' ).']'.json_encode($payment)."\r\n", FILE_APPEND);
+
+                    #这里再判断一次paypal的订单状态
+                    if($payment->getState() != 'approved'){
+                        echo 'PayPal payment status error2';exit;
+                    }
+
+                    } catch (\Exception $ex) {
+                    echo 'PayPal payment false'.$ex;exit;
+                    }
+                } catch (\Exception $ex) {
+                echo 'PayPal payment false:'.$ex;exit;
+                }
 
             #发票
             $card = $payment->getTransactions();
@@ -465,7 +503,7 @@ class OrderController extends Controller {
 
             $orderInfo = M('orders')->find($orderPaypalInfo['father_id']);
             if(!$orderInfo){
-                echo 'PayPal payment false';exit;
+                echo 'PayPal payment create order false';exit;
             }
 
             # 修改pt_orders订单
@@ -535,10 +573,10 @@ class OrderController extends Controller {
                 $this->list = $tjGoodsList;
                 $this->display($html);
             }else{
-                echo 'PayPal payment false'.$orderPaypalInfo['father_id'];exit;
+                echo 'Something is wrong'.$orderPaypalInfo['father_id'];exit;
             }
         }else{
-            echo 'PayPal payment false';exit;
+            echo 'User Cancelled the Approval';exit;
 
         }
     }
